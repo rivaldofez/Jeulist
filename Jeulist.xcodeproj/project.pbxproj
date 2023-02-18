@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2164D9BDABAAFB0D4082FB15 /* Pods_Jeulist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E663849A28771967681E9A2 /* Pods_Jeulist.framework */; };
 		7E78154A29A1152A0033F232 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78154929A1152A0033F232 /* AppDelegate.swift */; };
 		7E78154C29A1152A0033F232 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78154B29A1152A0033F232 /* SceneDelegate.swift */; };
 		7E78155329A1152B0033F232 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E78155229A1152B0033F232 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E663849A28771967681E9A2 /* Pods_Jeulist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jeulist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E78154629A1152A0033F232 /* Jeulist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jeulist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E78154929A1152A0033F232 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E78154B29A1152A0033F232 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		7E78155529A1152B0033F232 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E78155729A1152B0033F232 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E78156329A119D40033F232 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.debug.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.debug.xcconfig"; sourceTree = "<group>"; };
+		E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.release.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2164D9BDABAAFB0D4082FB15 /* Pods_Jeulist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02CD69695A73693A4BD3830D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */,
+				E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		68E9F87F4029E2AE2B8F05A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E663849A28771967681E9A2 /* Pods_Jeulist.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7E78153D29A1152A0033F232 = {
 			isa = PBXGroup;
 			children = (
 				7E78154829A1152A0033F232 /* Jeulist */,
 				7E78154729A1152A0033F232 /* Products */,
+				02CD69695A73693A4BD3830D /* Pods */,
+				68E9F87F4029E2AE2B8F05A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,9 +136,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E78155A29A1152B0033F232 /* Build configuration list for PBXNativeTarget "Jeulist" */;
 			buildPhases = (
+				2853C3013903889F29021317 /* [CP] Check Pods Manifest.lock */,
 				7E78154229A1152A0033F232 /* Sources */,
 				7E78154329A1152A0033F232 /* Frameworks */,
 				7E78154429A1152A0033F232 /* Resources */,
+				1F9C3CDF944FBFCF3DDFD988 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -168,6 +195,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F9C3CDF944FBFCF3DDFD988 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Jeulist/Pods-Jeulist-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Jeulist/Pods-Jeulist-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Jeulist/Pods-Jeulist-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2853C3013903889F29021317 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Jeulist-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7E78154229A1152A0033F232 /* Sources */ = {
@@ -310,6 +379,7 @@
 		};
 		7E78155B29A1152B0033F232 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -337,6 +407,7 @@
 		};
 		7E78155C29A1152B0033F232 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
