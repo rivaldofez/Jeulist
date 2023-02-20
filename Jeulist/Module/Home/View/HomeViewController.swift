@@ -15,9 +15,9 @@ class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 5
+        layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: 60, height: 60)
+        layout.itemSize = CGSize(width: ((view.frame.size.width) / 2) - 5, height: (view.frame.size.width) / 2)
         
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
