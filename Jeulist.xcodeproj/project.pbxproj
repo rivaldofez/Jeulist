@@ -14,6 +14,7 @@
 		7E112A8929A31BBE0061C9AC /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8829A31BBE0061C9AC /* RemoteDataSource.swift */; };
 		7E112A8B29A31BD70061C9AC /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8A29A31BD70061C9AC /* GameRepository.swift */; };
 		7E112A8E29A31D030061C9AC /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8D29A31D030061C9AC /* APICall.swift */; };
+		7E112A9029A31E950061C9AC /* GameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8F29A31E950061C9AC /* GameResponse.swift */; };
 		7E78154A29A1152A0033F232 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78154929A1152A0033F232 /* AppDelegate.swift */; };
 		7E78154C29A1152A0033F232 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78154B29A1152A0033F232 /* SceneDelegate.swift */; };
 		7E78155329A1152B0033F232 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E78155229A1152B0033F232 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		7E112A8829A31BBE0061C9AC /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
 		7E112A8A29A31BD70061C9AC /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
 		7E112A8D29A31D030061C9AC /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
+		7E112A8F29A31E950061C9AC /* GameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResponse.swift; sourceTree = "<group>"; };
 		7E78154629A1152A0033F232 /* Jeulist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jeulist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E78154929A1152A0033F232 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E78154B29A1152A0033F232 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		7E112A8629A31BA10061C9AC /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				7E112A8F29A31E950061C9AC /* GameResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				7E112A8329A31ADE0061C9AC /* HomeInteractor.swift in Sources */,
 				7E112A7E29A31A870061C9AC /* HomePresenter.swift in Sources */,
 				7E112A8029A31AAD0061C9AC /* HomeRouter.swift in Sources */,
+				7E112A9029A31E950061C9AC /* GameResponse.swift in Sources */,
 				7E112A8E29A31D030061C9AC /* APICall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

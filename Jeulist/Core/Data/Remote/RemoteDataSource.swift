@@ -11,6 +11,7 @@ import Alamofire
 
 
 protocol RemoteDataSourceProtocol: AnyObject {
+    
 }
 
 final class RemoteDataSource: NSObject {
