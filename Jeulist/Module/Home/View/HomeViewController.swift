@@ -10,26 +10,59 @@ import RxSwift
 
 class HomeViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
+    
+    private lazy var gameCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 1
+        layout.itemSize = CGSize(width: 60, height: 60)
+        
+        
+        let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionview.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.identifier)
+        collectionview.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionview
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
         
-        let remote = RemoteDataSource.sharedInstance
+        view.addSubview(gameCollectionView)
         
-        let gameRepository = GameRepository.sharedInstance(remote)
+        configureConstraints()
         
-        gameRepository.getGameDataPagination(page: 1)
-            .subscribe { game in
-                print(game)
-            } onError: { error in
-                print("error")
-            } onCompleted: {
-                
-            }.disposed(by: self.disposeBag)
-        
+        gameCollectionView.delegate = self
+        gameCollectionView.dataSource = self
     }
+    
+    private func configureConstraints() {
+        let gameCollectionViewConstraints = [
+            gameCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gameCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gameCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            gameCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(gameCollectionViewConstraints)
+    }
+}
 
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 100
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as? GameCollectionViewCell else { return UICollectionViewCell()}
+        
+        return cell
+    }
+    
+    
 }
