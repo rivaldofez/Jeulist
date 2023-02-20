@@ -13,7 +13,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     
     private let gameImageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "testimage")
         imageView.clipsToBounds = true
@@ -48,6 +48,9 @@ class GameCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.backgroundColor = .red
+//        contentView.backgroundColor = .systemBackground
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 8
         
         contentView.addSubview(gameImageView)
         contentView.addSubview(gameNameLabel)
@@ -68,7 +71,7 @@ class GameCollectionViewCell: UICollectionViewCell {
             gameNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gameNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             gameNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            gameNameLabel.heightAnchor.constraint(equalToConstant: 50)
+            gameNameLabel.heightAnchor.constraint(equalToConstant: 30)
         ]
         
         let gamePlatformStackViewConstraints = [

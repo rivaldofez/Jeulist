@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UISearchControllerDelegate {
     
+    let searchController = UISearchController()
     
     private lazy var gameCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -27,10 +28,23 @@ class HomeViewController: UIViewController {
         return collectionview
     }()
     
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print("clicked")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Pokémon"
+        navigationController?.navigationBar.tintColor = .label
         view.backgroundColor = .systemBackground
+        
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        searchController.searchBar.showsBookmarkButton = true
+        searchController.searchBar.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle"), for: .bookmark, state: .normal)
+        
         
         view.addSubview(gameCollectionView)
         
@@ -39,6 +53,8 @@ class HomeViewController: UIViewController {
         gameCollectionView.delegate = self
         gameCollectionView.dataSource = self
     }
+    
+    
     
     private func configureConstraints() {
         let gameCollectionViewConstraints = [
@@ -50,6 +66,10 @@ class HomeViewController: UIViewController {
         
         NSLayoutConstraint.activate(gameCollectionViewConstraints)
     }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    
 }
 
 
