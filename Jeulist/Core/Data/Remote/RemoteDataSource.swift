@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import RxSwift
+import Alamofire
+
+
+protocol RemoteDataSourceProtocol: AnyObject {
+}
+
+final class RemoteDataSource: NSObject {
+    
+}
