@@ -30,8 +30,8 @@ final class GameRepository: NSObject {
 extension GameRepository: GameRepositoryProtocol {
     func getGameDataPagination(page: Int) -> RxSwift.Observable<[Game]> {
         
-        return self.remote.getGameDataPagination(page: page).map { gameItem in
-            <#code#>
+        return self.remote.getGameDataPagination(page: page).map {
+            GameMapper.mapGameItemResponseToDomain(input: $0)
         }
     }
     
