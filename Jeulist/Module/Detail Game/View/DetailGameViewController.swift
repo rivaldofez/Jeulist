@@ -15,18 +15,24 @@ class DetailGameViewController: UIViewController {
         UIImage(named: "testimage2")
     ]
     
+    var timer = Timer()
+    var counter = 0
+    
     private lazy var imageSlidesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: view.frame.size.width, height: 150)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: view.frame.size.width, height: 300)
         
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.register(ImageSlidesCollectionViewCell.self, forCellWithReuseIdentifier: ImageSlidesCollectionViewCell.identifier)
         collectionview.translatesAutoresizingMaskIntoConstraints = false
+        collectionview.isPagingEnabled = true
+        collectionview.showsVerticalScrollIndicator = false
+        collectionview.showsHorizontalScrollIndicator = false
         
         return collectionview
     }()
@@ -34,7 +40,10 @@ class DetailGameViewController: UIViewController {
     private let imageSlidesPageControl: UIPageControl = {
        let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = 2
+        pageControl.currentPageIndicatorTintColor = .red
+        pageControl.pageIndicatorTintColor = .gray
         return pageControl
     }()
     
@@ -46,14 +55,40 @@ class DetailGameViewController: UIViewController {
         view.addSubview(imageSlidesCollectionView)
         view.addSubview(imageSlidesPageControl)
         
+        imageSlidesCollectionView.delegate = self
+        imageSlidesCollectionView.dataSource = self
+        
         configureConstraints()
+        
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+        }
+        
+    }
+    
+    @objc private func changeImage(){
+        if counter < imgArr.count {
+            let index = IndexPath(item: counter, section: 0)
+            
+            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            counter += 1
+            
+            print(counter)
+        } else {
+            counter = 0
+            let index = IndexPath(item: counter, section: 0)
+            
+            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            print(counter)
+        }
     }
     
     private func configureConstraints(){
         let imageSlidesCollectionViewConstraints = [
             imageSlidesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageSlidesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.topAnchor)
+            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: 300)
         ]
         
         let imageSlidesPageControlConstraints = [
@@ -66,4 +101,18 @@ class DetailGameViewController: UIViewController {
         NSLayoutConstraint.activate(imageSlidesPageControlConstraints)
     }
 
+}
+
+extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imgArr.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageSlidesCollectionViewCell.identifier, for: indexPath) as? ImageSlidesCollectionViewCell else { return UICollectionViewCell()}
+        
+        return cell
+    }
+    
+    
 }
