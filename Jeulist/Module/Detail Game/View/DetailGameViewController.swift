@@ -25,6 +25,8 @@ class DetailGameViewController: UIViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize(width: view.frame.size.width, height: 300)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
         
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -33,6 +35,14 @@ class DetailGameViewController: UIViewController {
         collectionview.isPagingEnabled = true
         collectionview.showsVerticalScrollIndicator = false
         collectionview.showsHorizontalScrollIndicator = false
+        collectionview.alwaysBounceVertical = false
+        collectionview.alwaysBounceHorizontal = false
+        collectionview.clipsToBounds = true
+        collectionview.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionview.automaticallyAdjustsScrollIndicatorInsets = false
+        
+        collectionview.contentInsetAdjustmentBehavior = .never
+        
         
         return collectionview
     }()
@@ -52,17 +62,27 @@ class DetailGameViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        title = "GTA V"
+//        navigationController?.navigationBar.tintColor = .label
+//        view.backgroundColor = .systemBackground
+        
+        navigationController?.navigationBar.isHidden = true
+        
         view.addSubview(imageSlidesCollectionView)
         view.addSubview(imageSlidesPageControl)
         
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
+//        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationController?.hidesBarsOnTap = true
         
         configureConstraints()
-        
+        self.navigationController?.isNavigationBarHidden = false
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
+        
         
     }
     
@@ -78,7 +98,8 @@ class DetailGameViewController: UIViewController {
             counter = 0
             let index = IndexPath(item: counter, section: 0)
             
-            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredVertically, animated: true)
+            
             print(counter)
         }
     }
@@ -87,7 +108,7 @@ class DetailGameViewController: UIViewController {
         let imageSlidesCollectionViewConstraints = [
             imageSlidesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageSlidesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: 300)
         ]
         
