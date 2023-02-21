@@ -10,6 +10,7 @@ import RxSwift
 
 protocol GameRepositoryProtocol {
     func getGameDataPagination(page: Int) -> Observable<[Game]>
+    
 }
 
 final class GameRepository: NSObject {
