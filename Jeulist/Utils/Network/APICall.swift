@@ -19,9 +19,12 @@ protocol Endpoint {
 enum Endpoints {
     enum Gets: Endpoint {
         case gamePagination
+        case gameDetail(Int)
+        
         var url: String {
             switch self {
             case .gamePagination: return "\(API.baseURL)games?key=\(API.apiKey)&page="
+            case .gameDetail(let id): return "\(API.baseURL)games/\(id)/?key=\(API.apiKey)"
             }
         }
     }

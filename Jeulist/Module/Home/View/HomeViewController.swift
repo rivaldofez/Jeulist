@@ -8,9 +8,76 @@
 import UIKit
 import RxSwift
 
-class HomeViewController: UIViewController, UISearchControllerDelegate {
+
+class SearchTest: UISearchController {
     
-    let searchController = UISearchController()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    }
+    
+    @objc private func addTapped(){
+        print("Hello")
+    }
+    
+}
+
+
+class PopoverViewController: UIViewController {
+    
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("Change", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        self.view.backgroundColor = .systemGray
+        self.preferredContentSize = CGSize(width: 100, height: 100)
+        
+        
+        view.addSubview(button)
+        let buttonConstraints = [
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        
+        ]
+        
+        button.addTarget(self, action: #selector(changeValue), for: .touchUpInside)
+        
+        
+        
+        NSLayoutConstraint.activate(buttonConstraints)
+        
+    }
+    
+    @objc private func changeValue(){
+        print("ini dari popover: Ini sudah diganti")
+        
+        dismiss(animated: true)
+    }
+}
+
+extension HomeViewController: UISearchControllerDelegate {
+    func searchController(_ searchController: UISearchController, willChangeTo newPlacement: UINavigationItem.SearchBarPlacement) {
+        print("will change to")
+    }
+    
+    func searchController(_ searchController: UISearchController, didChangeFrom previousPlacement: UINavigationItem.SearchBarPlacement) {
+        print("did change from")
+    }
+}
+
+class HomeViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    
+    let searchController = SearchTest()
     
     private lazy var gameCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,6 +96,12 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     }()
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        let popoverVC = PopoverViewController()
+        popoverVC.modalPresentationStyle = .popover
+        popoverVC.popoverPresentationController?.sourceView = searchBar
+        popoverVC.popoverPresentationController?.permittedArrowDirections = .any
+        popoverVC.popoverPresentationController?.delegate = self
+        self.present(popoverVC, animated: true, completion: nil)
         print("clicked")
     }
     
@@ -40,11 +113,30 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         navigationController?.navigationBar.tintColor = .label
         view.backgroundColor = .systemBackground
         
+        
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         searchController.searchBar.showsBookmarkButton = true
         searchController.searchBar.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle"), for: .bookmark, state: .normal)
         
+        searchController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.searchBar.showsScopeBar = true
+        searchController.automaticallyShowsCancelButton = true
+        searchController.navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.ignoresSearchSuggestionsForSearchBarPlacementStacked = true
+//        searchController.searchBar.scopeButtonTitles = [
+//            "Hello",
+//            "World"
+//        ]
+        
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        
+//        navigationItem.hidesSearchBarWhenScrolling = false
+        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
         
         view.addSubview(gameCollectionView)
         
@@ -54,7 +146,9 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         gameCollectionView.dataSource = self
     }
     
-    
+    @objc private func addTapped(){
+        print("Hello")
+    }
     
     private func configureConstraints() {
         let gameCollectionViewConstraints = [
