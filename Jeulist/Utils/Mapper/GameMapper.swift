@@ -32,4 +32,43 @@ final class GameMapper {
             return newGame
         }
     }
+    
+    static func mapGameDetailResponseToDomain(input gameDetailResponse: GameDetailResponse) -> GameDetail {
+        return GameDetail(id: gameDetailResponse.id,
+                                    slug: gameDetailResponse.slug,
+                                    name: gameDetailResponse.name,
+                                    nameOriginal: gameDetailResponse.nameOriginal,
+                                    description: gameDetailResponse.description,
+                                    metacritic: gameDetailResponse.metacritic,
+                                    released: gameDetailResponse.released,
+                                    tba: gameDetailResponse.tba,
+                                    updated: gameDetailResponse.updated,
+                                    backgroundImage: gameDetailResponse.backgroundImage,
+                                    backgroundImageAdditional: gameDetailResponse.backgroundImageAdditional,
+                                    website: gameDetailResponse.website,
+                                    rating: gameDetailResponse.rating,
+                                    ratingTop: gameDetailResponse.ratingTop,
+                                    added: gameDetailResponse.added,
+                                    playTime: gameDetailResponse.playtime,
+                                    screenshotsCount: gameDetailResponse.screenshotsCount,
+                                    moviesCount: gameDetailResponse.moviesCount,
+                                    creatorsCount: gameDetailResponse.creatorsCount,
+                                    achievementCount: gameDetailResponse.achievementsCount,
+                                    parentAchievementCount: gameDetailResponse.parentAchievementsCount,
+                                    redditURL: gameDetailResponse.redditURL,
+                                    redditName: gameDetailResponse.redditName,
+                                    redditDescription: gameDetailResponse.redditDescription,
+                                    redditLogo: gameDetailResponse.redditLogo,
+                                    redditCount: gameDetailResponse.redditCount,
+                                    suggestionCount: gameDetailResponse.suggestionsCount,
+                                    metacriticURL: gameDetailResponse.metacriticURL,
+                                    parentsCount: gameDetailResponse.parentsCount,
+                                    additionCount: gameDetailResponse.additionsCount,
+                                    gameSeriesCount: gameDetailResponse.gameSeriesCount,
+                                    reviewCount: gameDetailResponse.reviewsCount,
+                                    saturatedColor: gameDetailResponse.saturatedColor,
+                                    dominantColor: gameDetailResponse.dominantColor,
+                                    descriptionRaw: gameDetailResponse.descriptionRaw)
+        
+    }
 }

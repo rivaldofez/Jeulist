@@ -35,7 +35,7 @@ struct GameDetail: Identifiable {
     let redditLogo: String
     let redditCount: Int
     let suggestionCount: Int
-    let metacriticURL: Int
+    let metacriticURL: String
     let parentsCount: Int
     let additionCount: Int
     let gameSeriesCount: Int
