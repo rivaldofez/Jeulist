@@ -23,11 +23,14 @@ final class RemoteDataSource: NSObject {
 extension RemoteDataSource: RemoteDataSourceProtocol {
     func getGameDetail(id: Int) -> RxSwift.Observable<GameDetailResponse> {
         return Observable<GameDetailResponse>.create { observer in
-            if let url = URL(string: "\(Endpoints.Gets.gameDetail(id))"){
+            if let url = URL(string: Endpoints.Gets.gameDetail(id).url){
                 AF.request(url)
                     .responseDecodable(of: GameDetailResponse.self) { response in
                         switch response.result {
                         case .success(let value):
+                            print("value in remote")
+                            print(value)
+                            
                             observer.onNext(value)
                             observer.onCompleted()
                         case .failure:
@@ -35,7 +38,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                         }
                     }
             }
-            
             return Disposables.create()
         }
     }
@@ -54,7 +56,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                         }
                     }
             }
-            
             return Disposables.create()
         }
     }

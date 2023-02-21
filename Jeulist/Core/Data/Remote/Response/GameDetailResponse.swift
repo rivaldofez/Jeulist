@@ -11,7 +11,7 @@ struct GameDetailResponse: Codable {
     let id: Int
     let slug, name, nameOriginal, description: String
     let metacritic: Int
-    let metacriticPlatforms: [MetacriticPlatform]
+//    let metacriticPlatforms: [MetacriticPlatform]
     let released: String
     let tba: Bool
     let updated: String
@@ -19,10 +19,10 @@ struct GameDetailResponse: Codable {
     let website: String
     let rating: Double
     let ratingTop: Int
-    let ratings: [Rating]
-    let reactions: [String: Int]
+//    let ratings: [Rating]
+//    let reactions: [String: Int]
     let added: Int
-    let addedByStatus: AddedByStatus
+//    let addedByStatus: AddedByStatus
     let playtime, screenshotsCount, moviesCount, creatorsCount: Int
     let achievementsCount, parentAchievementsCount: Int
     let redditURL: String
@@ -35,11 +35,11 @@ struct GameDetailResponse: Codable {
 //    let userGame: JSONNull?
     let reviewsCount: Int
     let saturatedColor, dominantColor: String
-    let parentPlatforms: [ParentPlatform]
-    let platforms: [PlatformElement]
-    let stores: [Store]
-    let developers, genres, tags, publishers: [Developer]
-    let esrbRating: EsrbRating
+//    let parentPlatforms: [ParentPlatform]
+//    let platforms: [PlatformElement]
+//    let stores: [Store]
+//    let developers, genres, tags, publishers: [Developer]
+//    let esrbRating: EsrbRating
     let clip: String?
     let descriptionRaw: String
 
@@ -47,14 +47,16 @@ struct GameDetailResponse: Codable {
         case id, slug, name
         case nameOriginal = "name_original"
         case description, metacritic
-        case metacriticPlatforms = "metacritic_platforms"
+//        case metacriticPlatforms = "metacritic_platforms"
         case released, tba, updated
         case backgroundImage = "background_image"
         case backgroundImageAdditional = "background_image_additional"
         case website, rating
         case ratingTop = "rating_top"
-        case ratings, reactions, added
-        case addedByStatus = "added_by_status"
+//        case ratings
+//        case reactions
+        case added
+//        case addedByStatus = "added_by_status"
         case playtime
         case screenshotsCount = "screenshots_count"
         case moviesCount = "movies_count"
@@ -80,9 +82,11 @@ struct GameDetailResponse: Codable {
         case reviewsCount = "reviews_count"
         case saturatedColor = "saturated_color"
         case dominantColor = "dominant_color"
-        case parentPlatforms = "parent_platforms"
-        case platforms, stores, developers, genres, tags, publishers
-        case esrbRating = "esrb_rating"
+//        case parentPlatforms = "parent_platforms"
+//        case platforms
+//        case stores, developers
+//        case genres, tags, publishers
+//        case esrbRating = "esrb_rating"
         case clip
         case descriptionRaw = "description_raw"
     }

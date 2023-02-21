@@ -61,6 +61,9 @@ class PopoverViewController: UIViewController {
 }
 
 extension HomeViewController: UISearchControllerDelegate {
+    
+    
+    
     func searchController(_ searchController: UISearchController, willChangeTo newPlacement: UINavigationItem.SearchBarPlacement) {
         print("will change to")
     }
@@ -71,6 +74,8 @@ extension HomeViewController: UISearchControllerDelegate {
 }
 
 class HomeViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    
+    private let disposeBag = DisposeBag()
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
@@ -144,6 +149,19 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         gameCollectionView.delegate = self
         gameCollectionView.dataSource = self
+        
+        
+        
+//        let remote = RemoteDataSource.sharedInstance
+//        let repository = GameRepository.sharedInstance(remote)
+//
+//        repository.getGameDetail(id: 3498).subscribe { gameDetail in
+//            print(gameDetail)
+//        } onError: { error in
+//            print(error)
+//        } onCompleted: {
+//            print("completed")
+//        }.disposed(by: disposeBag)
     }
     
     @objc private func addTapped(){

@@ -11,7 +11,6 @@ import RxSwift
 protocol GameRepositoryProtocol {
     func getGameDataPagination(page: Int) -> Observable<[Game]>
     func getGameDetail(id: Int) -> Observable<GameDetail>
-    
 }
 
 final class GameRepository: NSObject {
@@ -26,7 +25,6 @@ final class GameRepository: NSObject {
     static let sharedInstance: GameInstance = { RemoteDataSource in
         return GameRepository(remote: RemoteDataSource)
     }
-    
 }
 
 extension GameRepository: GameRepositoryProtocol {
