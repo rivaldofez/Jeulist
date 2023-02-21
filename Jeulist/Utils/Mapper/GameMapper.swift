@@ -68,7 +68,6 @@ final class GameMapper {
                                     reviewCount: gameDetailResponse.reviewsCount,
                                     saturatedColor: gameDetailResponse.saturatedColor,
                                     dominantColor: gameDetailResponse.dominantColor,
-                                    descriptionRaw: gameDetailResponse.descriptionRaw)
-        
+                                    descriptionRaw: gameDetailResponse.descriptionRaw)        
     }
 }

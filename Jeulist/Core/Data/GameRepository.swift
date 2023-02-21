@@ -10,6 +10,7 @@ import RxSwift
 
 protocol GameRepositoryProtocol {
     func getGameDataPagination(page: Int) -> Observable<[Game]>
+    func getGameDetail(id: Int) -> Observable<GameDetail>
     
 }
 
@@ -29,6 +30,12 @@ final class GameRepository: NSObject {
 }
 
 extension GameRepository: GameRepositoryProtocol {
+    func getGameDetail(id: Int) -> RxSwift.Observable<GameDetail> {
+        return self.remote.getGameDetail(id: id).map {
+            GameMapper.mapGameDetailResponseToDomain(input: $0)
+        }
+    }
+    
     func getGameDataPagination(page: Int) -> RxSwift.Observable<[Game]> {
         
         return self.remote.getGameDataPagination(page: page).map {
