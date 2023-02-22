@@ -25,6 +25,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     private let gameNameLabel: UILabel = {
        let label = UILabel()
         label.text = "Harvest Moon Back To Nature"
+        label.font = .systemFont(ofSize: 15, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
         return label
@@ -109,7 +110,7 @@ class GameCollectionViewCell: UICollectionViewCell {
                 let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
                 image.widthAnchor.constraint(equalToConstant: 20).isActive = true
                 image.heightAnchor.constraint(equalToConstant: 20).isActive = true
-                image.tintColor = .label
+                image.tintColor = .secondaryLabel
                 gamePlatformStackView.addArrangedSubview(image)
             }
         }
