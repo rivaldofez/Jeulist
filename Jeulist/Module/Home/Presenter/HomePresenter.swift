@@ -22,13 +22,22 @@ protocol HomePresenterProtocol {
 class HomePresenter: HomePresenterProtocol {
     var router: HomeRouterProtocol?
     
-    var interactor: HomeUseCase?
-    
     var view: HomeViewProtocol?
+    
+    var interactor: HomeUseCase? {
+        didSet {
+            page = 1
+        }
+    }
     
     private let disposeBag = DisposeBag()
     
-    var page: Int?
+    var page: Int? {
+        didSet {
+            guard let page = page else { return }
+            getGameDataPagination(page: page)
+        }
+    }
     
     var isLoadingData = false {
         didSet {
