@@ -10,7 +10,7 @@ import UIKit
 typealias BeginEntry = HomeViewProtocol & UIViewController
 
 protocol HomeRouterProtocol {
-    var beginEntry: BeginEntry? { get }
+    var begin: BeginEntry? { get }
     
     static func start() -> HomeRouterProtocol
     
@@ -18,13 +18,21 @@ protocol HomeRouterProtocol {
 
 
 class HomeRouter: HomeRouterProtocol {
-    var beginEntry: BeginEntry?
+    var begin: BeginEntry?
     
     static func start() -> HomeRouterProtocol {
         let router = HomeRouter()
         
         var view: HomeViewProtocol = HomeViewController()
         var presenter: HomePresenterProtocol = HomePresenter()
+        let interactor: HomeUseCase = Injection().provideHome()
+        
+        view.presenter = presenter
+        presenter.router = router
+        presenter.view = view
+        presenter.interactor = interactor
+        
+        router.begin = view as? BeginEntry
         
         return router
     }
