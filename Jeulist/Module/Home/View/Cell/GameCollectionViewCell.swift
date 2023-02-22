@@ -44,19 +44,9 @@ class GameCollectionViewCell: UICollectionViewCell {
     private lazy var gamePlatformStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.spacing = 2
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        for i in nameImageArr {
-            let image = UIImageView(image: UIImage(named: i))
-            image.widthAnchor.constraint(equalToConstant: 20).isActive = true
-            image.heightAnchor.constraint(equalToConstant: 20).isActive = true
-            image.tintColor = .label
-            stackView.addArrangedSubview(image)
-        }
-        
-        
         return stackView
     }()
     
@@ -92,7 +82,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         
         let gamePlatformStackViewConstraints = [
             gamePlatformStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
+//            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
             gamePlatformStackView.bottomAnchor.constraint(equalTo: gameNameLabel.topAnchor)
         ]
         
@@ -106,6 +96,23 @@ class GameCollectionViewCell: UICollectionViewCell {
         
         guard let imageUrl = URL(string: model.backgroundImage) else { return }
         gameImageView.sd_setImage(with: imageUrl)
+        
+        setParentPlatformIcon(parentPlatforms: model.parentPlatforms)
+        
+        print(model.name)
+        print(model.parentPlatforms)
+    }
+    
+    func setParentPlatformIcon(parentPlatforms: [String]){
+        if gamePlatformStackView.subviews.isEmpty {
+            parentPlatforms.forEach{ name in
+                let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
+                image.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                image.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                image.tintColor = .label
+                gamePlatformStackView.addArrangedSubview(image)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {

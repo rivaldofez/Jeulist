@@ -10,7 +10,7 @@ import Foundation
 final class GameConverter {
     enum GameParentPlatform: String {
         case pc = "PC"
-        case playstation = "Playstation"
+        case playstation = "PlayStation"
         case xbox = "Xbox"
         case ios = "iOS"
         case android = "Android"
