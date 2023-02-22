@@ -47,8 +47,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .red
-//        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = .gray.withAlphaComponent(0.2)
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 8
         
@@ -63,20 +62,20 @@ class GameCollectionViewCell: UICollectionViewCell {
         let gameImageViewConstraints = [
             gameImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            gameImageView.bottomAnchor.constraint(equalTo: gamePlatformStackView.topAnchor),
+            gameImageView.bottomAnchor.constraint(equalTo: gamePlatformStackView.topAnchor, constant: -5 ),
             gameImageView.topAnchor.constraint(equalTo: contentView.topAnchor)
         ]
         
         let gameNameLabelConstraints = [
-            gameNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            gameNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            gameNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            gameNameLabel.heightAnchor.constraint(equalToConstant: 30)
+            gameNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            gameNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            gameNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            gameNameLabel.heightAnchor.constraint(equalToConstant: 20)
         ]
         
         let gamePlatformStackViewConstraints = [
-            gamePlatformStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor),
+            gamePlatformStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
             gamePlatformStackView.bottomAnchor.constraint(equalTo: gameNameLabel.topAnchor)
         ]
         

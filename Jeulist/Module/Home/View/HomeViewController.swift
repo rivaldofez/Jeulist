@@ -90,7 +90,7 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: ((view.frame.size.width) / 2) - 5, height: (view.frame.size.width) / 2)
+        layout.itemSize = CGSize(width: ((view.frame.size.width) / 2) - 21, height: (view.frame.size.width) / 2)
         
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -170,8 +170,8 @@ class HomeViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     private func configureConstraints() {
         let gameCollectionViewConstraints = [
-            gameCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gameCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gameCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            gameCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             gameCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             gameCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
