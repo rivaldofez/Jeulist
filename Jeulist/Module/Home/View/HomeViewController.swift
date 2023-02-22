@@ -20,15 +20,15 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     var presenter: HomePresenterProtocol?
     
     func updateGameList(with games: [Game]) {
-        <#code#>
+        print(games)
     }
     
     func updateGameList(with error: String) {
-        <#code#>
+        print(error)
     }
     
     func isLoadingDataGameList(with state: Bool) {
-        <#code#>
+        print(state)
     }
     
     
