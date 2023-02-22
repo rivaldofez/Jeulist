@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GameCollectionViewCell: UICollectionViewCell {
     
@@ -59,6 +60,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -97,6 +99,13 @@ class GameCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(gameImageViewConstraints)
         NSLayoutConstraint.activate(gameNameLabelConstraints)
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
+    }
+    
+    func configure(with model: Game){
+        gameNameLabel.text = model.name
+        
+        guard let imageUrl = URL(string: model.backgroundImage) else { return }
+        gameImageView.sd_setImage(with: imageUrl)
     }
     
     required init?(coder: NSCoder) {

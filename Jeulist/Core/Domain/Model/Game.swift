@@ -24,4 +24,5 @@ struct Game: Identifiable {
     let suggestionCount: Int
     let updated: String
     let reviewsCount: Int
+    let parentPlatforms: [String]
 }

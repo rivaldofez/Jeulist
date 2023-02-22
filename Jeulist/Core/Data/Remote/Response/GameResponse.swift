@@ -73,7 +73,7 @@ struct GameItem: Codable {
     let stores: [Store]
 //    let clip: JSONNull?
     let tags: [Genre]
-    let esrbRating: EsrbRating
+    let esrbRating: Component
     let shortScreenshots: [ShortScreenshot]
 
     enum CodingKeys: String, CodingKey {
@@ -114,7 +114,7 @@ enum Color: String, Codable {
 }
 
 // MARK: - EsrbRating
-struct EsrbRating: Codable {
+struct Component: Codable {
     let id: Int
     let name, slug: String
 }
@@ -154,7 +154,7 @@ enum Language: String, Codable {
 
 // MARK: - ParentPlatform
 struct ParentPlatform: Codable {
-    let platform: EsrbRating
+    let platform: Component
 }
 
 // MARK: - PlatformElement

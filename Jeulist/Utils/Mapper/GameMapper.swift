@@ -27,7 +27,9 @@ final class GameMapper {
                 playTime: gameItem.playtime,
                 suggestionCount: gameItem.suggestionsCount,
                 updated: gameItem.updated,
-                reviewsCount: gameItem.reviewsCount)
+                reviewsCount: gameItem.reviewsCount,
+                parentPlatforms: gameItem.parentPlatforms.map { $0.platform.name }
+            )
             
             return newGame
         }

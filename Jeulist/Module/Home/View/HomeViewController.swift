@@ -20,7 +20,10 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     var presenter: HomePresenterProtocol?
     
     func updateGameList(with games: [Game]) {
-        print(games)
+        DispatchQueue.main.async {
+            self.gameDataPagination.append(contentsOf: games)
+            self.gameCollectionView.reloadData()
+        }
     }
     
     func updateGameList(with error: String) {
@@ -33,6 +36,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     
     private let disposeBag = DisposeBag()
+    private var gameDataPagination: [Game] = []
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
@@ -105,11 +109,14 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return gameDataPagination.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as? GameCollectionViewCell else { return UICollectionViewCell()}
+        
+        let model = gameDataPagination[indexPath.row]
+        cell.configure(with: model)
         
         return cell
     }
