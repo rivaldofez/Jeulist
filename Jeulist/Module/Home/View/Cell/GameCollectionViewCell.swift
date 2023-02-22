@@ -29,14 +29,29 @@ class GameCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private var nameImageArr = [
+        "icon_ios",
+        "icon_android",
+        "icon_linux",
+        "icon_apple",
+        "icon_xbox",
+        "icon_playstations",
+        "icon_windows",
+        "icon_nintendo"
+    ]
+    
     private lazy var gamePlatformStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        for i in 0...4 {
-            let image = UIImageView(image: UIImage(systemName: "apple.logo"))
-            image.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        
+        for i in nameImageArr {
+            let image = UIImageView(image: UIImage(named: i))
+            image.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            image.tintColor = .label
             stackView.addArrangedSubview(image)
         }
         
