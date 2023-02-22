@@ -42,6 +42,7 @@ class DetailGameViewController: UIViewController {
         collectionview.automaticallyAdjustsScrollIndicatorInsets = false
         
         collectionview.contentInsetAdjustmentBehavior = .never
+        collectionview.layer.cornerRadius = 10
         
         
         return collectionview
@@ -57,6 +58,76 @@ class DetailGameViewController: UIViewController {
         return pageControl
     }()
     
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "High on Life"
+        label.font = .systemFont(ofSize: 20)
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    private let platformItem: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Windows, Apple"
+        
+        return label
+    }()
+    
+    private let aboutLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Lorem ipsum dolor sit amet que more la porte lu to senodo sique ament"
+        
+        return label
+    }()
+    
+    private let tagLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Single Player dll"
+        
+        return label
+    }()
+    
+    private let informationStackView: UIStackView = {
+        let labelplatform = UILabel()
+        labelplatform.text = "Platforms"
+        let labelcontentplatform = UILabel()
+        labelcontentplatform.text = "PS1, PS2, PS3, PS4, XBOX, Mac, PC"
+        labelcontentplatform.numberOfLines = 0
+        let stackviewplatform = UIStackView()
+        stackviewplatform.axis = .vertical
+        stackviewplatform.addArrangedSubview(labelplatform)
+        stackviewplatform.addArrangedSubview(labelcontentplatform)
+        
+        let labelgenre = UILabel()
+        labelgenre.text = "Genre"
+        let labelcontentgenre = UILabel()
+        labelcontentgenre.text = "Action, RPG, Fantasy, Horror"
+        let stackviewgenre = UIStackView()
+        stackviewgenre.axis = .vertical
+        stackviewgenre.addArrangedSubview(labelgenre)
+        stackviewgenre.addArrangedSubview(labelcontentgenre)
+        
+        
+        let stackviewrow1 = UIStackView()
+        stackviewrow1.addArrangedSubview(stackviewplatform)
+        stackviewrow1.addArrangedSubview(stackviewgenre)
+        stackviewrow1.axis = .horizontal
+        stackviewrow1.distribution = .fillEqually
+        
+        
+        let stackview = UIStackView()
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.addArrangedSubview(stackviewrow1)
+        stackview.axis = .vertical
+        
+        return stackview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,10 +138,15 @@ class DetailGameViewController: UIViewController {
 //        navigationController?.navigationBar.tintColor = .label
 //        view.backgroundColor = .systemBackground
         
-        navigationController?.navigationBar.isHidden = true
+//        navigationController?.navigationBar.isHidden = true
         
         view.addSubview(imageSlidesCollectionView)
         view.addSubview(imageSlidesPageControl)
+        view.addSubview(nameLabel)
+        view.addSubview(informationStackView)
+        view.addSubview(platformItem)
+        view.addSubview(tagLabel)
+        view.addSubview(aboutLabel)
         
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
@@ -82,8 +158,6 @@ class DetailGameViewController: UIViewController {
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
-        
-        
     }
     
     @objc private func changeImage(){
@@ -91,16 +165,15 @@ class DetailGameViewController: UIViewController {
             let index = IndexPath(item: counter, section: 0)
             
             self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            self.imageSlidesPageControl.currentPage = counter
             counter += 1
-            
-            print(counter)
         } else {
             counter = 0
             let index = IndexPath(item: counter, section: 0)
             
             self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredVertically, animated: true)
-            
-            print(counter)
+            self.imageSlidesPageControl.currentPage = counter
+
         }
     }
     
@@ -117,9 +190,43 @@ class DetailGameViewController: UIViewController {
             imageSlidesPageControl.centerXAnchor.constraint(equalTo: imageSlidesCollectionView.centerXAnchor)
         ]
         
+        let nameLabelConstraints = [
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor)
+        ]
+        
+        let informationStackViewConstraints = [
+            informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            informationStackView.topAnchor.constraint(equalTo: platformItem.bottomAnchor)
+        ]
+        
+        let platformItemConstraints = [
+            platformItem.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            platformItem.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            platformItem.topAnchor.constraint(equalTo: nameLabel.bottomAnchor)
+        ]
+        
+        let tagLabelConstraints = [
+            tagLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tagLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tagLabel.topAnchor.constraint(equalTo: informationStackView.bottomAnchor)
+        ]
+        
+        let aboutLabelConstraints = [
+            aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            aboutLabel.topAnchor.constraint(equalTo: tagLabel.bottomAnchor)
+        ]
         
         NSLayoutConstraint.activate(imageSlidesCollectionViewConstraints)
         NSLayoutConstraint.activate(imageSlidesPageControlConstraints)
+        NSLayoutConstraint.activate(nameLabelConstraints)
+        NSLayoutConstraint.activate(informationStackViewConstraints)
+        NSLayoutConstraint.activate(platformItemConstraints)
+        NSLayoutConstraint.activate(tagLabelConstraints)
+        NSLayoutConstraint.activate(aboutLabelConstraints)
     }
 
 }
