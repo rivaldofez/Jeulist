@@ -8,8 +8,29 @@
 import UIKit
 import RxSwift
 
+protocol HomeViewProtocol {
+    var presenter: HomePresenterProtocol? { get set}
+    
+    func updateGameList(with games: [Game])
+    func updateGameList(with error: String)
+    func isLoadingDataGameList(with state: Bool)
+}
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, HomeViewProtocol {
+    var presenter: HomePresenterProtocol?
+    
+    func updateGameList(with games: [Game]) {
+        <#code#>
+    }
+    
+    func updateGameList(with error: String) {
+        <#code#>
+    }
+    
+    func isLoadingDataGameList(with state: Bool) {
+        <#code#>
+    }
+    
     
     private let disposeBag = DisposeBag()
     
