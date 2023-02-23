@@ -7,7 +7,11 @@
 
 import UIKit
 
-class DetailGameViewController: UIViewController {
+protocol DetailGameViewProtocol {
+    
+}
+
+class DetailGameViewController: UIViewController, DetailGameViewProtocol {
 
     
     var imgArr = [
