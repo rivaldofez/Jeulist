@@ -28,7 +28,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     func isLoadingData(with state: Bool) {
         print(state)
     }
-    
 
     
     var imgArr = [

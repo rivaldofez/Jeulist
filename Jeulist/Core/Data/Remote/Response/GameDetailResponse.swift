@@ -35,11 +35,12 @@ struct GameDetailResponse: Codable {
 //    let userGame: JSONNull?
     let reviewsCount: Int
     let saturatedColor, dominantColor: String
-//    let parentPlatforms: [ParentPlatform]
+    let parentPlatforms: [ParentPlatform]
 //    let platforms: [PlatformElement]
 //    let stores: [Store]
-//    let developers, genres, tags, publishers: [Developer]
+    let developers, genres, tags, publishers: [SubObjectComponent]
 //    let esrbRating: EsrbRating
+    
     let clip: String?
     let descriptionRaw: String
 
@@ -82,10 +83,11 @@ struct GameDetailResponse: Codable {
         case reviewsCount = "reviews_count"
         case saturatedColor = "saturated_color"
         case dominantColor = "dominant_color"
-//        case parentPlatforms = "parent_platforms"
+        case parentPlatforms = "parent_platforms"
 //        case platforms
-//        case stores, developers
-//        case genres, tags, publishers
+//        case stores,
+        case developers
+        case genres, tags, publishers
 //        case esrbRating = "esrb_rating"
         case clip
         case descriptionRaw = "description_raw"
@@ -99,7 +101,7 @@ struct GameDetailResponse: Codable {
 //}
 
 // MARK: - Developer
-struct Developer: Codable {
+struct SubObjectComponent: Codable {
     let id: Int
     let name, slug: String
     let gamesCount: Int

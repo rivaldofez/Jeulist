@@ -43,4 +43,8 @@ struct GameDetail: Identifiable {
     let saturatedColor: String
     let dominantColor: String
     let descriptionRaw: String
+    let parentPlatforms: [String]
+    let publishers: String
+    let tags: String
+    let developers: String
 }

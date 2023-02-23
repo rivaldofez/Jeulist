@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DetailGameUseCase {
-    
+    func getGameDetail(id: Int) -> Observable<GameDetail>
 }
 
 class DetailGameInteractor: DetailGameUseCase {
+    private let repository: GameRepositoryProtocol
     
+    required init(repository: GameRepositoryProtocol) {
+        self.repository = repository
+    }
+    
+    func getGameDetail(id: Int) -> Observable<GameDetail> {
+        return repository.getGameDetail(id: id)
+    }
 }
