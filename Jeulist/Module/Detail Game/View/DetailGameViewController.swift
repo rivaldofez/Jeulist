@@ -8,10 +8,27 @@
 import UIKit
 
 protocol DetailGameViewProtocol {
-    
+    var presenter: DetailGamePresenterProtocol? { get set }
+    func updateGameDetail(with gameDetail: GameDetail)
+    func updateGameDetail(with error: String)
+    func isLoadingData(with state: Bool)
 }
 
 class DetailGameViewController: UIViewController, DetailGameViewProtocol {
+    var presenter: DetailGamePresenterProtocol?
+    
+    func updateGameDetail(with gameDetail: GameDetail) {
+        print(gameDetail)
+    }
+    
+    func updateGameDetail(with error: String) {
+        print(error)
+    }
+    
+    func isLoadingData(with state: Bool) {
+        print(state)
+    }
+    
 
     
     var imgArr = [
