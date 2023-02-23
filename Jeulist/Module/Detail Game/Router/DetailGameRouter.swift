@@ -27,6 +27,10 @@ class DetailGameRouter: DetailGameRouterProtocol {
         
         
         view.presenter = presenter
+        presenter.router = router
+        presenter.view = view
+        presenter.interactor = interactor
+        presenter.setGameid(id: id)
         
         router.entry = view as? DetailGameViewController
         return router
