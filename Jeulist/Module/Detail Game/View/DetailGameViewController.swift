@@ -62,24 +62,27 @@ class DetailGameViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "High on Life"
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 25, weight: .bold)
         label.textAlignment = .center
         
         return label
     }()
     
-    private let platformItem: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Windows, Apple"
-        
-        return label
+    private lazy var gamePlatformStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let aboutLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Lorem ipsum dolor sit amet que more la porte lu to senodo sique ament"
+        label.numberOfLines = 0
         
         return label
     }()
@@ -88,42 +91,61 @@ class DetailGameViewController: UIViewController {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Single Player dll"
+        label.numberOfLines = 0
         
         return label
     }()
     
-    private let informationStackView: UIStackView = {
-        let labelplatform = UILabel()
-        labelplatform.text = "Platforms"
-        let labelcontentplatform = UILabel()
-        labelcontentplatform.text = "PS1, PS2, PS3, PS4, XBOX, Mac, PC"
-        labelcontentplatform.numberOfLines = 0
-        let stackviewplatform = UIStackView()
-        stackviewplatform.axis = .vertical
-        stackviewplatform.addArrangedSubview(labelplatform)
-        stackviewplatform.addArrangedSubview(labelcontentplatform)
+    private let websiteContentLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "www.google.com"
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private func createItemInformation(title: String, content: String) -> UIStackView {
         
-        let labelgenre = UILabel()
-        labelgenre.text = "Genre"
-        let labelcontentgenre = UILabel()
-        labelcontentgenre.text = "Action, RPG, Fantasy, Horror"
-        let stackviewgenre = UIStackView()
-        stackviewgenre.axis = .vertical
-        stackviewgenre.addArrangedSubview(labelgenre)
-        stackviewgenre.addArrangedSubview(labelcontentgenre)
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.textColor = .secondaryLabel
+        titleLabel.font = .systemFont(ofSize: 14)
         
-        
-        let stackviewrow1 = UIStackView()
-        stackviewrow1.addArrangedSubview(stackviewplatform)
-        stackviewrow1.addArrangedSubview(stackviewgenre)
-        stackviewrow1.axis = .horizontal
-        stackviewrow1.distribution = .fillEqually
-        
+        let contentLabel = UILabel()
+        contentLabel.text = content
+        contentLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        contentLabel.textColor = .label
+        contentLabel.numberOfLines = 0
         
         let stackview = UIStackView()
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.addArrangedSubview(stackviewrow1)
         stackview.axis = .vertical
+        stackview.addArrangedSubview(titleLabel)
+        stackview.addArrangedSubview(contentLabel)
+        stackview.spacing = 2
+        
+        return stackview
+    }
+    
+    private func createRowInformation(firstTitle: String, firstContent: String, secondTitle: String, secondContent: String) -> UIStackView{
+        
+        let firstItem = createItemInformation(title: firstTitle, content: firstContent)
+        let secondItem = createItemInformation(title: secondTitle, content: secondContent)
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.addArrangedSubview(firstItem)
+        stackView.addArrangedSubview(secondItem)
+        
+        return stackView
+        
+    }
+    
+    private lazy var informationStackView: UIStackView = {
+        let stackview = UIStackView()
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .vertical
+        stackview.distribution = .fillEqually
+        stackview.spacing = 10
         
         return stackview
     }()
@@ -144,9 +166,11 @@ class DetailGameViewController: UIViewController {
         view.addSubview(imageSlidesPageControl)
         view.addSubview(nameLabel)
         view.addSubview(informationStackView)
-        view.addSubview(platformItem)
+        view.addSubview(gamePlatformStackView)
         view.addSubview(tagLabel)
         view.addSubview(aboutLabel)
+        
+        setParentPlatformIcon(parentPlatforms: ["PC", "Android"])
         
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
@@ -157,6 +181,22 @@ class DetailGameViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+        }
+        
+        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Platform", firstContent: "PC, Android, Mac, Windows", secondTitle: "Genre", secondContent: "Rock, Horro, RPG, Single"))
+        
+        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Release Data", firstContent: "11 Januari 2022", secondTitle: "Developer", secondContent: "Nexon Company, Nexon Korea"))
+    }
+    
+    func setParentPlatformIcon(parentPlatforms: [String]){
+        if gamePlatformStackView.subviews.isEmpty {
+            parentPlatforms.forEach{ name in
+                let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
+                image.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                image.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                image.tintColor = .secondaryLabel
+                gamePlatformStackView.addArrangedSubview(image)
+            }
         }
     }
     
@@ -173,7 +213,6 @@ class DetailGameViewController: UIViewController {
             
             self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredVertically, animated: true)
             self.imageSlidesPageControl.currentPage = counter
-
         }
     }
     
@@ -182,7 +221,7 @@ class DetailGameViewController: UIViewController {
             imageSlidesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageSlidesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageSlidesCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: 300)
+            imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 3)
         ]
         
         let imageSlidesPageControlConstraints = [
@@ -193,19 +232,18 @@ class DetailGameViewController: UIViewController {
         let nameLabelConstraints = [
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor)
+            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: 16)
         ]
         
         let informationStackViewConstraints = [
             informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            informationStackView.topAnchor.constraint(equalTo: platformItem.bottomAnchor)
+            informationStackView.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant: 16)
         ]
         
-        let platformItemConstraints = [
-            platformItem.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            platformItem.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            platformItem.topAnchor.constraint(equalTo: nameLabel.bottomAnchor)
+        let gamePlatformStackViewConstraints = [
+            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            gamePlatformStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
         let tagLabelConstraints = [
@@ -224,7 +262,7 @@ class DetailGameViewController: UIViewController {
         NSLayoutConstraint.activate(imageSlidesPageControlConstraints)
         NSLayoutConstraint.activate(nameLabelConstraints)
         NSLayoutConstraint.activate(informationStackViewConstraints)
-        NSLayoutConstraint.activate(platformItemConstraints)
+        NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
         NSLayoutConstraint.activate(tagLabelConstraints)
         NSLayoutConstraint.activate(aboutLabelConstraints)
     }
