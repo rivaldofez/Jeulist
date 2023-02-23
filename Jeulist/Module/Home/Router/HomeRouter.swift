@@ -14,6 +14,8 @@ protocol HomeRouterProtocol {
     
     static func start() -> HomeRouterProtocol
     
+    func goToDetailGame(with gameId: Int)
+    
 }
 
 
@@ -36,4 +38,13 @@ class HomeRouter: HomeRouterProtocol {
         
         return router
     }
+    
+    func goToDetailGame(with gameId: Int) {
+        let detailGameRouter = DetailGameRouter.createDetailGame(with: gameId)
+        guard let detailGameView = detailGameRouter.entry else { return }
+        guard let viewController = self.begin else { return }
+        
+        viewController.navigationController?.pushViewController(detailGameView, animated: true)
+    }
+    
 }
