@@ -24,11 +24,10 @@ class DetailGameViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: view.frame.size.width, height: 300)
+        layout.itemSize = CGSize(width: view.frame.size.width, height: (view.frame.size.height / 3))
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        
-        
+
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.register(ImageSlidesCollectionViewCell.self, forCellWithReuseIdentifier: ImageSlidesCollectionViewCell.identifier)
         collectionview.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +42,6 @@ class DetailGameViewController: UIViewController {
         
         collectionview.contentInsetAdjustmentBehavior = .never
         collectionview.layer.cornerRadius = 10
-        
         
         return collectionview
     }()
@@ -87,21 +85,18 @@ class DetailGameViewController: UIViewController {
         return label
     }()
     
-    private let tagLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Single Player dll"
-        label.numberOfLines = 0
-        
-        return label
+    private lazy var tagsStackView: UIStackView = {
+        let stackView = createItemInformation(title: "Tags", content: "Multiplayer, SinglePlayer, Partial Support")
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stackView
     }()
     
-    private let websiteContentLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "www.google.com"
-        label.numberOfLines = 0
-        return label
+    private lazy var websiteStackView: UIStackView = {
+        let stackView = createItemInformation(title: "Website", content: "www.google.com")
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stackView
     }()
     
     private func createItemInformation(title: String, content: String) -> UIStackView {
@@ -113,15 +108,20 @@ class DetailGameViewController: UIViewController {
         
         let contentLabel = UILabel()
         contentLabel.text = content
-        contentLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        contentLabel.sizeToFit()
+        contentLabel.font = .systemFont(ofSize: 16)
         contentLabel.textColor = .label
         contentLabel.numberOfLines = 0
+        contentLabel.textAlignment = .left
+        
         
         let stackview = UIStackView()
         stackview.axis = .vertical
         stackview.addArrangedSubview(titleLabel)
         stackview.addArrangedSubview(contentLabel)
         stackview.spacing = 2
+        stackview.distribution = .fillEqually
+        stackview.alignment = .top
         
         return stackview
     }
@@ -133,6 +133,7 @@ class DetailGameViewController: UIViewController {
         
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
         stackView.addArrangedSubview(firstItem)
         stackView.addArrangedSubview(secondItem)
         
@@ -167,15 +168,14 @@ class DetailGameViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(informationStackView)
         view.addSubview(gamePlatformStackView)
-        view.addSubview(tagLabel)
+        view.addSubview(tagsStackView)
         view.addSubview(aboutLabel)
+        view.addSubview(websiteStackView)
         
         setParentPlatformIcon(parentPlatforms: ["PC", "Android"])
         
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
-//        self.navigationController?.hidesBarsOnSwipe = true
-//        self.navigationController?.hidesBarsOnTap = true
         
         configureConstraints()
         self.navigationController?.isNavigationBarHidden = false
@@ -211,7 +211,7 @@ class DetailGameViewController: UIViewController {
             counter = 0
             let index = IndexPath(item: counter, section: 0)
             
-            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredVertically, animated: true)
+            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
             self.imageSlidesPageControl.currentPage = counter
         }
     }
@@ -235,27 +235,33 @@ class DetailGameViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: 16)
         ]
         
-        let informationStackViewConstraints = [
-            informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            informationStackView.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant: 16)
-        ]
-        
         let gamePlatformStackViewConstraints = [
             gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             gamePlatformStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
-        let tagLabelConstraints = [
-            tagLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tagLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tagLabel.topAnchor.constraint(equalTo: informationStackView.bottomAnchor)
+        let tagsStackViewConstraints = [
+            tagsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tagsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tagsStackView.topAnchor.constraint(equalTo: informationStackView.bottomAnchor, constant: 10)
         ]
         
         let aboutLabelConstraints = [
             aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            aboutLabel.topAnchor.constraint(equalTo: tagLabel.bottomAnchor)
+            aboutLabel.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant:  16)
+        ]
+        
+        let informationStackViewConstraints = [
+            informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            informationStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8)
+        ]
+        
+        let websiteStackViewConstraints = [
+            websiteStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            websiteStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            websiteStackView.topAnchor.constraint(equalTo: tagsStackView.bottomAnchor, constant: 10)
         ]
         
         NSLayoutConstraint.activate(imageSlidesCollectionViewConstraints)
@@ -263,8 +269,9 @@ class DetailGameViewController: UIViewController {
         NSLayoutConstraint.activate(nameLabelConstraints)
         NSLayoutConstraint.activate(informationStackViewConstraints)
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
-        NSLayoutConstraint.activate(tagLabelConstraints)
+        NSLayoutConstraint.activate(tagsStackViewConstraints)
         NSLayoutConstraint.activate(aboutLabelConstraints)
+        NSLayoutConstraint.activate(websiteStackViewConstraints)
     }
 
 }
@@ -279,6 +286,4 @@ extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDa
         
         return cell
     }
-    
-    
 }
