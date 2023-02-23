@@ -17,6 +17,7 @@ protocol HomePresenterProtocol {
     var isLoadingData: Bool { get set }
     
     func getGameDataPagination(page: Int)
+    func didSelectGameItem(with gameId: Int)
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -57,6 +58,10 @@ class HomePresenter: HomePresenterProtocol {
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
+    }
+    
+    func didSelectGameItem(with gameId: Int) {
+        router?.goToDetailGame(with: gameId)
     }
    
 }

@@ -121,5 +121,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.didSelectGameItem(with: gameDataPagination[indexPath.item].id)
+    }
+    
     
 }
