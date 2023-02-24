@@ -11,16 +11,22 @@ protocol DetailGameViewProtocol {
     var presenter: DetailGamePresenterProtocol? { get set }
     func updateGameDetail(with gameDetail: GameDetail)
     func updateGameDetail(with error: String)
+    
+    func updateGameScreenshot(with screenshots: [String])
+    func updateGameScreenshot(with error: String)
+    
     func isLoadingData(with state: Bool)
 }
 
 class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     var presenter: DetailGamePresenterProtocol?
     
-    var imgArr = [
-        UIImage(named: "testimage"),
-        UIImage(named: "testimage2")
-    ]
+//    var imgArr = [
+//        UIImage(named: "testimage"),
+//        UIImage(named: "testimage2")
+//    ]
+    
+    private var screenshotImages: [String] = []
     
     var timer = Timer()
     var counter = 0
@@ -57,7 +63,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
        let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
-        pageControl.numberOfPages = 2
         pageControl.currentPageIndicatorTintColor = .red
         pageControl.pageIndicatorTintColor = .gray
         return pageControl
@@ -155,7 +160,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         stackview.axis = .vertical
         stackview.distribution = .fillEqually
         stackview.spacing = 10
-//        stackview.spacing = 10
         
         return stackview
     }()
@@ -172,6 +176,19 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
 //        aboutLabel.text = gameDetail.description
         
     }
+    
+    func updateGameScreenshot(with screenshots: [String]) {
+        screenshotImages.append(contentsOf: screenshots)
+        self.imageSlidesPageControl.numberOfPages = screenshots.count
+        DispatchQueue.main.async {
+            self.imageSlidesCollectionView.reloadData()
+        }
+    }
+    
+    func updateGameScreenshot(with error: String) {
+        print(error)
+    }
+    
     
     func updateGameDetail(with error: String) {
         print(error)
@@ -208,7 +225,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         configureConstraints()
         self.navigationController?.isNavigationBarHidden = false
         DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
         
         tagsStackView = createItemInformation(title: "Tags", content: "Test 1, Test 3")
@@ -231,18 +248,20 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }
     
     @objc private func changeImage(){
-        if counter < imgArr.count {
-            let index = IndexPath(item: counter, section: 0)
-            
-            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            self.imageSlidesPageControl.currentPage = counter
-            counter += 1
-        } else {
-            counter = 0
-            let index = IndexPath(item: counter, section: 0)
-            
-            self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            self.imageSlidesPageControl.currentPage = counter
+        if !screenshotImages.isEmpty{
+            if counter < screenshotImages.count {
+                let index = IndexPath(item: counter, section: 0)
+                
+                self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+                self.imageSlidesPageControl.currentPage = counter
+                counter += 1
+            } else {
+                counter = 0
+                let index = IndexPath(item: counter, section: 0)
+                
+                self.imageSlidesCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+                self.imageSlidesPageControl.currentPage = counter
+            }
         }
     }
     
@@ -308,11 +327,13 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
 
 extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgArr.count
+        return screenshotImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageSlidesCollectionViewCell.identifier, for: indexPath) as? ImageSlidesCollectionViewCell else { return UICollectionViewCell()}
+        
+        cell.configure(with: screenshotImages[indexPath.item])
         
         return cell
     }

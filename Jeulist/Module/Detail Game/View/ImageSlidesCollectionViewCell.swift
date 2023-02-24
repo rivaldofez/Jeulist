@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ImageSlidesCollectionViewCell: UICollectionViewCell {
     static let identifier = "ImageSlidesCollectionViewCell"
@@ -36,6 +37,11 @@ class ImageSlidesCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(gameImageViewConstraints)
+    }
+    
+    func configure(with screenshot: String){
+        guard let url = URL(string: screenshot) else { return }
+        gameImageView.sd_setImage(with: url)
     }
     
     required init?(coder: NSCoder) {

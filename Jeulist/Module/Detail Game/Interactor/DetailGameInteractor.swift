@@ -10,9 +10,12 @@ import RxSwift
 
 protocol DetailGameUseCase {
     func getGameDetail(id: Int) -> Observable<GameDetail>
+    
+    func getGameScreenshot(id: Int) -> Observable<[String]>
 }
 
 class DetailGameInteractor: DetailGameUseCase {
+    
     private let repository: GameRepositoryProtocol
     
     required init(repository: GameRepositoryProtocol) {
@@ -22,4 +25,9 @@ class DetailGameInteractor: DetailGameUseCase {
     func getGameDetail(id: Int) -> Observable<GameDetail> {
         return repository.getGameDetail(id: id)
     }
+    
+    func getGameScreenshot(id: Int) -> RxSwift.Observable<[String]> {
+        return repository.getGameScreenshot(id: id)
+    }
+    
 }

@@ -14,6 +14,7 @@ protocol DetailGamePresenterProtocol {
     var view: DetailGameViewProtocol? { get set }
     
     var isLoadingdata: Bool { get set }
+    var isLoadingScreenshot: Bool { get set }
     func getGameDetail(id: Int)
     func setGameid(id: Int)
 }
@@ -25,16 +26,18 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
     var interactor: DetailGameUseCase?
     
     var view: DetailGameViewProtocol?
-    var gameId: Int? {
+    private var gameId: Int? {
         didSet {
             guard let gameId = gameId else { return }
             getGameDetail(id: gameId)
+            getGameScreenshot(id: gameId)
         }
     }
     
     private let disposeBag = DisposeBag()
     
     var isLoadingdata: Bool = false
+    var isLoadingScreenshot: Bool = false
     
     func setGameid(id: Int) {
         self.gameId = id
@@ -52,5 +55,20 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
             } onCompleted: {
                 self.isLoadingdata = false
             }.disposed(by: disposeBag)
+    }
+    
+    func getGameScreenshot(id: Int) {
+        isLoadingScreenshot = true
+        
+        interactor?.getGameScreenshot(id: id)
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] screenshots in
+                self?.view?.updateGameScreenshot(with: screenshots)
+            } onError: { error in
+                self.view?.updateGameScreenshot(with: error.localizedDescription)
+            } onCompleted: {
+                self.isLoadingScreenshot = false
+            }.disposed(by: disposeBag)
+        
     }
 }
