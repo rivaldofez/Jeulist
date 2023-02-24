@@ -11,7 +11,7 @@ import Alamofire
 
 
 protocol RemoteDataSourceProtocol: AnyObject {
-    func getGameDataPagination(page: Int) -> Observable<[GameItem]>
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[GameItem]>
     
     func getGameDetail(id: Int) -> Observable<GameDetailResponse>
     
@@ -61,9 +61,9 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
         }
     }
     
-    func getGameDataPagination(page: Int) -> RxSwift.Observable<[GameItem]> {
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[GameItem]> {
         return Observable<[GameItem]>.create { observer in
-            if let url = URL(string: "\(Endpoints.Gets.gamePagination.url)\(page)"){
+            if let url = URL(string: Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url){
                 AF.request(url)
                     .responseDecodable(of: GameResponse.self) { response in
                         switch response.result {

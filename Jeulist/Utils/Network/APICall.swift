@@ -18,13 +18,16 @@ protocol Endpoint {
 
 enum Endpoints {
     enum Gets: Endpoint {
-        case gamePagination
+        case gamePagination(pageSize: Int, page: Int, search: String)
         case gameDetail(Int)
         case gameScreenshot(Int)
         
         var url: String {
             switch self {
-            case .gamePagination: return "\(API.baseURL)games?key=\(API.apiKey)&page="
+            case .gamePagination(let pageSize, let page, let search):
+                let searchQuery = search.isEmpty ? search : "&search=\(search)"
+                
+                return "\(API.baseURL)games?key=\(API.apiKey)&page_size=\(pageSize)\(searchQuery)&page=\(page)"
             case .gameDetail(let id): return "\(API.baseURL)games/\(id)?key=\(API.apiKey)"
             case .gameScreenshot(let id): return "\(API.baseURL)games/\(id)/screenshots?key=\(API.apiKey)"
             }

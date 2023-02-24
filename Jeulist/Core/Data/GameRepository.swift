@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol GameRepositoryProtocol {
-    func getGameDataPagination(page: Int) -> Observable<[Game]>
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[Game]>
     func getGameDetail(id: Int) -> Observable<GameDetail>
     func getGameScreenshot(id: Int) -> Observable<[String]>
     
@@ -40,9 +40,9 @@ extension GameRepository: GameRepositoryProtocol {
         }
     }
     
-    func getGameDataPagination(page: Int) -> RxSwift.Observable<[Game]> {
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {
         
-        return self.remote.getGameDataPagination(page: page).map {
+        return self.remote.getGameDataPagination(pageSize: pageSize, page: page, search: search).map {
             GameMapper.mapGameItemResponseToDomain(input: $0)
         }
     }

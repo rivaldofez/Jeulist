@@ -81,7 +81,13 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         searchController.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.ignoresSearchSuggestionsForSearchBarPlacementStacked = true
         
+        searchController.searchBar.delegate = self
+//        searchController.delegate = self
+//        searchController.searchResultsUpdater = self
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        
+
         
         view.addSubview(gameCollectionView)
         
@@ -104,6 +110,20 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         ]
         
         NSLayoutConstraint.activate(gameCollectionViewConstraints)
+    }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("begin editing")
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("end")
     }
 }
 

@@ -10,7 +10,7 @@ import RxSwift
 
 
 protocol HomeUseCase {
-    func getGameDataPagination(page: Int) -> Observable<[Game]>
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[Game]>
 }
 
 class HomeInteractor: HomeUseCase {
@@ -20,8 +20,8 @@ class HomeInteractor: HomeUseCase {
         self.repository = repository
     }
     
-    func getGameDataPagination(page: Int) -> RxSwift.Observable<[Game]> {
-        return repository.getGameDataPagination(page: page)
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {
+        return repository.getGameDataPagination(pageSize: pageSize, page: page, search: search)
     }
     
     

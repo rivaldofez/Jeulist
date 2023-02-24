@@ -13,10 +13,11 @@ protocol HomePresenterProtocol {
     var interactor: HomeUseCase? { get set }
     var view: HomeViewProtocol? { get set }
 
-    var page: Int? { get set }
+    var page: Int { get set }
+    var searchQuery: String { get set }
     var isLoadingData: Bool { get set }
     
-    func getGameDataPagination(page: Int)
+    func getGameDataPagination(pageSize: Int, page: Int, search: String)
     func didSelectGameItem(with gameId: Int)
 }
 
@@ -33,10 +34,9 @@ class HomePresenter: HomePresenterProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var page: Int? {
+    var page: Int = 0 {
         didSet {
-            guard let page = page else { return }
-            getGameDataPagination(page: page)
+            getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
         }
     }
     
@@ -46,10 +46,18 @@ class HomePresenter: HomePresenterProtocol {
         }
     }
     
-    func getGameDataPagination(page: Int){
+    var searchQuery: String = "" {
+        didSet {
+            getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
+        }
+    }
+    
+    var pageSize: Int = 50
+    
+    func getGameDataPagination(pageSize: Int, page: Int, search: String){
         isLoadingData = true
         
-        interactor?.getGameDataPagination(page: page)
+        interactor?.getGameDataPagination(pageSize: pageSize, page: page, search: search)
             .observe(on: MainScheduler.instance)
             .subscribe{ [weak self] gameResult in
                 self?.view?.updateGameList(with: gameResult)
