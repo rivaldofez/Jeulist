@@ -11,6 +11,8 @@ import RxSwift
 protocol GameRepositoryProtocol {
     func getGameDataPagination(page: Int) -> Observable<[Game]>
     func getGameDetail(id: Int) -> Observable<GameDetail>
+    func getGameScreenshot(id: Int) -> Observable<[String]>
+    
 }
 
 final class GameRepository: NSObject {
@@ -28,6 +30,10 @@ final class GameRepository: NSObject {
 }
 
 extension GameRepository: GameRepositoryProtocol {
+    func getGameScreenshot(id: Int) -> RxSwift.Observable<[String]> {
+        return self.remote.getGameScreenshot(id: id).map{ $0.map{ $0.image }}
+    }
+    
     func getGameDetail(id: Int) -> RxSwift.Observable<GameDetail> {
         return self.remote.getGameDetail(id: id).map {
             GameMapper.mapGameDetailResponseToDomain(input: $0)
