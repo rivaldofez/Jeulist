@@ -74,7 +74,8 @@ final class GameMapper {
                           parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
                           publishers: gameDetailResponse.publishers.map{ $0.name }.joined(separator: ", "),
                           tags: gameDetailResponse.tags.map{ $0.name }.joined(separator: ", "),
-                          developers: gameDetailResponse.developers.map{ $0.name }.joined(separator: ", ")
+                          developers: gameDetailResponse.developers.map{ $0.name }.joined(separator: ", "),
+                          genres: gameDetailResponse.genres.map{ $0.name }.joined(separator: ", ")
                           
                           
         )

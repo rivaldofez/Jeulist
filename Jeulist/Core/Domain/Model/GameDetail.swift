@@ -47,4 +47,5 @@ struct GameDetail: Identifiable {
     let publishers: String
     let tags: String
     let developers: String
+    let genres: String
 }

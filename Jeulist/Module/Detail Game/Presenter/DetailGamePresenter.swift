@@ -25,7 +25,12 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
     var interactor: DetailGameUseCase?
     
     var view: DetailGameViewProtocol?
-    var gameId: Int?
+    var gameId: Int? {
+        didSet {
+            guard let gameId = gameId else { return }
+            getGameDetail(id: gameId)
+        }
+    }
     
     private let disposeBag = DisposeBag()
     

@@ -99,9 +99,6 @@ class GameCollectionViewCell: UICollectionViewCell {
         gameImageView.sd_setImage(with: imageUrl)
         
         setParentPlatformIcon(parentPlatforms: model.parentPlatforms)
-        
-        print(model.name)
-        print(model.parentPlatforms)
     }
     
     func setParentPlatformIcon(parentPlatforms: [String]){

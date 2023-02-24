@@ -17,19 +17,6 @@ protocol DetailGameViewProtocol {
 class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     var presenter: DetailGamePresenterProtocol?
     
-    func updateGameDetail(with gameDetail: GameDetail) {
-        print(gameDetail)
-    }
-    
-    func updateGameDetail(with error: String) {
-        print(error)
-    }
-    
-    func isLoadingData(with state: Bool) {
-        print(state)
-    }
-
-    
     var imgArr = [
         UIImage(named: "testimage"),
         UIImage(named: "testimage2")
@@ -111,6 +98,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
 
         return stackView
     }()
+
     
     private lazy var websiteStackView: UIStackView = {
         let stackView = createItemInformation(title: "Website", content: "www.google.com")
@@ -140,8 +128,8 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         stackview.addArrangedSubview(titleLabel)
         stackview.addArrangedSubview(contentLabel)
         stackview.spacing = 2
-        stackview.distribution = .fillEqually
-        stackview.alignment = .top
+//        stackview.distribution = .fillEqually
+//        stackview.alignment = .top
         
         return stackview
     }
@@ -167,9 +155,31 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         stackview.axis = .vertical
         stackview.distribution = .fillEqually
         stackview.spacing = 10
+//        stackview.spacing = 10
         
         return stackview
     }()
+    
+    func updateGameDetail(with gameDetail: GameDetail) {
+        nameLabel.text = gameDetail.name
+        setParentPlatformIcon(parentPlatforms: gameDetail.parentPlatforms)
+        
+        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Platform", firstContent: gameDetail.parentPlatforms.joined(separator: ", "), secondTitle: "Genre", secondContent: gameDetail.genres))
+        
+        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Release Date", firstContent: gameDetail.released, secondTitle: "Developer", secondContent: gameDetail.developers))
+        
+        
+//        aboutLabel.text = gameDetail.description
+        
+    }
+    
+    func updateGameDetail(with error: String) {
+        print(error)
+    }
+    
+    func isLoadingData(with state: Bool) {
+        print(state)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,8 +202,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         view.addSubview(aboutLabel)
         view.addSubview(websiteStackView)
         
-        setParentPlatformIcon(parentPlatforms: ["PC", "Android"])
-        
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
         
@@ -203,9 +211,11 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
             self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
         
-        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Platform", firstContent: "PC, Android, Mac, Windows", secondTitle: "Genre", secondContent: "Rock, Horro, RPG, Single"))
+        tagsStackView = createItemInformation(title: "Tags", content: "Test 1, Test 3")
+        tagsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Release Data", firstContent: "11 Januari 2022", secondTitle: "Developer", secondContent: "Nexon Company, Nexon Korea"))
+        websiteStackView = createItemInformation(title: "Heai", content: "Test 1, Test 3")
+        websiteStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setParentPlatformIcon(parentPlatforms: [String]){

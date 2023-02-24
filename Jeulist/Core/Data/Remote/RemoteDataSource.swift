@@ -28,9 +28,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                     .responseDecodable(of: GameDetailResponse.self) { response in
                         switch response.result {
                         case .success(let value):
-                            print("value in remote")
-                            print(value)
-                            
                             observer.onNext(value)
                             observer.onCompleted()
                         case .failure:
