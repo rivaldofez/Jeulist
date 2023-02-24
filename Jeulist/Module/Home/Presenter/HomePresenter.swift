@@ -48,6 +48,7 @@ class HomePresenter: HomePresenterProtocol {
     
     var searchQuery: String = "" {
         didSet {
+            pageSize = 1
             getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
         }
     }
