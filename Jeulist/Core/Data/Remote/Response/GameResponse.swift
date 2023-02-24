@@ -9,23 +9,25 @@ import Foundation
 
 // MARK: - GameResponse
 struct GameResponse: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
+        let count: Int
+        let next: String?
+        let previous: String?
     let results: [GameItem]
     let seoTitle, seoDescription, seoKeywords, seoH1: String
     let noindex, nofollow: Bool
     let description: String
-    let filters: Filters
+        let filters: Filters
     let nofollowCollections: [String]
-
+    
     enum CodingKeys: String, CodingKey {
-        case count, next, previous, results
+        case count, next, previous
+        case results
         case seoTitle = "seo_title"
         case seoDescription = "seo_description"
         case seoKeywords = "seo_keywords"
         case seoH1 = "seo_h1"
-        case noindex, nofollow, description, filters
+        case noindex, nofollow, description
+        case filters
         case nofollowCollections = "nofollow_collections"
     }
 }
@@ -59,29 +61,30 @@ struct GameItem: Codable {
     let backgroundImage: String
     let rating: Double
     let ratingTop: Int
-    let ratings: [Rating]
+//    let ratings: [Rating]
     let ratingsCount, reviewsTextCount, added: Int
     let addedByStatus: AddedByStatus
-    let metacritic, playtime, suggestionsCount: Int
+    let metacritic: Int?
+    let playtime, suggestionsCount: Int
     let updated: String
-//    let userGame: JSONNull?
+    //    let userGame: JSONNull?
     let reviewsCount: Int
     let saturatedColor, dominantColor: Color
-    let platforms: [PlatformElement]
+//    let platforms: [PlatformElement]
     let parentPlatforms: [ParentPlatform]
     let genres: [Genre]
     let stores: [Store]
-//    let clip: JSONNull?
+    //    let clip: JSONNull?
     let tags: [Genre]
-    let esrbRating: Component
-    let shortScreenshots: [ShortScreenshot]
-
+//    let esrbRating: Component
+//    let shortScreenshots: [ShortScreenshot]
+    
     enum CodingKeys: String, CodingKey {
         case id, slug, name, released, tba
         case backgroundImage = "background_image"
         case rating
         case ratingTop = "rating_top"
-        case ratings
+//        case ratings
         case ratingsCount = "ratings_count"
         case reviewsTextCount = "reviews_text_count"
         case added
@@ -89,17 +92,17 @@ struct GameItem: Codable {
         case metacritic, playtime
         case suggestionsCount = "suggestions_count"
         case updated
-//        case userGame = "user_game"
+        //        case userGame = "user_game"
         case reviewsCount = "reviews_count"
         case saturatedColor = "saturated_color"
         case dominantColor = "dominant_color"
-        case platforms
+//        case platforms
         case parentPlatforms = "parent_platforms"
         case genres, stores
-//        case clip
+        //        case clip
         case tags
-        case esrbRating = "esrb_rating"
-        case shortScreenshots = "short_screenshots"
+//        case esrbRating = "esrb_rating"
+//        case shortScreenshots = "short_screenshots"
     }
 }
 
@@ -127,7 +130,7 @@ struct Genre: Codable {
     let imageBackground: String
     let domain: Domain?
     let language: Language?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
@@ -162,7 +165,7 @@ struct PlatformElement: Codable {
     let platform: PlatformPlatform
     let releasedAt: String?
     let requirementsEn, requirementsRu: Requirements?
-
+    
     enum CodingKeys: String, CodingKey {
         case platform
         case releasedAt = "released_at"
@@ -175,15 +178,15 @@ struct PlatformElement: Codable {
 struct PlatformPlatform: Codable {
     let id: Int
     let name, slug: String
-//    let image, yearEnd: JSONNull?
+    //    let image, yearEnd: JSONNull?
     let yearStart: Int?
     let gamesCount: Int
     let imageBackground: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, slug
-//        case image
-//        case yearEnd = "year_end"
+        //        case image
+        //        case yearEnd = "year_end"
         case yearStart = "year_start"
         case gamesCount = "games_count"
         case imageBackground = "image_background"

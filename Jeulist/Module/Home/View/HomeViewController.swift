@@ -124,6 +124,7 @@ extension HomeViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("end")
+        print(searchBar.text)
     }
 }
 

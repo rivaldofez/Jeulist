@@ -23,7 +23,7 @@ final class GameMapper {
                 ratingsCount: gameItem.ratingsCount,
                 reviewsTextCount: gameItem.reviewsTextCount,
                 added: gameItem.added,
-                metaCritic: gameItem.metacritic,
+                metaCritic: gameItem.metacritic ?? 0,
                 playTime: gameItem.playtime,
                 suggestionCount: gameItem.suggestionsCount,
                 updated: gameItem.updated,
