@@ -18,7 +18,6 @@ struct Game: Identifiable {
     let ratingTop: Int
     let ratingsCount: Int
     let reviewsTextCount: Int
-    let added: Int
     let metaCritic: Int
     let playTime: Int
     let suggestionCount: Int

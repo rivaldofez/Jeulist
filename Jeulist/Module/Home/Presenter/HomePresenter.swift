@@ -34,7 +34,7 @@ class HomePresenter: HomePresenterProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var page: Int = 0 {
+    var page: Int = 1 {
         didSet {
             getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
         }
@@ -48,8 +48,8 @@ class HomePresenter: HomePresenterProtocol {
     
     var searchQuery: String = "" {
         didSet {
-            pageSize = 1
-            getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
+            page = 1
+//            getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
         }
     }
     

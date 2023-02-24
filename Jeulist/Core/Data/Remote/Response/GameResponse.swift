@@ -13,22 +13,11 @@ struct GameResponse: Codable {
         let next: String?
         let previous: String?
     let results: [GameItem]
-    let seoTitle, seoDescription, seoKeywords, seoH1: String
-    let noindex, nofollow: Bool
-    let description: String
-        let filters: Filters
-    let nofollowCollections: [String]
+
     
     enum CodingKeys: String, CodingKey {
         case count, next, previous
         case results
-        case seoTitle = "seo_title"
-        case seoDescription = "seo_description"
-        case seoKeywords = "seo_keywords"
-        case seoH1 = "seo_h1"
-        case noindex, nofollow, description
-        case filters
-        case nofollowCollections = "nofollow_collections"
     }
 }
 
@@ -62,8 +51,9 @@ struct GameItem: Codable {
     let rating: Double
     let ratingTop: Int
 //    let ratings: [Rating]
-    let ratingsCount, reviewsTextCount, added: Int
-    let addedByStatus: AddedByStatus
+    let ratingsCount, reviewsTextCount: Int
+//    let added: Int
+//    let addedByStatus: AddedByStatus
     let metacritic: Int?
     let playtime, suggestionsCount: Int
     let updated: String
@@ -72,10 +62,10 @@ struct GameItem: Codable {
     let saturatedColor, dominantColor: Color
 //    let platforms: [PlatformElement]
     let parentPlatforms: [ParentPlatform]
-    let genres: [Genre]
-    let stores: [Store]
+    let genres: [Genre]?
+    let stores: [Store]?
     //    let clip: JSONNull?
-    let tags: [Genre]
+    let tags: [Genre]?
 //    let esrbRating: Component
 //    let shortScreenshots: [ShortScreenshot]
     
@@ -87,8 +77,8 @@ struct GameItem: Codable {
 //        case ratings
         case ratingsCount = "ratings_count"
         case reviewsTextCount = "reviews_text_count"
-        case added
-        case addedByStatus = "added_by_status"
+//        case added
+//        case addedByStatus = "added_by_status"
         case metacritic, playtime
         case suggestionsCount = "suggestions_count"
         case updated

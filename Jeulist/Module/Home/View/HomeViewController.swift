@@ -115,16 +115,16 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("begin editing")
+        if searchText.isEmpty {
+            gameDataPagination.removeAll()
+            presenter?.searchQuery = ""
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("end")
-        print(searchBar.text)
+        let searchQuery = searchBar.text ?? ""
+        gameDataPagination.removeAll()
+        presenter?.searchQuery = searchQuery.lowercased()
     }
 }
 
