@@ -14,11 +14,9 @@ struct GameSearchResponse: Codable {
     let next: String?
     let previous: String?
     let results: [Result]?
-    let userPlatforms: Bool?
     
     enum CodingKeys: String, CodingKey {
         case count, next, previous, results
-        case userPlatforms = "user_platforms"
     }
 }
 
@@ -27,7 +25,7 @@ struct Result: Codable {
     let slug: String?
     let name: String?
     let playtime: Int?
-    //   let platforms: [Platform]?
+       let platforms: [Platform]?
     //   let stores: [Store]?
     let released: String?
     let tba: Bool?
@@ -45,7 +43,7 @@ struct Result: Codable {
     let id: Int?
     let score: String?
     //   let tags: [Tag]?
-    let esrbRating: EsrbRating?
+//    let esrbRating: EsrbRating?
     //   let userGame: JSONNull?
     let reviewsCount: Int?
     let communityRating: Int?
@@ -56,7 +54,7 @@ struct Result: Codable {
     
     enum CodingKeys: String, CodingKey {
         case slug, name, playtime
-//        case platforms
+        case platforms
 //        case stores
         case released, tba
         case backgroundImage = "background_image"
@@ -72,7 +70,7 @@ struct Result: Codable {
         case updated, id, score
         //       case clip
         //       case tags
-        case esrbRating = "esrb_rating"
+//        case esrbRating = "esrb_rating"
         //       case userGame = "user_game"
         case reviewsCount = "reviews_count"
         case communityRating = "community_rating"
@@ -94,28 +92,28 @@ struct Result: Codable {
 //   case the0F0F0F = "0f0f0f"
 //}
 
-// MARK: - EsrbRating
-struct EsrbRating: Codable {
-    let id: Int?
-    let name, slug, nameEn, nameRu: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case id, name, slug
-        case nameEn = "name_en"
-        case nameRu = "name_ru"
-    }
+//// MARK: - EsrbRating
+//struct EsrbRating: Codable {
+//    let id: Int?
+//    let name, slug, nameEn, nameRu: String?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case id, name, slug
+//        case nameEn = "name_en"
+//        case nameRu = "name_ru"
+//    }
+//}
+
+// MARK: - Genre
+struct Genre: Codable {
+   let id: Int?
+   let name, slug: String?
 }
 
-//// MARK: - Genre
-//struct Genre: Codable {
-//   let id: Int?
-//   let name, slug: String?
-//}
-
-//// MARK: - Platform
-//struct Platform: Codable {
-//   let platform: Genre?
-//}
+// MARK: - Platform
+struct Platform: Codable {
+   let platform: Genre?
+}
 
 //// MARK: - Rating
 //struct Rating: Codable {
