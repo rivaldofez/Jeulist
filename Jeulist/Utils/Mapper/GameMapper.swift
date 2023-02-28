@@ -12,22 +12,22 @@ final class GameMapper {
         
         return gameItems.map { gameItem in
             let newGame = Game(
-                id: gameItem.id,
-                slug: gameItem.slug,
-                name: gameItem.name,
-                released: gameItem.released,
-                tba: gameItem.tba,
-                backgroundImage: gameItem.backgroundImage,
-                rating: gameItem.rating,
-                ratingTop: gameItem.ratingTop,
-                ratingsCount: gameItem.ratingsCount,
-                reviewsTextCount: gameItem.reviewsTextCount,
+                id: gameItem.id ?? 0,
+                slug: gameItem.slug ?? "",
+                name: gameItem.name ?? "",
+                released: gameItem.released ?? "",
+                tba: gameItem.tba ?? false,
+                backgroundImage: gameItem.backgroundImage ?? "",
+                rating: gameItem.rating ?? 0.0,
+                ratingTop: gameItem.ratingTop ?? 0,
+                ratingsCount: gameItem.ratingsCount ?? 0,
+                reviewsTextCount: gameItem.reviewsTextCount ?? 0,
                 metaCritic: gameItem.metacritic ?? 0,
-                playTime: gameItem.playtime,
-                suggestionCount: gameItem.suggestionsCount,
-                updated: gameItem.updated,
-                reviewsCount: gameItem.reviewsCount,
-                parentPlatforms: gameItem.parentPlatforms.map { $0.platform.name }
+                playTime: gameItem.playtime ?? 0,
+                suggestionCount: gameItem.suggestionsCount ?? 0,
+                updated: gameItem.updated ?? "",
+                reviewsCount: gameItem.reviewsCount ?? 0,
+                parentPlatforms: gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
             )
             
             return newGame

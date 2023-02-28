@@ -9,11 +9,11 @@ import Foundation
 
 
 // MARK: - GameSearchResponse
-struct GameSearchResponse: Codable {
+struct GameResponse: Codable {
     let count: Int?
     let next: String?
     let previous: String?
-    let results: [Result]?
+    let results: [GameItem]?
     
     enum CodingKeys: String, CodingKey {
         case count, next, previous, results
@@ -21,18 +21,18 @@ struct GameSearchResponse: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct GameItem: Codable {
     let slug: String?
     let name: String?
     let playtime: Int?
        let platforms: [Platform]?
-    //   let stores: [Store]?
+       let stores: [Store]?
     let released: String?
     let tba: Bool?
     let backgroundImage: String?
     let rating: Double?
     let ratingTop: Int?
-    //   let ratings: [Rating]?
+    let ratings: [Rating]?
     let ratingsCount: Int?
     let reviewsTextCount: Int?
     let added: Int?
@@ -42,25 +42,25 @@ struct Result: Codable {
     let updated: String?
     let id: Int?
     let score: String?
-    //   let tags: [Tag]?
+       let tags: [Tag]?
 //    let esrbRating: EsrbRating?
     //   let userGame: JSONNull?
     let reviewsCount: Int?
     let communityRating: Int?
     //   let saturatedColor, dominantColor: Color?
     //   let shortScreenshots: [ShortScreenshot]?
-    //   let parentPlatforms: [Platform]?
-    //   let genres: [Genre]?
+       let parentPlatforms: [Platform]?
+//       let genres: [Genre]?
     
     enum CodingKeys: String, CodingKey {
         case slug, name, playtime
         case platforms
-//        case stores
+        case stores
         case released, tba
         case backgroundImage = "background_image"
         case rating
         case ratingTop = "rating_top"
-        //       case ratings
+               case ratings
         case ratingsCount = "ratings_count"
         case reviewsTextCount = "reviews_text_count"
         case added
@@ -69,7 +69,7 @@ struct Result: Codable {
         case suggestionsCount = "suggestions_count"
         case updated, id, score
         //       case clip
-        //       case tags
+               case tags
 //        case esrbRating = "esrb_rating"
         //       case userGame = "user_game"
         case reviewsCount = "reviews_count"
@@ -77,8 +77,8 @@ struct Result: Codable {
         //       case saturatedColor = "saturated_color"
         //       case dominantColor = "dominant_color"
         //       case shortScreenshots = "short_screenshots"
-        //       case parentPlatforms = "parent_platforms"
-        //       case genres
+               case parentPlatforms = "parent_platforms"
+//               case genres
     }
 }
 
@@ -115,13 +115,13 @@ struct Platform: Codable {
    let platform: Genre?
 }
 
-//// MARK: - Rating
-//struct Rating: Codable {
-//   let id: Int?
+// MARK: - Rating
+struct Rating: Codable {
+   let id: Int?
 //   let title: Title?
-//   let count: Int?
-//   let percent: Double?
-//}
+   let count: Int?
+   let percent: Double?
+}
 
 //enum Title: String, Codable {
 //   case exceptional = "exceptional"
@@ -130,31 +130,32 @@ struct Platform: Codable {
 //   case skip = "skip"
 //}
 
-//// MARK: - ShortScreenshot
-//struct ShortScreenshot: Codable {
-//   let id: Int?
-//   let image: String?
-//}
+// MARK: - ShortScreenshot
+struct ShortScreenshot: Codable {
+   let id: Int?
+   let image: String?
+}
 
-//// MARK: - Store
-//struct Store: Codable {
-//   let store: Genre?
-//}
+// MARK: - Store
+struct Store: Codable {
+   let store: Genre?
+}
 
-//// MARK: - Tag
-//struct Tag: Codable {
-//   let id: Int?
-//   let name, slug: String?
+// MARK: - Tag
+struct Tag: Codable {
+   let id: Int?
+   let name, slug: String?
 //   let language: Language?
-//   let gamesCount: Int?
-//   let imageBackground: String?
-//
-//   enum CodingKeys: String, CodingKey {
-//       case id, name, slug, language
-//       case gamesCount = "games_count"
-//       case imageBackground = "image_background"
-//   }
-//}
+   let gamesCount: Int?
+   let imageBackground: String?
+
+   enum CodingKeys: String, CodingKey {
+       case id, name, slug
+//            case language
+       case gamesCount = "games_count"
+       case imageBackground = "image_background"
+   }
+}
 
 //enum Language: String, Codable {
 //   case eng = "eng"

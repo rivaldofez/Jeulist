@@ -107,25 +107,32 @@ struct SubObjectComponent: Codable {
     let gamesCount: Int
     let imageBackground: String
     let domain: String?
-    let language: Language?
+//    let language: Language?
 
     enum CodingKeys: String, CodingKey {
         case id, name, slug
         case gamesCount = "games_count"
         case imageBackground = "image_background"
-        case domain, language
+        case domain
+//        case language
     }
 }
+
+//struct Component: Codable {
+//    let id: Int
+//    let name, slug: String
+//}
+
 
 //enum Language: String, Codable {
 //    case eng = "eng"
 //}
 
-//// MARK: - EsrbRating
-//struct EsrbRating: Codable {
-//    let id: Int
-//    let name, slug: String
-//}
+// MARK: - EsrbRating
+struct EsrbRating: Codable {
+    let id: Int
+    let name, slug: String
+}
 
 // MARK: - MetacriticPlatform
 struct MetacriticPlatform: Codable {
@@ -140,11 +147,11 @@ struct MetacriticPlatformPlatform: Codable {
     let name, slug: String
 }
 
-// MARK: - ParentPlatform
-//struct ParentPlatform: Codable {
-//    let platform: EsrbRating
-//}
-//
+ // MARK: - ParentPlatform
+struct ParentPlatform: Codable {
+    let platform: EsrbRating
+}
+
 //// MARK: - PlatformElement
 //struct PlatformElement: Codable {
 //    let platform: PlatformPlatform
