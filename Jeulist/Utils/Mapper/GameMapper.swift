@@ -11,6 +11,9 @@ final class GameMapper {
     static func mapGameItemResponseToDomain(input gameItems: [GameItem]) -> [Game] {
         
         return gameItems.map { gameItem in
+            
+            let parentPlatforms: [Platform] = gameItem.parentPlatforms ?? []
+            
             let newGame = Game(
                 id: gameItem.id ?? 0,
                 slug: gameItem.slug ?? "",
@@ -27,7 +30,11 @@ final class GameMapper {
                 suggestionCount: gameItem.suggestionsCount ?? 0,
                 updated: gameItem.updated ?? "",
                 reviewsCount: gameItem.reviewsCount ?? 0,
-                parentPlatforms: gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
+                parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
+                    $0.platform?.name ?? ""
+                }
+                    
+//                    gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
             )
             
             return newGame

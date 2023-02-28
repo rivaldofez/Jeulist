@@ -69,7 +69,7 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                     .responseDecodable(of: GameResponse.self) { response in
                         switch response.result {
                         case .success(let value):
-                            observer.onNext(value.results)
+                            observer.onNext(value.results ?? [])
                             observer.onCompleted()
                         case .failure:
                             observer.onError(URLError.invalidResponse)
