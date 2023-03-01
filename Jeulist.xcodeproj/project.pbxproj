@@ -33,7 +33,6 @@
 		7E78155629A1152B0033F232 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E78155429A1152B0033F232 /* LaunchScreen.storyboard */; };
 		7E78156429A119D40033F232 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78156329A119D40033F232 /* HomeViewController.swift */; };
 		7EAA1C9329A86B89009B245E /* ScreenshotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */; };
-		7EAB86DE29AFB4FE00E40559 /* GameDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */; };
 		7EEDEEB429AA7255002D8506 /* GameReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDEEB329AA7255002D8506 /* GameReponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +65,6 @@
 		7E78155729A1152B0033F232 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E78156329A119D40033F232 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotResponse.swift; sourceTree = "<group>"; };
-		7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDResponse.swift; sourceTree = "<group>"; };
 		7EEDEEB329AA7255002D8506 /* GameReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReponse.swift; sourceTree = "<group>"; };
 		8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.debug.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.debug.xcconfig"; sourceTree = "<group>"; };
 		E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.release.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				7E3325A529A468C100E8B693 /* GameDetailResponse.swift */,
 				7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */,
 				7EEDEEB329AA7255002D8506 /* GameReponse.swift */,
-				7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -460,7 +457,6 @@
 				7E3325B129A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift in Sources */,
 				7E3325AF29A4B08A00E8B693 /* DetailGameViewController.swift in Sources */,
 				7E112A9329A353950061C9AC /* CustomError+Extension.swift in Sources */,
-				7EAB86DE29AFB4FE00E40559 /* GameDResponse.swift in Sources */,
 				7EAA1C9329A86B89009B245E /* ScreenshotResponse.swift in Sources */,
 				7E78156429A119D40033F232 /* HomeViewController.swift in Sources */,
 				7E112A8329A31ADE0061C9AC /* HomeInteractor.swift in Sources */,

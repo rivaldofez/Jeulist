@@ -33,8 +33,6 @@ struct GameDetail: Identifiable {
     let redditName: String
     let redditDescription: String
     let redditLogo: String
-    let redditCount: Int
-    let suggestionCount: Int
     let metacriticURL: String
     let parentsCount: Int
     let additionCount: Int

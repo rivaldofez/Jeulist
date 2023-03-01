@@ -42,46 +42,55 @@ final class GameMapper {
     }
     
     static func mapGameDetailResponseToDomain(input gameDetailResponse: GameDetailResponse) -> GameDetail {
-        return GameDetail(id: gameDetailResponse.id,
-                          slug: gameDetailResponse.slug,
-                          name: gameDetailResponse.name,
-                          nameOriginal: gameDetailResponse.nameOriginal,
-                          description: gameDetailResponse.description,
-                          metacritic: gameDetailResponse.metacritic,
-                          released: gameDetailResponse.released,
-                          tba: gameDetailResponse.tba,
-                          updated: gameDetailResponse.updated,
-                          backgroundImage: gameDetailResponse.backgroundImage,
-                          backgroundImageAdditional: gameDetailResponse.backgroundImageAdditional,
-                          website: gameDetailResponse.website,
-                          rating: gameDetailResponse.rating,
-                          ratingTop: gameDetailResponse.ratingTop,
-                          added: gameDetailResponse.added,
-                          playTime: gameDetailResponse.playtime,
-                          screenshotsCount: gameDetailResponse.screenshotsCount,
-                          moviesCount: gameDetailResponse.moviesCount,
-                          creatorsCount: gameDetailResponse.creatorsCount,
-                          achievementCount: gameDetailResponse.achievementsCount,
-                          parentAchievementCount: gameDetailResponse.parentAchievementsCount,
-                          redditURL: gameDetailResponse.redditURL,
-                          redditName: gameDetailResponse.redditName,
-                          redditDescription: gameDetailResponse.redditDescription,
-                          redditLogo: gameDetailResponse.redditLogo,
-                          redditCount: gameDetailResponse.redditCount,
-                          suggestionCount: gameDetailResponse.suggestionsCount,
-                          metacriticURL: gameDetailResponse.metacriticURL,
-                          parentsCount: gameDetailResponse.parentsCount,
-                          additionCount: gameDetailResponse.additionsCount,
-                          gameSeriesCount: gameDetailResponse.gameSeriesCount,
-                          reviewCount: gameDetailResponse.reviewsCount,
-                          saturatedColor: gameDetailResponse.saturatedColor,
-                          dominantColor: gameDetailResponse.dominantColor,
-                          descriptionRaw: gameDetailResponse.descriptionRaw,
-                          parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
-                          publishers: gameDetailResponse.publishers.map{ $0.name }.joined(separator: ", "),
-                          tags: gameDetailResponse.tags.map{ $0.name }.joined(separator: ", "),
-                          developers: gameDetailResponse.developers.map{ $0.name }.joined(separator: ", "),
-                          genres: gameDetailResponse.genres.map{ $0.name }.joined(separator: ", ")
+        let parentPlatforms: [ParentPlatform] = gameDetailResponse.parentPlatforms ?? []
+        let publishers : [Developer] = gameDetailResponse.publishers ?? []
+        let tags: [Developer] = gameDetailResponse.tags ?? []
+        let developers : [Developer] = gameDetailResponse.developers ?? []
+        let genres: [Developer]  = gameDetailResponse.genres ?? []
+        
+        return GameDetail(id: gameDetailResponse.id ?? 0,
+                          slug: gameDetailResponse.slug ?? "",
+                          name: gameDetailResponse.name ?? "",
+                          nameOriginal: gameDetailResponse.nameOriginal ?? "",
+                          description: gameDetailResponse.description ?? "",
+                          metacritic: gameDetailResponse.metacritic ?? 0,
+                          released: gameDetailResponse.released ?? "",
+                          tba: gameDetailResponse.tba ?? false,
+                          updated: gameDetailResponse.updated ?? "",
+                          backgroundImage: gameDetailResponse.backgroundImage ?? "",
+                          backgroundImageAdditional: gameDetailResponse.backgroundImageAdditional ?? "",
+                          website: gameDetailResponse.website ?? "",
+                          rating: gameDetailResponse.rating ?? 0.0,
+                          ratingTop: gameDetailResponse.ratingTop ?? 0,
+                          added: gameDetailResponse.added ?? 0,
+                          playTime: gameDetailResponse.playtime ?? 0, screenshotsCount: 0,
+                          moviesCount: gameDetailResponse.moviesCount ?? 0,
+                          creatorsCount: gameDetailResponse.creatorsCount ?? 0,
+                          achievementCount: gameDetailResponse.achievementsCount ?? 0,
+                          parentAchievementCount: gameDetailResponse.parentAchievementsCount ?? 0,
+                          redditURL: gameDetailResponse.redditURL ?? "",
+                          redditName: gameDetailResponse.redditName ?? "",
+                          redditDescription: gameDetailResponse.redditDescription ?? "",
+                          redditLogo: gameDetailResponse.redditLogo ?? "",
+                          metacriticURL: gameDetailResponse.metacriticURL ?? "",
+                          parentsCount: gameDetailResponse.parentsCount ?? 0,
+                          additionCount: gameDetailResponse.additionsCount ?? 0,
+                          gameSeriesCount: gameDetailResponse.gameSeriesCount ?? 0,
+                          reviewCount: gameDetailResponse.reviewsCount ?? 0,
+                          saturatedColor: gameDetailResponse.saturatedColor ?? "",
+                          dominantColor: gameDetailResponse.dominantColor ?? "",
+                          descriptionRaw: gameDetailResponse.descriptionRaw ?? "",
+//                          parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
+                          parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
+            $0.platform?.name ?? ""},
+                          publishers: publishers.isEmpty ? "" : publishers.map{
+            $0.name ?? ""}.joined(separator: ", "),
+                          tags: tags.isEmpty ? "" : tags.map{
+            $0.name ?? ""}.joined(separator: ", "),
+                          developers: developers.isEmpty ? "" : developers.map{
+            $0.name ?? ""}.joined(separator: ", "),
+                          genres: genres.isEmpty ? "" : genres.map{
+            $0.name ?? ""}.joined(separator: ", ")
                           
                           
         )
