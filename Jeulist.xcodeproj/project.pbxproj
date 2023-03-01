@@ -14,7 +14,6 @@
 		7E112A8929A31BBE0061C9AC /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8829A31BBE0061C9AC /* RemoteDataSource.swift */; };
 		7E112A8B29A31BD70061C9AC /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8A29A31BD70061C9AC /* GameRepository.swift */; };
 		7E112A8E29A31D030061C9AC /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8D29A31D030061C9AC /* APICall.swift */; };
-		7E112A9029A31E950061C9AC /* GameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A8F29A31E950061C9AC /* GameResponse.swift */; };
 		7E112A9329A353950061C9AC /* CustomError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A9229A353950061C9AC /* CustomError+Extension.swift */; };
 		7E112A9729A3561B0061C9AC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A9629A3561B0061C9AC /* Game.swift */; };
 		7E112A9A29A35C860061C9AC /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E112A9929A35C860061C9AC /* GameMapper.swift */; };
@@ -34,7 +33,8 @@
 		7E78155629A1152B0033F232 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E78155429A1152B0033F232 /* LaunchScreen.storyboard */; };
 		7E78156429A119D40033F232 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78156329A119D40033F232 /* HomeViewController.swift */; };
 		7EAA1C9329A86B89009B245E /* ScreenshotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */; };
-		7EEDEEB429AA7255002D8506 /* GameSearchResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDEEB329AA7255002D8506 /* GameSearchResponses.swift */; };
+		7EAB86DE29AFB4FE00E40559 /* GameDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */; };
+		7EEDEEB429AA7255002D8506 /* GameReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDEEB329AA7255002D8506 /* GameReponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +45,6 @@
 		7E112A8829A31BBE0061C9AC /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
 		7E112A8A29A31BD70061C9AC /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
 		7E112A8D29A31D030061C9AC /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
-		7E112A8F29A31E950061C9AC /* GameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResponse.swift; sourceTree = "<group>"; };
 		7E112A9229A353950061C9AC /* CustomError+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomError+Extension.swift"; sourceTree = "<group>"; };
 		7E112A9629A3561B0061C9AC /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		7E112A9929A35C860061C9AC /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
@@ -67,7 +66,8 @@
 		7E78155729A1152B0033F232 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E78156329A119D40033F232 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotResponse.swift; sourceTree = "<group>"; };
-		7EEDEEB329AA7255002D8506 /* GameSearchResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSearchResponses.swift; sourceTree = "<group>"; };
+		7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDResponse.swift; sourceTree = "<group>"; };
+		7EEDEEB329AA7255002D8506 /* GameReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReponse.swift; sourceTree = "<group>"; };
 		8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.debug.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.debug.xcconfig"; sourceTree = "<group>"; };
 		E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.release.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,10 +146,10 @@
 		7E112A8629A31BA10061C9AC /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				7E112A8F29A31E950061C9AC /* GameResponse.swift */,
 				7E3325A529A468C100E8B693 /* GameDetailResponse.swift */,
 				7EAA1C9229A86B89009B245E /* ScreenshotResponse.swift */,
-				7EEDEEB329AA7255002D8506 /* GameSearchResponses.swift */,
+				7EEDEEB329AA7255002D8506 /* GameReponse.swift */,
+				7EAB86DD29AFB4FE00E40559 /* GameDResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -460,6 +460,7 @@
 				7E3325B129A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift in Sources */,
 				7E3325AF29A4B08A00E8B693 /* DetailGameViewController.swift in Sources */,
 				7E112A9329A353950061C9AC /* CustomError+Extension.swift in Sources */,
+				7EAB86DE29AFB4FE00E40559 /* GameDResponse.swift in Sources */,
 				7EAA1C9329A86B89009B245E /* ScreenshotResponse.swift in Sources */,
 				7E78156429A119D40033F232 /* HomeViewController.swift in Sources */,
 				7E112A8329A31ADE0061C9AC /* HomeInteractor.swift in Sources */,
@@ -472,9 +473,8 @@
 				7E112A8029A31AAD0061C9AC /* HomeRouter.swift in Sources */,
 				7E185A2029A77C7A000F23C1 /* DetailGameInteractor.swift in Sources */,
 				7E185A1E29A77B5E000F23C1 /* DetailGameRouter.swift in Sources */,
-				7EEDEEB429AA7255002D8506 /* GameSearchResponses.swift in Sources */,
+				7EEDEEB429AA7255002D8506 /* GameReponse.swift in Sources */,
 				7E185A1A29A665D2000F23C1 /* GameConverter.swift in Sources */,
-				7E112A9029A31E950061C9AC /* GameResponse.swift in Sources */,
 				7E112A8E29A31D030061C9AC /* APICall.swift in Sources */,
 				7E185A1729A6603A000F23C1 /* Injection.swift in Sources */,
 			);
