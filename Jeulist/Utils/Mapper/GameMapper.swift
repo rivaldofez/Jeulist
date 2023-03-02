@@ -33,8 +33,8 @@ final class GameMapper {
                 parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
                     $0.platform?.name ?? ""
                 }
-                    
-//                    gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
+                
+                //                    gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
             )
             
             return newGame
@@ -43,10 +43,10 @@ final class GameMapper {
     
     static func mapGameDetailResponseToDomain(input gameDetailResponse: GameDetailResponse) -> GameDetail {
         let parentPlatforms: [ParentPlatform] = gameDetailResponse.parentPlatforms ?? []
-        let publishers : [Developer] = gameDetailResponse.publishers ?? []
-        let tags: [Developer] = gameDetailResponse.tags ?? []
-        let developers : [Developer] = gameDetailResponse.developers ?? []
-        let genres: [Developer]  = gameDetailResponse.genres ?? []
+        let publishers : [Component] = gameDetailResponse.publishers ?? []
+        let tags: [Component] = gameDetailResponse.tags ?? []
+        let developers : [Component] = gameDetailResponse.developers ?? []
+        let genres: [Component]  = gameDetailResponse.genres ?? []
         
         return GameDetail(id: gameDetailResponse.id ?? 0,
                           slug: gameDetailResponse.slug ?? "",
@@ -80,7 +80,7 @@ final class GameMapper {
                           saturatedColor: gameDetailResponse.saturatedColor ?? "",
                           dominantColor: gameDetailResponse.dominantColor ?? "",
                           descriptionRaw: gameDetailResponse.descriptionRaw ?? "",
-//                          parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
+                          //                          parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
                           parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
             $0.platform?.name ?? ""},
                           publishers: publishers.isEmpty ? "" : publishers.map{

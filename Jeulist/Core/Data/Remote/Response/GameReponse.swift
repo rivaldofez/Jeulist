@@ -104,15 +104,9 @@ struct GameItem: Codable {
 //    }
 //}
 
-// MARK: - Genre
-struct Genre: Codable {
-   let id: Int?
-   let name, slug: String?
-}
-
 // MARK: - Platform
 struct Platform: Codable {
-   let platform: Genre?
+   let platform: Component?
 }
 
 // MARK: - Rating
@@ -138,7 +132,7 @@ struct ShortScreenshot: Codable {
 
 // MARK: - Store
 struct Store: Codable {
-   let store: Genre?
+   let store: Component?
 }
 
 // MARK: - Tag
