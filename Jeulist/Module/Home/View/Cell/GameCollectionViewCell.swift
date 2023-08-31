@@ -113,6 +113,12 @@ class GameCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        for itemView in gamePlatformStackView.arrangedSubviews {
+            itemView.removeFromSuperview()
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
