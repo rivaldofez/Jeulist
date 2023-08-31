@@ -79,7 +79,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         searchController.searchBar.showsScopeBar = true
         searchController.automaticallyShowsCancelButton = true
         searchController.navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.ignoresSearchSuggestionsForSearchBarPlacementStacked = true
+//        searchController.ignoresSearchSuggestionsForSearchBarPlacementStacked = true
         
         searchController.searchBar.delegate = self
 //        searchController.delegate = self

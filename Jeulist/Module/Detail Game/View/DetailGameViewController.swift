@@ -118,23 +118,26 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         titleLabel.text = title
         titleLabel.textColor = .secondaryLabel
         titleLabel.font = .systemFont(ofSize: 14)
+//        titleLabel.backgroundColor = .yellow
         
         let contentLabel = UILabel()
         contentLabel.text = content
         contentLabel.sizeToFit()
         contentLabel.font = .systemFont(ofSize: 16)
         contentLabel.textColor = .label
+//        contentLabel.backgroundColor = .blue
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .left
+        
         
         
         let stackview = UIStackView()
         stackview.axis = .vertical
         stackview.addArrangedSubview(titleLabel)
         stackview.addArrangedSubview(contentLabel)
-        stackview.spacing = 2
-//        stackview.distribution = .fillEqually
-//        stackview.alignment = .top
+        stackview.distribution = .equalSpacing
+        stackview.alignment = .leading
+        stackview.spacing = 8
         
         return stackview
     }
@@ -145,8 +148,11 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         let secondItem = createItemInformation(title: secondTitle, content: secondContent)
         
         let stackView = UIStackView()
+//        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.alignment = .top
+        stackView.spacing = 8
         stackView.addArrangedSubview(firstItem)
         stackView.addArrangedSubview(secondItem)
         
