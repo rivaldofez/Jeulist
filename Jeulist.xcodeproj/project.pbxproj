@@ -36,6 +36,8 @@
 		7EC248202AA0AA4F00C01ACB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC2481F2AA0AA4F00C01ACB /* MainTabBarController.swift */; };
 		7EC248242AA0B1F300C01ACB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC248232AA0B1F300C01ACB /* ProfileViewController.swift */; };
 		7EC248282AA0B21800C01ACB /* FavoriteGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC248272AA0B21800C01ACB /* FavoriteGameViewController.swift */; };
+		7EC2482E2AA0D30100C01ACB /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC2482D2AA0D30100C01ACB /* ProfileRouter.swift */; };
+		7EC248302AA0D32800C01ACB /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC2482F2AA0D32800C01ACB /* ProfilePresenter.swift */; };
 		7EEDEEB429AA7255002D8506 /* GameReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDEEB329AA7255002D8506 /* GameReponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		7EC2481F2AA0AA4F00C01ACB /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		7EC248232AA0B1F300C01ACB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7EC248272AA0B21800C01ACB /* FavoriteGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGameViewController.swift; sourceTree = "<group>"; };
+		7EC2482D2AA0D30100C01ACB /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		7EC2482F2AA0D32800C01ACB /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		7EEDEEB329AA7255002D8506 /* GameReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReponse.swift; sourceTree = "<group>"; };
 		8BCD516F664BD62134DDD575 /* Pods-Jeulist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.debug.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.debug.xcconfig"; sourceTree = "<group>"; };
 		E865D218DF0717180B3E6201 /* Pods-Jeulist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jeulist.release.xcconfig"; path = "Target Support Files/Pods-Jeulist/Pods-Jeulist.release.xcconfig"; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 		7EC248212AA0AF0600C01ACB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				7EC2482C2AA0D2F400C01ACB /* Router */,
+				7EC2482B2AA0D2EA00C01ACB /* Presenter */,
 				7EC248232AA0B1F300C01ACB /* ProfileViewController.swift */,
 			);
 			path = Profile;
@@ -374,6 +380,22 @@
 				7EC248272AA0B21800C01ACB /* FavoriteGameViewController.swift */,
 			);
 			path = FavoriteGame;
+			sourceTree = "<group>";
+		};
+		7EC2482B2AA0D2EA00C01ACB /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7EC2482F2AA0D32800C01ACB /* ProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7EC2482C2AA0D2F400C01ACB /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7EC2482D2AA0D30100C01ACB /* ProfileRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,6 +521,7 @@
 				7E185A1C29A77B3A000F23C1 /* DetailGamePresenter.swift in Sources */,
 				7E3325B129A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift in Sources */,
 				7E3325AF29A4B08A00E8B693 /* DetailGameViewController.swift in Sources */,
+				7EC2482E2AA0D30100C01ACB /* ProfileRouter.swift in Sources */,
 				7E112A9329A353950061C9AC /* CustomError+Extension.swift in Sources */,
 				7EAA1C9329A86B89009B245E /* ScreenshotResponse.swift in Sources */,
 				7EC248242AA0B1F300C01ACB /* ProfileViewController.swift in Sources */,
@@ -510,6 +533,7 @@
 				7E112A9729A3561B0061C9AC /* Game.swift in Sources */,
 				7E112A7E29A31A870061C9AC /* HomePresenter.swift in Sources */,
 				7E112A9D29A36F780061C9AC /* GameCollectionViewCell.swift in Sources */,
+				7EC248302AA0D32800C01ACB /* ProfilePresenter.swift in Sources */,
 				7E112A8029A31AAD0061C9AC /* HomeRouter.swift in Sources */,
 				7E185A2029A77C7A000F23C1 /* DetailGameInteractor.swift in Sources */,
 				7E185A1E29A77B5E000F23C1 /* DetailGameRouter.swift in Sources */,
