@@ -66,7 +66,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "High on Life"
-//        label.backgroundColor = .gray.withAlphaComponent(0.2)
         label.font = .systemFont(ofSize: 25, weight: .bold)
         label.textAlignment = .center
         
@@ -118,6 +117,30 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         stackView.spacing = 16
         stackView.alignment = .center
         return stackView
+    }()
+    
+    private var ratingStackView: UIStackView = {
+        
+        let image = UIImageView(image: UIImage(named: "icon_rating"))
+        image.widthAnchor.constraint(equalToConstant: 22).isActive = true
+        image.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "10/10"
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textAlignment = .center
+        
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        
+        stackView.addArrangedSubview(image)
+        stackView.addArrangedSubview(label)
+        
+        return stackView
+        
     }()
     
     private func createItemInformation(title: String, content: String) -> UIStackView {
@@ -188,6 +211,9 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
         guard let webLabel = websiteStackView.subviews[1] as? UILabel else { return }
         webLabel.text = gameDetail.website
+        
+        guard let webLabel = ratingStackView.subviews[1] as? UILabel else { return }
+        webLabel.text = "\(gameDetail.rating) / 5.0"
     }
     
     func updateGameScreenshot(with screenshots: [String]) {
@@ -226,6 +252,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         mainScrollStackView.addArrangedSubview(imageSlidesPageControl)
         mainScrollStackView.addArrangedSubview(nameLabel)
         mainScrollStackView.addArrangedSubview(gamePlatformStackView)
+        mainScrollStackView.addArrangedSubview(ratingStackView)
         mainScrollStackView.addArrangedSubview(aboutStackView)
         mainScrollStackView.addArrangedSubview(informationStackView)
         mainScrollStackView.addArrangedSubview(tagsStackView)
@@ -307,7 +334,11 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         ]
         
         let gamePlatformStackViewConstraints = [
-            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor)
+            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4)
+        ]
+        
+        let ratingStackViewConstraints = [
+            ratingStackView.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant: 4)
         ]
 
         let tagsStackViewConstraints = [
@@ -336,6 +367,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         NSLayoutConstraint.activate(imageSlidesPageControlConstraints)
         NSLayoutConstraint.activate(nameLabelConstraints)
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
+        NSLayoutConstraint.activate(ratingStackViewConstraints)
         NSLayoutConstraint.activate(informationStackViewConstraints)
         NSLayoutConstraint.activate(tagsStackViewConstraints)
         NSLayoutConstraint.activate(aboutLabelConstraints)
