@@ -54,7 +54,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         collectionview.automaticallyAdjustsScrollIndicatorInsets = false
         
         collectionview.contentInsetAdjustmentBehavior = .never
-        collectionview.layer.cornerRadius = 10
         
         return collectionview
     }()
@@ -93,6 +92,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Lorem ipsum dolor sit amet que more la porte lu to senodo sique ament"
         label.numberOfLines = 0
+        label.textAlignment = .justified
         
         return label
     }()
@@ -109,6 +109,21 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         let stackView = createItemInformation(title: "Website", content: "www.google.com")
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
+        return stackView
+    }()
+    
+    private var mainScrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private var mainScrollStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .center
         return stackView
     }()
     
@@ -137,7 +152,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         stackview.addArrangedSubview(contentLabel)
         stackview.distribution = .equalSpacing
         stackview.alignment = .leading
-        stackview.spacing = 8
+        stackview.spacing = 4
         
         return stackview
     }
@@ -179,7 +194,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Release Date", firstContent: gameDetail.released, secondTitle: "Developer", secondContent: gameDetail.developers))
         
         
-//        aboutLabel.text = gameDetail.description
+        aboutLabel.text = gameDetail.descriptionRaw
         
     }
     
@@ -209,21 +224,48 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
 
         view.backgroundColor = .systemBackground
         
-//        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
 //        title = "GTA V"
 //        navigationController?.navigationBar.tintColor = .label
 //        view.backgroundColor = .systemBackground
         
 //        navigationController?.navigationBar.isHidden = true
         
-        view.addSubview(imageSlidesCollectionView)
-        view.addSubview(imageSlidesPageControl)
-        view.addSubview(nameLabel)
-        view.addSubview(informationStackView)
-        view.addSubview(gamePlatformStackView)
-        view.addSubview(tagsStackView)
-        view.addSubview(aboutLabel)
-        view.addSubview(websiteStackView)
+        showFavoriteButton(isFavorite: false)
+        
+        view.addSubview(mainScrollView)
+        mainScrollView.addSubview(mainScrollStackView)
+        
+        mainScrollStackView.addArrangedSubview(imageSlidesCollectionView)
+        mainScrollStackView.addArrangedSubview(imageSlidesPageControl)
+        mainScrollStackView.addArrangedSubview(nameLabel)
+        mainScrollStackView.addArrangedSubview(gamePlatformStackView)
+        mainScrollStackView.addArrangedSubview(aboutLabel)
+        mainScrollStackView.addArrangedSubview(informationStackView)
+        mainScrollStackView.addArrangedSubview(tagsStackView)
+        mainScrollStackView.addArrangedSubview(websiteStackView)
+        
+//        mainScrollView.addSubview(imageSlidesCollectionView)
+//        mainScrollView.addSubview(imageSlidesPageControl)
+//        mainScrollView.addSubview(nameLabel)
+//        mainScrollView.addSubview(informationStackView)
+//        mainScrollView.addSubview(gamePlatformStackView)
+//        mainScrollView.addSubview(tagsStackView)
+//        mainScrollView.addSubview(aboutLabel)
+//        mainScrollView.addSubview(websiteStackView)
+        
+        
+        
+        
+//        view.addSubview(imageSlidesCollectionView)
+//        view.addSubview(imageSlidesPageControl)
+//        view.addSubview(nameLabel)
+//        view.addSubview(informationStackView)
+//        view.addSubview(gamePlatformStackView)
+//        view.addSubview(tagsStackView)
+//        view.addSubview(aboutLabel)
+//        view.addSubview(websiteStackView)
         
         imageSlidesCollectionView.delegate = self
         imageSlidesCollectionView.dataSource = self
@@ -272,10 +314,73 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }
     
     private func configureConstraints(){
+//        let imageSlidesCollectionViewConstraints = [
+//            imageSlidesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            imageSlidesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 3)
+//        ]
+//
+//        let imageSlidesPageControlConstraints = [
+//            imageSlidesPageControl.bottomAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: -10),
+//            imageSlidesPageControl.centerXAnchor.constraint(equalTo: imageSlidesCollectionView.centerXAnchor)
+//        ]
+//
+//        let nameLabelConstraints = [
+//            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: 16)
+//        ]
+//
+//        let gamePlatformStackViewConstraints = [
+//            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+//            gamePlatformStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//        ]
+//
+//        let tagsStackViewConstraints = [
+//            tagsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+//            tagsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+//            tagsStackView.topAnchor.constraint(equalTo: informationStackView.bottomAnchor)
+//        ]
+//
+//        let aboutLabelConstraints = [
+//            aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+//            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+//            aboutLabel.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant:  16)
+//        ]
+//
+//        let informationStackViewConstraints = [
+//            informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+//            informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+//            informationStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8)
+//        ]
+//
+//        let websiteStackViewConstraints = [
+//            websiteStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+//            websiteStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+//            websiteStackView.topAnchor.constraint(equalTo: tagsStackView.bottomAnchor, constant: 8)
+//        ]
+        
+        let mainScrollViewConstraints = [
+            mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        let mainScrollStackViewConstraints = [
+            mainScrollStackView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
+            mainScrollStackView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
+            mainScrollStackView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
+            mainScrollStackView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
+            mainScrollStackView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
+        ]
+        
+        
         let imageSlidesCollectionViewConstraints = [
-            imageSlidesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageSlidesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageSlidesCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageSlidesCollectionView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor),
+            imageSlidesCollectionView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor),
+            imageSlidesCollectionView.topAnchor.constraint(equalTo: mainScrollStackView.safeAreaLayoutGuide.topAnchor),
             imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 3)
         ]
         
@@ -285,51 +390,79 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         ]
         
         let nameLabelConstraints = [
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: 16)
+            nameLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: 32)
         ]
-        
-        let gamePlatformStackViewConstraints = [
-            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            gamePlatformStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ]
-        
+//
+//        let gamePlatformStackViewConstraints = [
+//            gamePlatformStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+//            gamePlatformStackView.centerXAnchor.constraint(equalTo: mainScrollStackView.centerXAnchor)
+//        ]
+//
         let tagsStackViewConstraints = [
-            tagsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tagsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tagsStackView.topAnchor.constraint(equalTo: informationStackView.bottomAnchor, constant: 10)
+            tagsStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            tagsStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
-        
+
         let aboutLabelConstraints = [
-            aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            aboutLabel.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant:  16)
+            aboutLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
         ]
-        
+
         let informationStackViewConstraints = [
-            informationStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            informationStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            informationStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8)
+            informationStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            informationStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
-        
+
         let websiteStackViewConstraints = [
-            websiteStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            websiteStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            websiteStackView.topAnchor.constraint(equalTo: tagsStackView.bottomAnchor, constant: 10)
+            websiteStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            websiteStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
         
+        NSLayoutConstraint.activate(mainScrollStackViewConstraints)
+        NSLayoutConstraint.activate(mainScrollViewConstraints)
         NSLayoutConstraint.activate(imageSlidesCollectionViewConstraints)
         NSLayoutConstraint.activate(imageSlidesPageControlConstraints)
-        NSLayoutConstraint.activate(nameLabelConstraints)
+//        NSLayoutConstraint.activate(nameLabelConstraints)
         NSLayoutConstraint.activate(informationStackViewConstraints)
-        NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
+//        NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
         NSLayoutConstraint.activate(tagsStackViewConstraints)
         NSLayoutConstraint.activate(aboutLabelConstraints)
         NSLayoutConstraint.activate(websiteStackViewConstraints)
     }
-
+    
+    
+    private func showFavoriteButton(isFavorite: Bool) {
+        if self.navigationItem.rightBarButtonItem == nil {
+            let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteAction))
+            
+            if isFavorite {
+                button.image = UIImage(systemName: "heart.fill")
+                button.tintColor = UIColor.red
+            } else {
+                button.image = UIImage(systemName: "heart")
+                button.tintColor = UIColor.gray
+            }
+            
+            navigationItem.rightBarButtonItem = button
+            
+        } else {
+            if isFavorite {
+                self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
+                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
+            } else {
+                self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
+                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.gray
+            }
+        }
+    }
+    
+    @objc private func favoriteAction() {
+        
+    }
 }
+
 
 extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -10,5 +10,5 @@ import Foundation
 protocol FavoriteGamePresenterProtocol {
     var router: FavoriteGameRouterProtocol? { get set }
     var interactor: FavoriteGameUseCase? { get set }
-    var view: Favorite
+//    var view: Favorite
 }

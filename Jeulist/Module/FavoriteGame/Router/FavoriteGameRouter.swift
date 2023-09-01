@@ -13,12 +13,12 @@ protocol FavoriteGameRouterProtocol {
     static func createFavoriteGame() -> FavoriteGameRouterProtocol
 }
 
-class FavoriteGameRouter: FavoriteGameRouterProtocol {
-    var entry: FavoriteGameViewController?
-    
-    static func createFavoriteGame() -> FavoriteGameRouterProtocol {
-        <#code#>
-    }
-    
-    
-}
+//class FavoriteGameRouter: FavoriteGameRouterProtocol {
+//    var entry: FavoriteGameViewController?
+//
+//    static func createFavoriteGame() -> FavoriteGameRouterProtocol {
+//
+//    }
+//
+//
+//}
