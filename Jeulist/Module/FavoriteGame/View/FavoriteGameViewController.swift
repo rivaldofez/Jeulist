@@ -7,7 +7,13 @@
 
 import UIKit
 
-class FavoriteGameViewController: UIViewController {
+protocol FavoriteGameViewProtocol {
+    var presenter: FavoriteGameViewProtocol? { get set }
+}
+
+
+class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
+    var presenter: FavoriteGameViewProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

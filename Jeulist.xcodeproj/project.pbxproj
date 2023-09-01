@@ -214,6 +214,28 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		7E15E4FB2AA1A8370051E97A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7E15E4FC2AA1A83B0051E97A /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7E15E4FD2AA1A8470051E97A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7EC248272AA0B21800C01ACB /* FavoriteGameViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7E185A1529A66020000F23C1 /* DependencyInjection */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,7 +402,9 @@
 		7EC248262AA0B20000C01ACB /* FavoriteGame */ = {
 			isa = PBXGroup;
 			children = (
-				7EC248272AA0B21800C01ACB /* FavoriteGameViewController.swift */,
+				7E15E4FD2AA1A8470051E97A /* View */,
+				7E15E4FC2AA1A83B0051E97A /* Router */,
+				7E15E4FB2AA1A8370051E97A /* Presenter */,
 			);
 			path = FavoriteGame;
 			sourceTree = "<group>";
