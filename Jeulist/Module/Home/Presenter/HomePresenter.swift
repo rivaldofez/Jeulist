@@ -49,12 +49,16 @@ class HomePresenter: HomePresenterProtocol {
     var searchQuery: String = "" {
         didSet {
             page = 1
-//            getGameDataPagination(pageSize: pageSize, page: page, search: searchQuery)
+            getGameDataDebounce.call()
         }
     }
     
     var pageSize: Int = 50
     
+    private lazy var getGameDataDebounce = Debouncer(delay: 0.3) {
+        self.getGameDataPagination(pageSize: self.pageSize, page: self.page, search: self.searchQuery)
+    }
+
     func getGameDataPagination(pageSize: Int, page: Int, search: String){
         isLoadingData = true
         

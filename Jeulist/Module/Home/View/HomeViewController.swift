@@ -21,6 +21,9 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     func updateGameList(with games: [Game]) {
         DispatchQueue.main.async {
+            if self.presenter!.page <= 1 {
+                self.gameDataPagination.removeAll()
+            }
             self.gameDataPagination.append(contentsOf: games)
             self.gameCollectionView.reloadData()
         }
@@ -31,7 +34,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     }
     
     func isLoadingDataGameList(with state: Bool) {
-        print(state)
+//        print(state)
     }
     
     
@@ -70,11 +73,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
         navigationItem.searchController = searchController
 //        searchController.searchBar.delegate = self
-        searchController.searchBar.showsBookmarkButton = true
-        searchController.searchBar.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle"), for: .bookmark, state: .normal)
-        
-        searchController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-    
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.showsScopeBar = true
         searchController.automaticallyShowsCancelButton = true
@@ -85,9 +83,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 //        searchController.delegate = self
 //        searchController.searchResultsUpdater = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        
-
         
         view.addSubview(gameCollectionView)
         
@@ -95,10 +90,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         
         gameCollectionView.delegate = self
         gameCollectionView.dataSource = self
-    }
-    
-    @objc private func addTapped(){
-        print("Hello")
     }
     
     private func configureConstraints() {
@@ -115,16 +106,13 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            gameDataPagination.removeAll()
-            presenter?.searchQuery = ""
-        }
+        presenter?.searchQuery = searchText
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        let searchQuery = searchBar.text ?? ""
-        gameDataPagination.removeAll()
-        presenter?.searchQuery = searchQuery.lowercased()
+//        let searchQuery = searchBar.text ?? ""
+//        gameDataPagination.removeAll()
+//        presenter?.searchQuery = searchQuery.lowercased()
     }
 }
 
