@@ -21,6 +21,9 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     
     func updateGameList(with games: [Game]) {
         DispatchQueue.main.async {
+            if self.presenter!.page <= 1 {
+                self.gameDataPagination.removeAll()
+            }
             self.gameDataPagination.append(contentsOf: games)
             self.gameCollectionView.reloadData()
         }
@@ -31,7 +34,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     }
     
     func isLoadingDataGameList(with state: Bool) {
-        print(state)
+//        print(state)
     }
     
     
@@ -103,12 +106,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.isEmpty {
-//            gameDataPagination.removeAll()
-//            presenter?.searchQuery = ""
-//        }
-        
-        print(searchText)
+        presenter?.searchQuery = searchText
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

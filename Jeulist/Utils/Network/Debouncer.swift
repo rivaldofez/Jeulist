@@ -7,23 +7,31 @@
 
 import Foundation
 
-class Debouncer: NSObject {
-    var callback: () -> Void
-    var delay: Double
-    weak var timer: Timer?
+import Foundation
 
+class Debouncer: NSObject {
+    private var callback: () -> Void
+    private var delay: Double
+    private weak var timer: Timer?
+    
     init(delay: Double, callback: @escaping () -> Void) {
         self.delay = delay
         self.callback = callback
     }
-
-    func fire() {
+    
+    func call() {
         timer?.invalidate()
-        let nextTimer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(toCallback), userInfo: nil, repeats: false)
+        let nextTimer = Timer.scheduledTimer(
+            timeInterval: delay,
+            target: self,
+            selector: #selector(fire),
+            userInfo: nil,
+            repeats: false
+        )
         timer = nextTimer
     }
-
-    @objc func toCallback() {
+    
+    @objc private func fire() {
         callback()
     }
 }
