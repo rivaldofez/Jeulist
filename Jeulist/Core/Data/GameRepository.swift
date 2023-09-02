@@ -13,7 +13,7 @@ protocol GameRepositoryProtocol {
     func getGameDetail(id: Int) -> Observable<GameDetail>
     func getGameScreenshot(id: Int) -> Observable<[String]>
     func getFavoriteGameList() -> Observable<[GameDetail]>
-    func saveToggleGame(gameDetail: GameDetail) -> Observable<Bool>
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool>
     func getGameFavoriteById(id: Int) -> Observable<GameDetail?>
     
 }
@@ -53,7 +53,7 @@ extension GameRepository: GameRepositoryProtocol {
             }
     }
 
-    func saveToggleGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
         return self.locale.saveToggleFavoriteGame(gameDetail: gameDetail)
     }
     
