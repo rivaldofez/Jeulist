@@ -6,8 +6,28 @@
 //
 
 import Foundation
-
+import RxSwift
 
 protocol FavoriteGameUseCase {
+    func getFavoriteGameList() -> Observable<[GameDetail]>
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool>
     
 }
+
+class FavoriteGameInteractor: FavoriteGameUseCase {
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
+        return repository.saveToggleFavoriteGame(gameDetail: gameDetail)
+    }
+    
+    private let repository: GameRepositoryProtocol
+    
+    required init(repository: GameRepositoryProtocol) {
+        self.repository = repository
+    }
+    
+    func getFavoriteGameList() -> Observable<[GameDetail]> {
+        return repository.getFavoriteGameList()
+    }
+}
+
+

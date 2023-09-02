@@ -13,14 +13,15 @@ protocol DetailGamePresenterProtocol {
     var interactor: DetailGameUseCase? { get set }
     var view: DetailGameViewProtocol? { get set }
     
-    var isLoadingdata: Bool { get set }
+    var isLoadingData: Bool { get set }
     var isLoadingScreenshot: Bool { get set }
     func getGameDetail(id: Int)
     func setGameid(id: Int)
+    
+    func saveToggleFavorite(gameDetail: GameDetail)
 }
 
 class DetailGamePresenter: DetailGamePresenterProtocol {
-    
     var router: DetailGameRouterProtocol?
     
     var interactor: DetailGameUseCase?
@@ -36,24 +37,42 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var isLoadingdata: Bool = false
+    var isLoadingData: Bool = false
     var isLoadingScreenshot: Bool = false
     
     func setGameid(id: Int) {
         self.gameId = id
     }
     
+    func saveToggleFavorite(gameDetail: GameDetail) {
+        self.isLoadingData = true
+        interactor?.saveToggleFavoriteGame(gameDetail: gameDetail)
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] result in
+                self?.view?.updateSaveToggleFavorite(with: result)
+            } onError: { error in
+                self.view?.updateSaveToggleFavorite(with: error.localizedDescription)
+            } onCompleted: {
+                self.isLoadingData = false
+            }.disposed(by: disposeBag)
+    }
+    
+    
     func getGameDetail(id: Int) {
-        isLoadingdata = true
+        isLoadingData = true
         
         interactor?.getGameDetail(id: id)
             .observe(on: MainScheduler.instance)
             .subscribe{ [weak self] gameDetailResult in
-                self?.view?.updateGameDetail(with: gameDetailResult)
+                if let gameDetailResult = gameDetailResult {
+                    self?.view?.updateGameDetail(with: gameDetailResult)
+                } else {
+                    self?.view?.updateGameDetail(with: "Cannot find game data")
+                }
             } onError: { error in
                 self.view?.updateGameDetail(with: error.localizedDescription)
             } onCompleted: {
-                self.isLoadingdata = false
+                self.isLoadingData = false
             }.disposed(by: disposeBag)
     }
     

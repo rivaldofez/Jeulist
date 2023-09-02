@@ -8,6 +8,63 @@
 import Foundation
 
 final class GameMapper {
+    static func mapGameDetailEntitiesToDomain(input: [GameDetailEntity]) -> [GameDetail] {
+        return input.map { result in
+            return mapGameDetailEntityToDomain(input: result)!
+        }
+    }
+    
+    
+    static func mapGameDetailEntityToDomain(input entity: GameDetailEntity?) -> GameDetail? {
+        
+        if let entity = entity {
+            return GameDetail(
+                id: Int(entity.id),
+                slug: entity.slug ?? "",
+                name: entity.name ?? "",
+                nameOriginal: entity.nameOriginal ?? "",
+                description: entity.gameDescription ?? "",
+                metacritic: Int(entity.metacritic),
+                released: entity.released ?? "",
+                tba: entity.tba,
+                updated: entity.gameUpdated ?? "",
+                backgroundImage: entity.backgroundImage ?? "",
+                backgroundImageAdditional: entity.backgroundImageAdditional ?? "",
+                website: entity.website ?? "",
+                rating: entity.rating,
+                ratingTop: Int(entity.ratingTop),
+                added: Int(entity.added),
+                playTime: Int(entity.playtime),
+                screenshotsCount: Int(entity.screenshotsCount),
+                moviesCount: Int(entity.moviesCount),
+                creatorsCount: Int(entity.creatorsCount),
+                achievementCount: Int(entity.achievementCount),
+                parentAchievementCount: Int(entity.parentAchievementCount),
+                redditURL: entity.redditUrl ?? "",
+                redditName: entity.redditName ?? "",
+                redditDescription: entity.redditDescription ?? "",
+                redditLogo: entity.redditLogo ?? "",
+                metacriticURL: entity.metacriticUrl ?? "",
+                parentsCount: Int(entity.parentsCount),
+                additionCount: Int(entity.additionCount),
+                gameSeriesCount: Int(entity.gameSeriesCount),
+                reviewCount: Int(entity.reviewCount),
+                saturatedColor: entity.saturatedColor ?? "",
+                dominantColor: entity.dominantColor ?? "",
+                descriptionRaw: entity.descriptionRaw ?? "",
+                parentPlatforms: entity.parentPlatforms?.components(separatedBy: ",") ?? [],
+                publishers: entity.publishers ?? "",
+                tags: entity.tags ?? "",
+                developers: entity.developers ?? "",
+                genres: entity.genres ?? "",
+                isFavorite: entity.isFavorite
+            )
+        } else {
+            return nil
+        }
+    }
+    
+    
     static func mapGameItemResponseToDomain(input gameItems: [GameItem]) -> [Game] {
         
         return gameItems.map { gameItem in
@@ -33,8 +90,6 @@ final class GameMapper {
                 parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
                     $0.platform?.name ?? ""
                 }
-                
-                //                    gameItem.parentPlatforms.map { $0.platform.platform } as! [String]
             )
             
             return newGame
@@ -90,9 +145,8 @@ final class GameMapper {
                           developers: developers.isEmpty ? "" : developers.map{
             $0.name ?? ""}.joined(separator: ", "),
                           genres: genres.isEmpty ? "" : genres.map{
-            $0.name ?? ""}.joined(separator: ", ")
-                          
-                          
+            $0.name ?? ""}.joined(separator: ", "),
+                          isFavorite: false
         )
     }
 }
