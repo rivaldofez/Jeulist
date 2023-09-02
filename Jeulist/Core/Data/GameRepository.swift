@@ -12,24 +12,51 @@ protocol GameRepositoryProtocol {
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[Game]>
     func getGameDetail(id: Int) -> Observable<GameDetail>
     func getGameScreenshot(id: Int) -> Observable<[String]>
+    func getFavoriteGameList() -> Observable<[GameDetail]>
+    func saveToggleGame(gameDetail: GameDetail) -> Observable<Bool>
+    func getGameFavoriteById(id: Int) -> Observable<GameDetail?>
     
 }
 
 final class GameRepository: NSObject {
-    typealias GameInstance = (RemoteDataSource) -> GameRepository
+    typealias GameInstance = (RemoteDataSource, LocaleDataSource) -> GameRepository
     
     fileprivate let remote: RemoteDataSource
+    fileprivate let locale: LocaleDataSource
     
-    private init(remote: RemoteDataSource) {
+    private init(remote: RemoteDataSource, locale: LocaleDataSource) {
         self.remote = remote
+        self.locale = locale
     }
     
-    static let sharedInstance: GameInstance = { RemoteDataSource in
-        return GameRepository(remote: RemoteDataSource)
+    static let sharedInstance: GameInstance = { remoteDataSource, localeDataSource in
+        return GameRepository(remote: remoteDataSource, locale: localeDataSource)
     }
 }
 
 extension GameRepository: GameRepositoryProtocol {
+    func getGameFavoriteById(id: Int) -> Observable<GameDetail?> {
+        return self.locale.getFavoriteGameById(id: id)
+            .map { gameDetailEntity in
+                if let gameDetailEntity {
+                    return GameMapper.mapGameDetailEntityToDomain(input: gameDetailEntity)
+                } else {
+                    return nil
+                }
+            }
+    }
+    
+    func getFavoriteGameList() -> RxSwift.Observable<[GameDetail]> {
+        return self.locale.getFavoriteGameList()
+            .map {
+                GameMapper.mapGameDetailEntitiesToDomain(input: $0)
+            }
+    }
+
+    func saveToggleGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
+        return self.locale.saveToggleFavoriteGame(gameDetail: gameDetail)
+    }
+    
     func getGameScreenshot(id: Int) -> RxSwift.Observable<[String]> {
         return self.remote.getGameScreenshot(id: id).map{ $0.map{ $0.image }}
     }
