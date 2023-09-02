@@ -48,10 +48,35 @@ class FavoriteGameTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private var ratingStackView: UIStackView = {
+        
+        let image = UIImageView(image: UIImage(named: "icon_rating"))
+        image.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        image.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "8.5"
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textAlignment = .center
+        
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        
+        stackView.addArrangedSubview(image)
+        stackView.addArrangedSubview(label)
+        
+        return stackView
+        
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(gameImageView)
+        contentView.addSubview(ratingStackView)
         contentView.addSubview(gameNameLabel)
         contentView.addSubview(gameReleaseLabel)
         contentView.addSubview(gamePlatformStackView)
@@ -73,9 +98,15 @@ class FavoriteGameTableViewCell: UITableViewCell {
             gameImageView.heightAnchor.constraint(equalToConstant: 100)
         ]
         
+        let ratingStackViewConstraints = [
+            ratingStackView.topAnchor.constraint(equalTo: gameImageView.topAnchor, constant: 8),
+            ratingStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ]
+        
         let gameNameLabelConstraints = [
             gameNameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 8),
-            gameNameLabel.topAnchor.constraint(equalTo: gameImageView.topAnchor, constant: 8)
+            gameNameLabel.topAnchor.constraint(equalTo: gameImageView.topAnchor, constant: 8),
+            gameNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: ratingStackView.leadingAnchor)
         ]
         
         let gameReleaseLabelConstraints = [
@@ -89,6 +120,7 @@ class FavoriteGameTableViewCell: UITableViewCell {
         ]
         
         NSLayoutConstraint.activate(gameImageViewConstraints)
+        NSLayoutConstraint.activate(ratingStackViewConstraints)
         NSLayoutConstraint.activate(gameNameLabelConstraints)
         NSLayoutConstraint.activate(gameReleaseLabelConstraints)
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
