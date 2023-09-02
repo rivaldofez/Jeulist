@@ -12,10 +12,11 @@ protocol DetailGameUseCase {
     func getGameDetail(id: Int) -> Observable<GameDetail>
     
     func getGameScreenshot(id: Int) -> Observable<[String]>
+    
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool>
 }
 
 class DetailGameInteractor: DetailGameUseCase {
-    
     private let repository: GameRepositoryProtocol
     
     required init(repository: GameRepositoryProtocol) {
@@ -28,6 +29,10 @@ class DetailGameInteractor: DetailGameUseCase {
     
     func getGameScreenshot(id: Int) -> RxSwift.Observable<[String]> {
         return repository.getGameScreenshot(id: id)
+    }
+    
+    func saveToggleFavoriteGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
+        return repository.saveToggleFavoriteGame(gameDetail: gameDetail)
     }
     
 }

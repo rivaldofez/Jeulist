@@ -16,10 +16,35 @@ protocol DetailGameViewProtocol {
     func updateGameScreenshot(with error: String)
     
     func isLoadingData(with state: Bool)
+    
+    func updateSaveToggleFavorite(with error: String)
+    func updateSaveToggleFavorite(with state: Bool)
 }
 
 class DetailGameViewController: UIViewController, DetailGameViewProtocol {
+    
+    private func showToggleFavoriteAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okButton)
+        self.present(alert, animated: true)
+    }
+    
+    func updateSaveToggleFavorite(with error: String) {
+        showToggleFavoriteAlert(title: "An Error Occured", message: "Oops, cannot process your due to system error, please try again")
+        print(error)
+    }
+    
+    func updateSaveToggleFavorite(with state: Bool) {
+        if state {
+            showToggleFavoriteAlert(title: "Added To Favorite", message: "This game successfully added to your favorite list")
+        } else {
+            showToggleFavoriteAlert(title: "Removed From Favorite", message: "This game successfully removed from your favorite list")
+        }
+    }
+    
     var presenter: DetailGamePresenterProtocol?
+    var gameDetail: GameDetail?
     
     private var screenshotImages: [String] = []
     
@@ -196,6 +221,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }()
     
     func updateGameDetail(with gameDetail: GameDetail) {
+        self.gameDetail = gameDetail
         nameLabel.text = gameDetail.name
         setParentPlatformIcon(parentPlatforms: gameDetail.parentPlatforms)
         
@@ -212,8 +238,8 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         guard let webLabel = websiteStackView.subviews[1] as? UILabel else { return }
         webLabel.text = gameDetail.website
         
-        guard let webLabel = ratingStackView.subviews[1] as? UILabel else { return }
-        webLabel.text = "\(gameDetail.rating) / 5.0"
+        guard let ratingLabel = ratingStackView.subviews[1] as? UILabel else { return }
+        ratingLabel.text = "\(gameDetail.rating) / 5.0"
     }
     
     func updateGameScreenshot(with screenshots: [String]) {
@@ -401,7 +427,11 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }
     
     @objc private func favoriteAction() {
-        print("clicked favorite")
+        gameDetail?.isFavorite.toggle()
+        if let gameDetail = self.gameDetail {
+            showFavoriteButton(isFavorite: gameDetail.isFavorite)
+            presenter?.saveToggleFavorite(gameDetail: gameDetail)
+        }
     }
 }
 

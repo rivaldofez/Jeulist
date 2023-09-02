@@ -89,6 +89,7 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                 entity.tags = gameDetail.tags
                 entity.developers = gameDetail.developers
                 entity.genres = gameDetail.genres
+                entity.isFavorite = gameDetail.isFavorite
                 
                 do {
                     try context.save()
@@ -96,6 +97,7 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                     observer.onCompleted()
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
+                    print(error.localizedDescription)
                 }
             } else {
                 observer.onError(DatabaseError.invalidInstance)
