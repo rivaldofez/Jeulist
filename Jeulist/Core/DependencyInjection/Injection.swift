@@ -10,8 +10,9 @@ import Foundation
 final class Injection: NSObject {
     private func provideRepository() -> GameRepositoryProtocol {
         let remote: RemoteDataSource = RemoteDataSource.sharedInstance
+        let locale: LocaleDataSource = LocaleDataSource.shared
         
-        return GameRepository.sharedInstance(remote)
+        return GameRepository.sharedInstance(remote, locale)
     }
     
     func provideHome() -> HomeUseCase {
