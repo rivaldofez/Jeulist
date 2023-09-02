@@ -35,7 +35,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         layout.itemSize = CGSize(width: view.frame.size.width, height: (view.frame.size.height / 3))
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-
+        
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.register(ImageSlidesCollectionViewCell.self, forCellWithReuseIdentifier: ImageSlidesCollectionViewCell.identifier)
         collectionview.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }()
     
     private let imageSlidesPageControl: UIPageControl = {
-       let pageControl = UIPageControl()
+        let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
         pageControl.currentPageIndicatorTintColor = .red
@@ -73,7 +73,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }()
     
     private lazy var gamePlatformStackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.alignment = .center
@@ -85,27 +85,27 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     private lazy var aboutStackView: UIStackView = {
         let stackView = createItemInformation(title: "About", content: "Lorem ipsum dolor sit amet")
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return stackView
     }()
     
     private lazy var tagsStackView: UIStackView = {
         let stackView = createItemInformation(title: "Tags", content: "Lorem ipsum dolor sit amet")
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return stackView
     }()
-
+    
     
     private lazy var websiteStackView: UIStackView = {
         let stackView = createItemInformation(title: "Website", content: "Lorem ipsum dolor sit amet")
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return stackView
     }()
     
     private var mainScrollView: UIScrollView = {
-       let scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -202,7 +202,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Platform", firstContent: gameDetail.parentPlatforms.joined(separator: ", "), secondTitle: "Genre", secondContent: gameDetail.genres))
         
         informationStackView.addArrangedSubview(createRowInformation(firstTitle: "Release Date", firstContent: gameDetail.released, secondTitle: "Developer", secondContent: gameDetail.developers))
-
+        
         guard let aboutLabel = aboutStackView.subviews[1] as? UILabel else { return }
         aboutLabel.text = gameDetail.descriptionRaw
         
@@ -239,7 +239,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = false
         
@@ -340,22 +340,22 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         let ratingStackViewConstraints = [
             ratingStackView.topAnchor.constraint(equalTo: gamePlatformStackView.bottomAnchor, constant: 4)
         ]
-
+        
         let tagsStackViewConstraints = [
             tagsStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
             tagsStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
-
+        
         let aboutLabelConstraints = [
             aboutStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
             aboutStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
         ]
-
+        
         let informationStackViewConstraints = [
             informationStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
             informationStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
-
+        
         let websiteStackViewConstraints = [
             websiteStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
             websiteStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
@@ -401,10 +401,9 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }
     
     @objc private func favoriteAction() {
-        
+        print("clicked favorite")
     }
 }
-
 
 extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
