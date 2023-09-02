@@ -87,6 +87,11 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
         
         NSLayoutConstraint.activate(favoriteGameTableViewConstraints)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.getFavoriteGameList()
+    }
 }
 
 extension FavoriteGameViewController: UITableViewDelegate, UITableViewDataSource {

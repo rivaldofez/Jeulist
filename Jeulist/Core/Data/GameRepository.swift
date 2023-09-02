@@ -10,7 +10,7 @@ import RxSwift
 
 protocol GameRepositoryProtocol {
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[Game]>
-    func getGameDetail(id: Int) -> Observable<GameDetail>
+    func getGameDetail(id: Int) -> Observable<GameDetail?>
     func getGameScreenshot(id: Int) -> Observable<[String]>
     func getFavoriteGameList() -> Observable<[GameDetail]>
     func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool>
@@ -61,10 +61,23 @@ extension GameRepository: GameRepositoryProtocol {
         return self.remote.getGameScreenshot(id: id).map{ $0.map{ $0.image }}
     }
     
-    func getGameDetail(id: Int) -> RxSwift.Observable<GameDetail> {
-        return self.remote.getGameDetail(id: id).map {
-            GameMapper.mapGameDetailResponseToDomain(input: $0)
-        }
+    func getGameDetail(id: Int) -> RxSwift.Observable<GameDetail?> {
+        return locale.getFavoriteGameById(id: id)
+            .map { GameMapper.mapGameDetailEntityToDomain(input: $0) }
+            .filter { $0 != nil }
+            .ifEmpty(switchTo: self.remote.getGameDetail(id: id)
+                .map { GameMapper.mapGameDetailResponseToDomain(input: $0)}
+                .flatMap { self.locale.saveToggleFavoriteGame(gameDetail: $0) }
+                .filter { $0 }
+                .flatMap { _ in self.locale.getFavoriteGameById(id: id)
+                        .map { GameMapper.mapGameDetailEntityToDomain(input: $0)! }
+                }
+            )
+        
+        
+//        return self.remote.getGameDetail(id: id).map {
+//            GameMapper.mapGameDetailResponseToDomain(input: $0)
+//        }
     }
     
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {

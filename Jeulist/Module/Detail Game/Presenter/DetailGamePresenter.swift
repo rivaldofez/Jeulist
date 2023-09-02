@@ -64,7 +64,11 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
         interactor?.getGameDetail(id: id)
             .observe(on: MainScheduler.instance)
             .subscribe{ [weak self] gameDetailResult in
-                self?.view?.updateGameDetail(with: gameDetailResult)
+                if let gameDetailResult = gameDetailResult {
+                    self?.view?.updateGameDetail(with: gameDetailResult)
+                } else {
+                    self?.view?.updateGameDetail(with: "Cannot find game data")
+                }
             } onError: { error in
                 self.view?.updateGameDetail(with: error.localizedDescription)
             } onCompleted: {

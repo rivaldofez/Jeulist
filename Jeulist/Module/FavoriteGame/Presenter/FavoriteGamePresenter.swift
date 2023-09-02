@@ -48,8 +48,8 @@ class FavoriteGamePresenter: FavoriteGamePresenterProtocol {
     func saveToggleFavorite(gameDetail: GameDetail) {
         interactor?.saveToggleFavoriteGame(gameDetail: gameDetail)
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] result in
-                self?.view?.updateSaveToggleFavorite(with: result)
+            .subscribe { [weak self] _ in
+                self?.view?.updateSaveToggleFavorite(with: gameDetail.isFavorite)
             } onError: { error in
                 self.view?.updateSaveToggleFavorite(with: error.localizedDescription)
             } onCompleted: {
