@@ -21,7 +21,8 @@ class MainTabBarController: UITabBarController {
         
         let homeNavItem = self.createNav(with: "Home", and: UIImage(systemName: "list.bullet.below.rectangle"), vc: homeVC)
         
-        let favoriteVC = FavoriteGameViewController()
+        let favoriteGameRouter = FavoriteGameRouter.createFavoriteGame()
+        guard let favoriteVC = favoriteGameRouter.entry else { return }
         let favoriteNavItem = self.createNav(with: "Favorite", and: UIImage(systemName: "heart"), vc: favoriteVC)
         
         

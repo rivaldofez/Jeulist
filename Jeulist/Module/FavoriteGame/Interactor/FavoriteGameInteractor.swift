@@ -16,7 +16,7 @@ protocol FavoriteGameUseCase {
 
 class FavoriteGameInteractor: FavoriteGameUseCase {
     func saveToggleFavoriteGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
-        return repository.saveToggleGame(gameDetail: gameDetail)
+        return repository.saveToggleFavoriteGame(gameDetail: gameDetail)
     }
     
     private let repository: GameRepositoryProtocol

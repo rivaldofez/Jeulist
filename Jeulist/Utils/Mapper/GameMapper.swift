@@ -142,8 +142,6 @@ final class GameMapper {
                           genres: genres.isEmpty ? "" : genres.map{
             $0.name ?? ""}.joined(separator: ", "),
                           isFavorite: false
-                          
-                          
         )
     }
 }

@@ -8,13 +8,51 @@
 import UIKit
 
 protocol FavoriteGameViewProtocol {
-    var presenter: FavoriteGameViewProtocol? { get set }
+    var presenter: FavoriteGamePresenterProtocol? { get set }
+    func updateGameFavoriteList(with games: [GameDetail])
+    func updateGameFavoriteList(with error: String)
+    func updateSaveToggleFavorite(with state: Bool)
+    func updateSaveToggleFavorite(with error: String)
+    func isLoadingData(with state: Bool)
 }
 
 
 class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
-    var presenter: FavoriteGameViewProtocol?
-
+    var presenter: FavoriteGamePresenterProtocol?
+    
+    private var gameList: [GameDetail] = []
+    
+    func updateGameFavoriteList(with games: [GameDetail]) {
+        if games.isEmpty {
+            DispatchQueue.main.async {
+                self.gameList.removeAll()
+                self.favoriteGameTableView.reloadData()
+//                self.showError(isError: true, message: "There is no game added to favorite", animation: "empty")
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.gameList.removeAll()
+                self.gameList.append(contentsOf: games)
+                self.favoriteGameTableView.reloadData()
+            }
+        }
+    }
+    
+    func updateGameFavoriteList(with error: String) {
+        
+    }
+    
+    func updateSaveToggleFavorite(with state: Bool) {
+        
+    }
+    
+    func updateSaveToggleFavorite(with error: String) {
+        
+    }
+    
+    func isLoadingData(with state: Bool) {
+        
+    }
     
     private lazy var favoriteGameTableView: UITableView = {
        let tableview = UITableView()
@@ -53,11 +91,14 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
 
 extension FavoriteGameViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGameTableViewCell.identifier, for: indexPath) as? FavoriteGameTableViewCell else { return UITableViewCell() }
+        
+        let model = gameList[indexPath.row]
+        cell.configure(with: model)
         
         return cell
     }
