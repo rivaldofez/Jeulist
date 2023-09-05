@@ -14,7 +14,6 @@ protocol DetailGamePresenterProtocol {
     var view: DetailGameViewProtocol? { get set }
     
     var isLoadingData: Bool { get set }
-    var isLoadingScreenshot: Bool { get set }
     func getGameDetail(id: Int)
     func setGameid(id: Int)
     
@@ -37,8 +36,11 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var isLoadingData: Bool = false
-    var isLoadingScreenshot: Bool = false
+    var isLoadingData: Bool = false {
+        didSet {
+            view?.isLoadingData(with: isLoadingData)
+        }
+    }
     
     func setGameid(id: Int) {
         self.gameId = id
@@ -52,6 +54,7 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
                 self?.view?.updateSaveToggleFavorite(with: result)
             } onError: { error in
                 self.view?.updateSaveToggleFavorite(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
@@ -71,13 +74,14 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
                 }
             } onError: { error in
                 self.view?.updateGameDetail(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
     }
     
     func getGameScreenshot(id: Int) {
-        isLoadingScreenshot = true
+        isLoadingData = true
         
         interactor?.getGameScreenshot(id: id)
             .observe(on: MainScheduler.instance)
@@ -85,8 +89,9 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
                 self?.view?.updateGameScreenshot(with: screenshots)
             } onError: { error in
                 self.view?.updateGameScreenshot(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
-                self.isLoadingScreenshot = false
+                self.isLoadingData = false
             }.disposed(by: disposeBag)
         
     }

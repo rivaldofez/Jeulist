@@ -188,11 +188,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         if let page = presenter?.page, let pageSize = presenter?.pageSize, let search = presenter?.searchQuery {
             presenter?.getGameDataPagination(pageSize: pageSize, page: page, search: search)
         }
-        
-        
-//        if let offset = presenter?.offsetPagination {
-//            presenter?.getPokemonDataPagination(offset: offset, limit: 50)
-//        }
     }
     
     private func showLoading(isLoading: Bool) {

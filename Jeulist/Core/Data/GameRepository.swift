@@ -73,11 +73,6 @@ extension GameRepository: GameRepositoryProtocol {
                         .map { GameMapper.mapGameDetailEntityToDomain(input: $0)! }
                 }
             )
-        
-        
-//        return self.remote.getGameDetail(id: id).map {
-//            GameMapper.mapGameDetailResponseToDomain(input: $0)
-//        }
     }
     
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {
