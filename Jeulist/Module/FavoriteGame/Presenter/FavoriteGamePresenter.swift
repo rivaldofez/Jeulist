@@ -36,6 +36,7 @@ class FavoriteGamePresenter: FavoriteGamePresenterProtocol {
                 self?.view?.updateGameFavoriteList(with: gameResults)
             } onError: { error in
                 self.view?.updateGameFavoriteList(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
@@ -52,6 +53,7 @@ class FavoriteGamePresenter: FavoriteGamePresenterProtocol {
                 self?.view?.updateSaveToggleFavorite(with: gameDetail.isFavorite)
             } onError: { error in
                 self.view?.updateSaveToggleFavorite(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
