@@ -7,10 +7,10 @@
 
 import UIKit
 import RxSwift
+import Lottie
 
 protocol HomeViewProtocol {
     var presenter: HomePresenterProtocol? { get set}
-    
     func updateGameList(with games: [Game])
     func updateGameList(with error: String)
     func isLoadingDataGameList(with state: Bool)
@@ -18,35 +18,17 @@ protocol HomeViewProtocol {
 
 class HomeViewController: UIViewController, HomeViewProtocol {
     var presenter: HomePresenterProtocol?
-    
-    func updateGameList(with games: [Game]) {
-        DispatchQueue.main.async {
-            if self.presenter!.page <= 1 {
-                self.gameDataPagination.removeAll()
-            }
-            self.gameDataPagination.append(contentsOf: games)
-            self.gameCollectionView.reloadData()
-        }
-    }
-    
-    func updateGameList(with error: String) {
-        print(error)
-    }
-    
-    func isLoadingDataGameList(with state: Bool) {
-//        print(state)
-    }
-    
-    
     private let disposeBag = DisposeBag()
+    
     private var gameDataPagination: [Game] = []
+    private let searchController = UISearchController()
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
-
-    let searchController = UISearchController()
     
+    // MARK: View Components
+    // Game Collection View
     private lazy var gameCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -62,29 +44,81 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         return collectionview
     }()
     
+    // Loading View
+    private lazy var loadingAnimation: LottieAnimationView = {
+        let lottie = LottieAnimationView(name: "loading")
+        lottie.translatesAutoresizingMaskIntoConstraints = false
+        lottie.play()
+        lottie.loopMode = .loop
+        return lottie
+    }()
+    
+    private lazy var backdropLoading: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        return view
+    }()
+    
+    // Error View
+    private lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Error occured while load game data"
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    private lazy var errorAnimation: LottieAnimationView = {
+        let lottie = LottieAnimationView(name: "error")
+        lottie.translatesAutoresizingMaskIntoConstraints = false
+        lottie.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        lottie.play()
+        lottie.loopMode = .loop
+        return lottie
+    }()
+    
+    private lazy var retryButton: UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        button.tintColor = .label
+        button.addTarget(self, action: #selector(reloadData), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    private lazy var errorStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [errorAnimation, errorLabel, retryButton])
+        stackview.axis = .vertical
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.alignment = .center
+        stackview.spacing = 16
+        stackview.isHidden = true
+        return stackview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Explore Game"
         navigationController?.navigationBar.tintColor = .label
         view.backgroundColor = .systemBackground
         
-        
         navigationItem.searchController = searchController
-//        searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.showsScopeBar = true
         searchController.automaticallyShowsCancelButton = true
         searchController.navigationItem.hidesSearchBarWhenScrolling = false
-//        searchController.ignoresSearchSuggestionsForSearchBarPlacementStacked = true
         
         searchController.searchBar.delegate = self
-//        searchController.delegate = self
-//        searchController.searchResultsUpdater = self
-        
         
         view.addSubview(gameCollectionView)
+        view.addSubview(errorStackView)
+        view.addSubview(backdropLoading)
+        view.addSubview(loadingAnimation)
         
         configureConstraints()
         
@@ -100,7 +134,85 @@ class HomeViewController: UIViewController, HomeViewProtocol {
             gameCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
+        let errorStackViewConstraints = [
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        let loadingAnimationConstraints = [
+            loadingAnimation.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingAnimation.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingAnimation.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingAnimation.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingAnimation.heightAnchor.constraint(equalToConstant: 200)
+            
+        ]
+        
+        let backdropLoadingConstraints = [
+            backdropLoading.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backdropLoading.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backdropLoading.topAnchor.constraint(equalTo: view.topAnchor),
+            backdropLoading.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(errorStackViewConstraints)
+        NSLayoutConstraint.activate(loadingAnimationConstraints)
         NSLayoutConstraint.activate(gameCollectionViewConstraints)
+        NSLayoutConstraint.activate(backdropLoadingConstraints)
+    }
+    
+    func updateGameList(with games: [Game]) {
+        DispatchQueue.main.async {
+            if self.presenter!.page <= 1 {
+                self.gameDataPagination.removeAll()
+            }
+            self.gameDataPagination.append(contentsOf: games)
+            self.gameCollectionView.reloadData()
+            self.showError(isError: false)
+        }
+    }
+    
+    func updateGameList(with error: String) {
+        showError(isError: true)
+    }
+    
+    func isLoadingDataGameList(with state: Bool) {
+        print("loading \(state)")
+        showLoading(isLoading: state)
+    }
+    
+    
+    // MARK: Button Action
+    
+    @objc private func reloadData() {
+        if let page = presenter?.page, let pageSize = presenter?.pageSize, let search = presenter?.searchQuery {
+            presenter?.getGameDataPagination(pageSize: pageSize, page: page, search: search)
+        }
+        
+        
+//        if let offset = presenter?.offsetPagination {
+//            presenter?.getPokemonDataPagination(offset: offset, limit: 50)
+//        }
+    }
+    
+    private func showLoading(isLoading: Bool) {
+        UIView.transition(with: loadingAnimation, duration: 0.4, options: .transitionCrossDissolve) {
+            self.loadingAnimation.isHidden = !isLoading
+        }
+        
+        UIView.transition(with: backdropLoading, duration: 0.4, options: .transitionCrossDissolve) {
+            self.backdropLoading.isHidden = !isLoading
+        }
+    }
+    
+    private func showError(isError: Bool) {
+        UIView.transition(with: errorStackView, duration: 0.4, options: .transitionCrossDissolve) {
+            self.errorStackView.isHidden = !isError
+        }
+        
+        UIView.transition(with: gameCollectionView, duration: 0.4, options: .transitionCrossDissolve) {
+            self.gameCollectionView.isHidden = isError
+        }
     }
 }
 
@@ -110,9 +222,9 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        let searchQuery = searchBar.text ?? ""
-//        gameDataPagination.removeAll()
-//        presenter?.searchQuery = searchQuery.lowercased()
+        //        let searchQuery = searchBar.text ?? ""
+        //        gameDataPagination.removeAll()
+        //        presenter?.searchQuery = searchQuery.lowercased()
     }
 }
 
@@ -141,7 +253,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let isLoadingData = presenter?.isLoadingData else { return }
             if !isLoadingData {
                 guard var presenter = self.presenter else { return }
-                        presenter.page = presenter.page + 1
+                presenter.page = presenter.page + 1
             }
         }
     }

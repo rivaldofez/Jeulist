@@ -13,6 +13,7 @@ protocol HomePresenterProtocol {
     var interactor: HomeUseCase? { get set }
     var view: HomeViewProtocol? { get set }
 
+    var pageSize: Int { get set }
     var page: Int { get set }
     var searchQuery: String { get set }
     var isLoadingData: Bool { get set }
@@ -68,6 +69,7 @@ class HomePresenter: HomePresenterProtocol {
                 self?.view?.updateGameList(with: gameResult)
             } onError: { error in
                 self.view?.updateGameList(with: error.localizedDescription)
+                self.isLoadingData = false
             } onCompleted: {
                 self.isLoadingData = false
             }.disposed(by: disposeBag)
