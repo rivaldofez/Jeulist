@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 protocol DetailGameViewProtocol {
     var presenter: DetailGamePresenterProtocol? { get set }
@@ -22,44 +23,39 @@ protocol DetailGameViewProtocol {
 }
 
 class DetailGameViewController: UIViewController, DetailGameViewProtocol {
-    
-    private func showToggleFavoriteAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okButton)
-        self.present(alert, animated: true)
-    }
-    
-    func updateSaveToggleFavorite(with error: String) {
-        showToggleFavoriteAlert(title: "An Error Occured", message: "Oops, cannot process your due to system error, please try again")
-        print(error)
-    }
-    
-    func updateSaveToggleFavorite(with state: Bool) {
-        if state {
-            showToggleFavoriteAlert(title: "Added To Favorite", message: "This game successfully added to your favorite list")
-        } else {
-            showToggleFavoriteAlert(title: "Removed From Favorite", message: "This game successfully removed from your favorite list")
-        }
-    }
-    
     var presenter: DetailGamePresenterProtocol?
     var gameDetail: GameDetail?
-    
     private var screenshotImages: [String] = []
     
     var timer = Timer()
     var counter = 0
     
+    // MARK: View Components
+    // Main Scroll View
+    private var mainScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    // Main Stack View
+    private var mainScrollStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    // Image Slide View
     private lazy var imageSlidesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize(width: view.frame.size.width, height: (view.frame.size.height / 3))
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.register(ImageSlidesCollectionViewCell.self, forCellWithReuseIdentifier: ImageSlidesCollectionViewCell.identifier)
@@ -72,12 +68,12 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         collectionview.clipsToBounds = true
         collectionview.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionview.automaticallyAdjustsScrollIndicatorInsets = false
-        
         collectionview.contentInsetAdjustmentBehavior = .never
         
         return collectionview
     }()
     
+    // Image Slide Page Control
     private let imageSlidesPageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +83,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return pageControl
     }()
     
+    // Name Label
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +94,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return label
     }()
     
+    // Game Platform
     private lazy var gamePlatformStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -107,6 +105,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return stackView
     }()
     
+    // Detail Information View
     private lazy var aboutStackView: UIStackView = {
         let stackView = createItemInformation(title: "About", content: "Lorem ipsum dolor sit amet")
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,7 +120,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return stackView
     }()
     
-    
     private lazy var websiteStackView: UIStackView = {
         let stackView = createItemInformation(title: "Website", content: "Lorem ipsum dolor sit amet")
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,21 +127,17 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return stackView
     }()
     
-    private var mainScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
+    private lazy var informationStackView: UIStackView = {
+        let stackview = UIStackView()
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .vertical
+        stackview.distribution = .fillProportionally
+        stackview.spacing = 16
+        
+        return stackview
     }()
     
-    private var mainScrollStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        stackView.alignment = .center
-        return stackView
-    }()
-    
+    // Rating View
     private var ratingStackView: UIStackView = {
         
         let image = UIImageView(image: UIImage(named: "icon_rating"))
@@ -168,55 +162,49 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
     }()
     
-    private func createItemInformation(title: String, content: String) -> UIStackView {
+    // Loading View
+    private lazy var loadingAnimation: LottieAnimationView = {
+        let lottie = LottieAnimationView(name: "loading")
+        lottie.translatesAutoresizingMaskIntoConstraints = false
+        lottie.play()
+        lottie.loopMode = .loop
+        return lottie
+    }()
+    
+    private lazy var backdropLoading: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        return view
+    }()
+    
+    // Error View
+    private lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Error occured while load pokemon data"
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
         
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.textColor = .secondaryLabel
-        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
-        
-        let contentLabel = UILabel()
-        contentLabel.text = content
-        contentLabel.sizeToFit()
-        contentLabel.font = .systemFont(ofSize: 16)
-        contentLabel.textColor = .label
-        contentLabel.numberOfLines = 0
-        contentLabel.textAlignment = .justified
-        
-        let stackview = UIStackView()
+        return label
+    }()
+    
+    private lazy var errorAnimation: LottieAnimationView = {
+        let lottie = LottieAnimationView(name: "error")
+        lottie.translatesAutoresizingMaskIntoConstraints = false
+        lottie.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        lottie.play()
+        lottie.loopMode = .loop
+        return lottie
+    }()
+    
+    private lazy var errorStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [errorAnimation, errorLabel])
         stackview.axis = .vertical
-        stackview.addArrangedSubview(titleLabel)
-        stackview.addArrangedSubview(contentLabel)
-        stackview.distribution = .equalSpacing
-        stackview.alignment = .leading
-        stackview.spacing = 4
-        
-        return stackview
-    }
-    
-    private func createRowInformation(firstTitle: String, firstContent: String, secondTitle: String, secondContent: String) -> UIStackView{
-        
-        let firstItem = createItemInformation(title: firstTitle, content: firstContent)
-        let secondItem = createItemInformation(title: secondTitle, content: secondContent)
-        
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .top
-        stackView.spacing = 8
-        stackView.addArrangedSubview(firstItem)
-        stackView.addArrangedSubview(secondItem)
-        
-        return stackView
-    }
-    
-    private lazy var informationStackView: UIStackView = {
-        let stackview = UIStackView()
         stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .vertical
-        stackview.distribution = .fillProportionally
+        stackview.alignment = .center
         stackview.spacing = 16
-        
+        stackview.isHidden = true
         return stackview
     }()
     
@@ -240,6 +228,9 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
         guard let ratingLabel = ratingStackView.subviews[1] as? UILabel else { return }
         ratingLabel.text = "\(gameDetail.rating) / 5.0"
+        
+        showFavoriteButton(isFavorite: gameDetail.isFavorite)
+        print("in update game \(gameDetail.isFavorite)")
     }
     
     func updateGameScreenshot(with screenshots: [String]) {
@@ -251,16 +242,36 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     }
     
     func updateGameScreenshot(with error: String) {
-        print(error)
+        showError(isError: true)
     }
     
     
     func updateGameDetail(with error: String) {
-        print(error)
+        showError(isError: true)
     }
     
     func isLoadingData(with state: Bool) {
-        print(state)
+        showLoading(isLoading: state)
+    }
+    
+    private func showLoading(isLoading: Bool) {
+        UIView.transition(with: loadingAnimation, duration: 0.4, options: .transitionCrossDissolve) {
+            self.loadingAnimation.isHidden = !isLoading
+        }
+        
+        UIView.transition(with: backdropLoading, duration: 0.4, options: .transitionCrossDissolve) {
+            self.backdropLoading.isHidden = !isLoading
+        }
+    }
+    
+    private func showError(isError: Bool) {
+        UIView.transition(with: errorStackView, duration: 0.4, options: .transitionCrossDissolve) {
+            self.errorStackView.isHidden = !isError
+        }
+        
+        UIView.transition(with: mainScrollView, duration: 0.4, options: .transitionCrossDissolve) {
+            self.mainScrollView.isHidden = isError
+        }
     }
     
     override func viewDidLoad() {
@@ -269,9 +280,10 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        showFavoriteButton(isFavorite: false)
-        
         view.addSubview(mainScrollView)
+        view.addSubview(errorStackView)
+        view.addSubview(backdropLoading)
+        view.addSubview(loadingAnimation)
         mainScrollView.addSubview(mainScrollStackView)
         
         mainScrollStackView.addArrangedSubview(imageSlidesCollectionView)
@@ -387,6 +399,30 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
             websiteStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
         
+        let errorStackViewConstraints = [
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        let loadingAnimationConstraints = [
+            loadingAnimation.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingAnimation.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingAnimation.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingAnimation.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingAnimation.heightAnchor.constraint(equalToConstant: 200)
+            
+        ]
+        
+        let backdropLoadingConstraints = [
+            backdropLoading.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backdropLoading.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backdropLoading.topAnchor.constraint(equalTo: view.topAnchor),
+            backdropLoading.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(errorStackViewConstraints)
+        NSLayoutConstraint.activate(loadingAnimationConstraints)
+        NSLayoutConstraint.activate(backdropLoadingConstraints)
         NSLayoutConstraint.activate(mainScrollStackViewConstraints)
         NSLayoutConstraint.activate(mainScrollViewConstraints)
         NSLayoutConstraint.activate(imageSlidesCollectionViewConstraints)
@@ -433,6 +469,69 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
             presenter?.saveToggleFavorite(gameDetail: gameDetail)
         }
     }
+    
+    private func showToggleFavoriteAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okButton)
+        self.present(alert, animated: true)
+    }
+    
+    func updateSaveToggleFavorite(with error: String) {
+        showToggleFavoriteAlert(title: "An Error Occured", message: "Oops, cannot process your due to system error, please try again")
+        print(error)
+    }
+    
+    func updateSaveToggleFavorite(with state: Bool) {
+        if state {
+            showToggleFavoriteAlert(title: "Added To Favorite", message: "This game successfully added to your favorite list")
+        } else {
+            showToggleFavoriteAlert(title: "Removed From Favorite", message: "This game successfully removed from your favorite list")
+        }
+    }
+    
+    private func createItemInformation(title: String, content: String) -> UIStackView {
+        
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.textColor = .secondaryLabel
+        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        
+        let contentLabel = UILabel()
+        contentLabel.text = content
+        contentLabel.sizeToFit()
+        contentLabel.font = .systemFont(ofSize: 16)
+        contentLabel.textColor = .label
+        contentLabel.numberOfLines = 0
+        contentLabel.textAlignment = .justified
+        
+        let stackview = UIStackView()
+        stackview.axis = .vertical
+        stackview.addArrangedSubview(titleLabel)
+        stackview.addArrangedSubview(contentLabel)
+        stackview.distribution = .equalSpacing
+        stackview.alignment = .leading
+        stackview.spacing = 4
+        
+        return stackview
+    }
+    
+    private func createRowInformation(firstTitle: String, firstContent: String, secondTitle: String, secondContent: String) -> UIStackView{
+        
+        let firstItem = createItemInformation(title: firstTitle, content: firstContent)
+        let secondItem = createItemInformation(title: secondTitle, content: secondContent)
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .top
+        stackView.spacing = 8
+        stackView.addArrangedSubview(firstItem)
+        stackView.addArrangedSubview(secondItem)
+        
+        return stackView
+    }
+    
 }
 
 extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
