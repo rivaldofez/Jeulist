@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "medal.png",
+      "filename" : "star.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "medal@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "medal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

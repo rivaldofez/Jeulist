@@ -87,7 +87,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "High on Life"
         label.font = .systemFont(ofSize: 25, weight: .bold)
         label.textAlignment = .center
         
@@ -107,21 +106,21 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     
     // Detail Information View
     private lazy var aboutStackView: UIStackView = {
-        let stackView = createItemInformation(title: "About", content: "Lorem ipsum dolor sit amet")
+        let stackView = createItemInformation(title: "About", content: "-")
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
     private lazy var tagsStackView: UIStackView = {
-        let stackView = createItemInformation(title: "Tags", content: "Lorem ipsum dolor sit amet")
+        let stackView = createItemInformation(title: "Tags", content: "-")
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
     private lazy var websiteStackView: UIStackView = {
-        let stackView = createItemInformation(title: "Website", content: "Lorem ipsum dolor sit amet")
+        let stackView = createItemInformation(title: "Website", content: "-")
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -146,7 +145,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "10/10"
+        label.text = "-"
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textAlignment = .center
         
