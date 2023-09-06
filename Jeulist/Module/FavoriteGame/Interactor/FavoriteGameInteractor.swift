@@ -29,5 +29,3 @@ class FavoriteGameInteractor: FavoriteGameUseCase {
         return repository.getFavoriteGameList()
     }
 }
-
-

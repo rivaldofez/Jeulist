@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 class Debouncer: NSObject {
     private var callback: () -> Void
     private var delay: Double

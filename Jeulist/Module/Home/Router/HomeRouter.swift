@@ -18,7 +18,6 @@ protocol HomeRouterProtocol {
     
 }
 
-
 class HomeRouter: HomeRouterProtocol {
     var begin: BeginEntry?
     

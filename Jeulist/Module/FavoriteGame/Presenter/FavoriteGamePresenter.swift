@@ -69,6 +69,4 @@ class FavoriteGamePresenter: FavoriteGamePresenterProtocol {
     
     var view: FavoriteGameViewProtocol?
     
-    
-    
 }

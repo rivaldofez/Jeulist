@@ -51,7 +51,6 @@ class GameCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -66,7 +65,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         configureConstraints()
     }
     
-    private func configureConstraints(){
+    private func configureConstraints() {
         let gameImageViewConstraints = [
             gameImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -92,7 +91,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
     }
     
-    func configure(with model: Game){
+    func configure(with model: Game) {
         gameNameLabel.text = model.name
         
         guard let imageUrl = URL(string: model.backgroundImage) else { return }
@@ -101,9 +100,9 @@ class GameCollectionViewCell: UICollectionViewCell {
         setParentPlatformIcon(parentPlatforms: model.parentPlatforms)
     }
     
-    func setParentPlatformIcon(parentPlatforms: [String]){
+    func setParentPlatformIcon(parentPlatforms: [String]) {
         if gamePlatformStackView.subviews.isEmpty {
-            parentPlatforms.forEach{ name in
+            parentPlatforms.forEach { name in
                 let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
                 image.widthAnchor.constraint(equalToConstant: 20).isActive = true
                 image.heightAnchor.constraint(equalToConstant: 20).isActive = true

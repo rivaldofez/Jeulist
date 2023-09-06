@@ -115,7 +115,7 @@ struct Component: Codable {
 }
 
 enum Language: String, Codable {
-    case eng = "eng"
+    case eng
 }
 
 // MARK: - EsrbRating
@@ -178,18 +178,3 @@ struct PlatformPlatform: Codable {
 struct Requirements: Codable {
     let minimum, recommended: String?
 }
-
-// MARK: - Rating
-//struct Rating: Codable {
-//    let id: Int?
-//    let title: String?
-//    let count: Int?
-//    let percent: Double?
-//}
-
-// MARK: - Store
-//struct Store: Codable {
-//    let id: Int?
-//    let url: String?
-//    let store: Developer?
-//}

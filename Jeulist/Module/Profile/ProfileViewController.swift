@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 protocol ProfileViewProtocol {
     var presenter: ProfilePresenterProtocol? { get set }
 }
@@ -33,7 +31,7 @@ class ProfileViewController: UIViewController, ProfileViewProtocol {
         let label = UILabel()
         label.text = "Rivaldo Fernandes"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18,weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .label
         
         return label

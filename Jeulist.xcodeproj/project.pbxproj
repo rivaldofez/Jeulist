@@ -33,6 +33,7 @@
 		7E3325A829A46F0000E8B693 /* GameDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3325A729A46F0000E8B693 /* GameDetail.swift */; };
 		7E3325AF29A4B08A00E8B693 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3325AE29A4B08A00E8B693 /* DetailGameViewController.swift */; };
 		7E3325B129A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3325B029A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift */; };
+		7E381E192AA8447200140170 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7E381E182AA8447200140170 /* .swiftlint.yml */; };
 		7E3A10522AA7536400822E8F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E3A10512AA7536400822E8F /* loading.json */; };
 		7E3A10542AA7564F00822E8F /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E3A10532AA7564F00822E8F /* error.json */; };
 		7E78154A29A1152A0033F232 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E78154929A1152A0033F232 /* AppDelegate.swift */; };
@@ -77,6 +78,7 @@
 		7E3325A729A46F0000E8B693 /* GameDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetail.swift; sourceTree = "<group>"; };
 		7E3325AE29A4B08A00E8B693 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
 		7E3325B029A4B71D00E8B693 /* ImageSlidesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSlidesCollectionViewCell.swift; sourceTree = "<group>"; };
+		7E381E182AA8447200140170 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7E3A10512AA7536400822E8F /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		7E3A10532AA7564F00822E8F /* error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error.json; sourceTree = "<group>"; };
 		7E78154629A1152A0033F232 /* Jeulist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jeulist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -345,6 +347,7 @@
 		7E78153D29A1152A0033F232 = {
 			isa = PBXGroup;
 			children = (
+				7E381E182AA8447200140170 /* .swiftlint.yml */,
 				7E78154829A1152A0033F232 /* Jeulist */,
 				7E78154729A1152A0033F232 /* Products */,
 				02CD69695A73693A4BD3830D /* Pods */,
@@ -501,6 +504,7 @@
 				7E78154329A1152A0033F232 /* Frameworks */,
 				7E78154429A1152A0033F232 /* Resources */,
 				1F9C3CDF944FBFCF3DDFD988 /* [CP] Embed Pods Frameworks */,
+				7E381E1A2AA8449800140170 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -549,6 +553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E381E192AA8447200140170 /* .swiftlint.yml in Resources */,
 				7E3A10542AA7564F00822E8F /* error.json in Resources */,
 				7E78155629A1152B0033F232 /* LaunchScreen.storyboard in Resources */,
 				7E78155329A1152B0033F232 /* Assets.xcassets in Resources */,
@@ -597,6 +602,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7E381E1A2AA8449800140170 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

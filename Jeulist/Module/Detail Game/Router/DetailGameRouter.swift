@@ -25,7 +25,6 @@ class DetailGameRouter: DetailGameRouterProtocol {
         
         let interactor: DetailGameUseCase = Injection().provideDetail()
         
-        
         view.presenter = presenter
         presenter.router = router
         presenter.view = view

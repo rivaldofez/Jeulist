@@ -230,7 +230,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         ratingLabel.text = "\(gameDetail.rating) / 5.0"
         
         showFavoriteButton(isFavorite: gameDetail.isFavorite)
-        print("in update game \(gameDetail.isFavorite)")
     }
     
     func updateGameScreenshot(with screenshots: [String]) {
@@ -244,7 +243,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     func updateGameScreenshot(with error: String) {
         showError(isError: true)
     }
-    
     
     func updateGameDetail(with error: String) {
         showError(isError: true)
@@ -306,9 +304,9 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         }
     }
     
-    func setParentPlatformIcon(parentPlatforms: [String]){
+    func setParentPlatformIcon(parentPlatforms: [String]) {
         if gamePlatformStackView.subviews.isEmpty {
-            parentPlatforms.forEach{ name in
+            parentPlatforms.forEach { name in
                 let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
                 image.widthAnchor.constraint(equalToConstant: 30).isActive = true
                 image.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -318,8 +316,8 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         }
     }
     
-    @objc private func changeImage(){
-        if !screenshotImages.isEmpty{
+    @objc private func changeImage() {
+        if !screenshotImages.isEmpty {
             if counter < screenshotImages.count {
                 let index = IndexPath(item: counter, section: 0)
                 
@@ -336,7 +334,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         }
     }
     
-    private func configureConstraints(){
+    private func configureConstraints() {
         
         let mainScrollViewConstraints = [
             mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -353,7 +351,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
             mainScrollStackView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
         ]
         
-        
         let imageSlidesCollectionViewConstraints = [
             imageSlidesCollectionView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor),
             imageSlidesCollectionView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor),
@@ -368,7 +365,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
         let nameLabelConstraints = [
             nameLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor)
         ]
         
         let gamePlatformStackViewConstraints = [
@@ -381,22 +378,22 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         
         let tagsStackViewConstraints = [
             tagsStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
-            tagsStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+            tagsStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8)
         ]
         
         let aboutLabelConstraints = [
             aboutStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
-            aboutStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            aboutStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ]
         
         let informationStackViewConstraints = [
             informationStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
-            informationStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+            informationStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8)
         ]
         
         let websiteStackViewConstraints = [
             websiteStackView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
-            websiteStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+            websiteStackView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8)
         ]
         
         let errorStackViewConstraints = [
@@ -435,7 +432,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         NSLayoutConstraint.activate(aboutLabelConstraints)
         NSLayoutConstraint.activate(websiteStackViewConstraints)
     }
-    
     
     private func showFavoriteButton(isFavorite: Bool) {
         if self.navigationItem.rightBarButtonItem == nil {
@@ -479,7 +475,6 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     
     func updateSaveToggleFavorite(with error: String) {
         showToggleFavoriteAlert(title: "An Error Occured", message: "Oops, cannot process your due to system error, please try again")
-        print(error)
     }
     
     func updateSaveToggleFavorite(with state: Bool) {
@@ -516,7 +511,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
         return stackview
     }
     
-    private func createRowInformation(firstTitle: String, firstContent: String, secondTitle: String, secondContent: String) -> UIStackView{
+    private func createRowInformation(firstTitle: String, firstContent: String, secondTitle: String, secondContent: String) -> UIStackView {
         
         let firstItem = createItemInformation(title: firstTitle, content: firstContent)
         let secondItem = createItemInformation(title: secondTitle, content: secondContent)
@@ -534,7 +529,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     
 }
 
-extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension DetailGameViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return screenshotImages.count
     }

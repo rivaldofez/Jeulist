@@ -10,7 +10,6 @@ import CoreData
 import RxSwift
 import UIKit
 
-
 protocol LocaleDataSourceProtocol: AnyObject {
     func getFavoriteGameList() -> Observable<[GameDetailEntity]>
     func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool>
@@ -39,7 +38,6 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                     observer.onError(DatabaseError.requestFailed)
                 }
                 
-                
             } else {
                 observer.onError(DatabaseError.invalidInstance)
             }
@@ -49,9 +47,6 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
     }
     
     func saveToggleFavoriteGame(gameDetail: GameDetail) -> Observable<Bool> {
-        
-        print("update \(gameDetail.name) to isFavorite \(gameDetail.isFavorite)")
-        
         return Observable<Bool>.create { observer in
             
             if let context = self.appDelegate?.persistentContainer.viewContext {
@@ -104,7 +99,7 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                     entity.reviewCount = Int16(gameDetail.reviewCount)
                     entity.saturatedColor = gameDetail.saturatedColor
                     entity.dominantColor = gameDetail.dominantColor
-                    entity.descriptionRaw = gameDetail.description
+                    entity.descriptionRaw = gameDetail.descriptionRaw
                     entity.parentPlatforms = gameDetail.parentPlatforms.joined(separator: ",")
                     entity.publishers = gameDetail.publishers
                     entity.tags = gameDetail.tags
@@ -150,6 +145,4 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
             return Disposables.create()
         }
     }
-    
-    
 }

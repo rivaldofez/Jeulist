@@ -119,7 +119,7 @@ class FavoriteGameTableViewCell: UITableViewCell {
         
         let gamePlatformStackViewConstraints = [
             gamePlatformStackView.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
-            gamePlatformStackView.topAnchor.constraint(equalTo: gameReleaseLabel.bottomAnchor, constant: 8),
+            gamePlatformStackView.topAnchor.constraint(equalTo: gameReleaseLabel.bottomAnchor, constant: 8)
         ]
         
         NSLayoutConstraint.activate(gameImageViewConstraints)
@@ -129,7 +129,6 @@ class FavoriteGameTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(gamePlatformStackViewConstraints)
         
     }
-    
     
     func configure(with model: GameDetail) {
         gameNameLabel.text = model.name
@@ -143,9 +142,9 @@ class FavoriteGameTableViewCell: UITableViewCell {
         
     }
     
-    func setParentPlatformIcon(parentPlatforms: [String]){
+    func setParentPlatformIcon(parentPlatforms: [String]) {
         if gamePlatformStackView.subviews.isEmpty {
-            parentPlatforms.forEach{ name in
+            parentPlatforms.forEach { name in
                 let image = UIImageView(image: UIImage(named: GameConverter.platformToIconName(input: name)))
                 image.widthAnchor.constraint(equalToConstant: 20).isActive = true
                 image.heightAnchor.constraint(equalToConstant: 20).isActive = true

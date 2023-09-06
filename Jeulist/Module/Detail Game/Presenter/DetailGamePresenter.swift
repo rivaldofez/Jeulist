@@ -60,13 +60,12 @@ class DetailGamePresenter: DetailGamePresenterProtocol {
             }.disposed(by: disposeBag)
     }
     
-    
     func getGameDetail(id: Int) {
         isLoadingData = true
         
         interactor?.getGameDetail(id: id)
             .observe(on: MainScheduler.instance)
-            .subscribe{ [weak self] gameDetailResult in
+            .subscribe { [weak self] gameDetailResult in
                 if let gameDetailResult = gameDetailResult {
                     self?.view?.updateGameDetail(with: gameDetailResult)
                 } else {

@@ -28,7 +28,7 @@ class ImageSlidesCollectionViewCell: UICollectionViewCell {
         configureConstraints()
     }
     
-    private func configureConstraints(){
+    private func configureConstraints() {
         let gameImageViewConstraints = [
             gameImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -39,7 +39,7 @@ class ImageSlidesCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(gameImageViewConstraints)
     }
     
-    func configure(with screenshot: String){
+    func configure(with screenshot: String) {
         guard let url = URL(string: screenshot) else { return }
         gameImageView.sd_setImage(with: url)
     }
@@ -47,6 +47,5 @@ class ImageSlidesCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 }

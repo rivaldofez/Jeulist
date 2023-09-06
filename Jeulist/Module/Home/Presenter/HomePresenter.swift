@@ -60,12 +60,12 @@ class HomePresenter: HomePresenterProtocol {
         self.getGameDataPagination(pageSize: self.pageSize, page: self.page, search: self.searchQuery)
     }
 
-    func getGameDataPagination(pageSize: Int, page: Int, search: String){
+    func getGameDataPagination(pageSize: Int, page: Int, search: String) {
         isLoadingData = true
         
         interactor?.getGameDataPagination(pageSize: pageSize, page: page, search: search)
             .observe(on: MainScheduler.instance)
-            .subscribe{ [weak self] gameResult in
+            .subscribe { [weak self] gameResult in
                 self?.view?.updateGameList(with: gameResult)
             } onError: { error in
                 self.view?.updateGameList(with: error.localizedDescription)

@@ -17,7 +17,6 @@ protocol FavoriteGameViewProtocol {
     func isLoadingData(with state: Bool)
 }
 
-
 class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
     var presenter: FavoriteGamePresenterProtocol?
     
@@ -183,10 +182,9 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
     }
     
     private func showError(isError: Bool, message: String? = nil) {
-        if let message = message{
+        if let message = message {
             errorLabel.text = message
         }
-        
         
         UIView.transition(with: errorStackView, duration: 0.4, options: .transitionCrossDissolve) {
             self.errorStackView.isHidden = !isError
@@ -235,7 +233,6 @@ extension FavoriteGameViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         
         if editingStyle == .delete {
             tableView.beginUpdates()

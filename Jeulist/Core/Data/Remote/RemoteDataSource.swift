@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import Alamofire
 
-
 protocol RemoteDataSourceProtocol: AnyObject {
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[GameItem]>
     
@@ -25,7 +24,7 @@ final class RemoteDataSource: NSObject {
 extension RemoteDataSource: RemoteDataSourceProtocol {
     func getGameScreenshot(id: Int) -> RxSwift.Observable<[ScreenshotItem]> {
         return Observable<[ScreenshotItem]>.create { observer in
-            if let url = URL(string: Endpoints.Gets.gameScreenshot(id).url){
+            if let url = URL(string: Endpoints.Gets.gameScreenshot(id).url) {
                 AF.request(url)
                     .responseDecodable(of: ScreenshotResponse.self) { response in
                         switch response.result {
@@ -42,10 +41,9 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
         }
     }
     
-    
     func getGameDetail(id: Int) -> RxSwift.Observable<GameDetailResponse> {
         return Observable<GameDetailResponse>.create { observer in
-            if let url = URL(string: Endpoints.Gets.gameDetail(id).url){
+            if let url = URL(string: Endpoints.Gets.gameDetail(id).url) {
                 AF.request(url)
                     .responseDecodable(of: GameDetailResponse.self) { response in
                         switch response.result {
@@ -63,7 +61,7 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
     
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[GameItem]> {
         return Observable<[GameItem]>.create { observer in
-            if let url = URL(string: Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url){
+            if let url = URL(string: Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url) {
                 
                 AF.request(url)
                     .responseDecodable(of: GameResponse.self) { response in

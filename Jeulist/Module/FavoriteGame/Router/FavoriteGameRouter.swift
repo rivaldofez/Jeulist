@@ -40,6 +40,4 @@ class FavoriteGameRouter: FavoriteGameRouterProtocol {
         
         viewController.navigationController?.pushViewController(detailGameView, animated: true)
     }
-    
-    
 }

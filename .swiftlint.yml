@@ -1,0 +1,16 @@
+included:
+  - Jeulist
+
+excluded:
+  - ${PWD}/Pods
+
+disabled_rules:
+- trailing_whitespace
+- function_body_length
+- type_body_length
+- identifier_name
+- line_length
+- cyclomatic_complexity
+- file_length
+- colon
+

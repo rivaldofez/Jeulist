@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 
-
 protocol HomeUseCase {
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> Observable<[Game]>
 }
@@ -23,6 +22,4 @@ class HomeInteractor: HomeUseCase {
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {
         return repository.getGameDataPagination(pageSize: pageSize, page: page, search: search)
     }
-    
-    
 }

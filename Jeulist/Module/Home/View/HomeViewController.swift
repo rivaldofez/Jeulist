@@ -177,10 +177,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     }
     
     func isLoadingDataGameList(with state: Bool) {
-        print("loading \(state)")
         showLoading(isLoading: state)
     }
-    
     
     // MARK: Button Action
     
@@ -243,12 +241,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        if position > (gameCollectionView.contentSize.height - 100 - scrollView.frame.size.height){
+        if position > (gameCollectionView.contentSize.height - 100 - scrollView.frame.size.height) {
             
             guard let isLoadingData = presenter?.isLoadingData else { return }
             if !isLoadingData {
                 guard var presenter = self.presenter else { return }
-                presenter.page = presenter.page + 1
+                presenter.page += 1
             }
         }
     }

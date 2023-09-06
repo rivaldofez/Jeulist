@@ -58,7 +58,7 @@ extension GameRepository: GameRepositoryProtocol {
     }
     
     func getGameScreenshot(id: Int) -> RxSwift.Observable<[String]> {
-        return self.remote.getGameScreenshot(id: id).map{ $0.map{ $0.image }}
+        return self.remote.getGameScreenshot(id: id).map { $0.map { $0.image } }
     }
     
     func getGameDetail(id: Int) -> RxSwift.Observable<GameDetail?> {
@@ -81,6 +81,4 @@ extension GameRepository: GameRepositoryProtocol {
             GameMapper.mapGameItemResponseToDomain(input: $0)
         }
     }
-    
-    
 }

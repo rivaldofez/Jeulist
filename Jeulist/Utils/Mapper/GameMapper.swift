@@ -14,7 +14,6 @@ final class GameMapper {
         }
     }
     
-    
     static func mapGameDetailEntityToDomain(input entity: GameDetailEntity?) -> GameDetail? {
         
         if let entity = entity {
@@ -64,7 +63,6 @@ final class GameMapper {
         }
     }
     
-    
     static func mapGameItemResponseToDomain(input gameItems: [GameItem]) -> [Game] {
         
         return gameItems.map { gameItem in
@@ -87,7 +85,7 @@ final class GameMapper {
                 suggestionCount: gameItem.suggestionsCount ?? 0,
                 updated: gameItem.updated ?? "",
                 reviewsCount: gameItem.reviewsCount ?? 0,
-                parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
+                parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map {
                     $0.platform?.name ?? ""
                 }
             )
@@ -135,16 +133,15 @@ final class GameMapper {
                           saturatedColor: gameDetailResponse.saturatedColor ?? "",
                           dominantColor: gameDetailResponse.dominantColor ?? "",
                           descriptionRaw: gameDetailResponse.descriptionRaw ?? "",
-                          //                          parentPlatforms: gameDetailResponse.parentPlatforms.map { $0.platform.name },
-                          parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map{
+                          parentPlatforms: parentPlatforms.isEmpty ? [""] : parentPlatforms.map {
             $0.platform?.name ?? ""},
-                          publishers: publishers.isEmpty ? "" : publishers.map{
+                          publishers: publishers.isEmpty ? "" : publishers.map {
             $0.name ?? ""}.joined(separator: ", "),
-                          tags: tags.isEmpty ? "" : tags.map{
+                          tags: tags.isEmpty ? "" : tags.map {
             $0.name ?? ""}.joined(separator: ", "),
-                          developers: developers.isEmpty ? "" : developers.map{
+                          developers: developers.isEmpty ? "" : developers.map {
             $0.name ?? ""}.joined(separator: ", "),
-                          genres: genres.isEmpty ? "" : genres.map{
+                          genres: genres.isEmpty ? "" : genres.map {
             $0.name ?? ""}.joined(separator: ", "),
                           isFavorite: false
         )
