@@ -35,7 +35,7 @@ enum Endpoints {
                 urlComponents?.queryItems = queryItems
                 
                 return urlComponents?.url?.absoluteString ?? ""
-
+                
             case .gameDetail(let id): return "\(API.baseURL)games/\(id)?key=\(API.apiKey)"
             case .gameScreenshot(let id): return "\(API.baseURL)games/\(id)/screenshots?key=\(API.apiKey)"
             }

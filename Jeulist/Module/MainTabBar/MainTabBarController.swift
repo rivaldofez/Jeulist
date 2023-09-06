@@ -8,7 +8,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +25,8 @@ class MainTabBarController: UITabBarController {
         guard let favoriteVC = favoriteGameRouter.entry else { return }
         let favoriteNavItem = self.createNav(with: "Favorite", and: UIImage(systemName: "heart"), vc: favoriteVC)
         
-        let profileVC = ProfileViewController()
+        let profileRouter = ProfileRouter.createProfile()
+        guard let profileVC = profileRouter.entry else { return }
         let profileNavItem = self.createNav(with: "Profile", and: UIImage(systemName: "person"), vc: profileVC)
         
         self.setViewControllers([homeNavItem, favoriteNavItem, profileNavItem], animated: true)

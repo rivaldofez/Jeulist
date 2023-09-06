@@ -12,7 +12,7 @@ protocol HomePresenterProtocol {
     var router: HomeRouterProtocol? { get set }
     var interactor: HomeUseCase? { get set }
     var view: HomeViewProtocol? { get set }
-
+    
     var pageSize: Int { get set }
     var page: Int { get set }
     var searchQuery: String { get set }
@@ -59,7 +59,7 @@ class HomePresenter: HomePresenterProtocol {
     private lazy var getGameDataDebounce = Debouncer(delay: 0.3) {
         self.getGameDataPagination(pageSize: self.pageSize, page: self.page, search: self.searchQuery)
     }
-
+    
     func getGameDataPagination(pageSize: Int, page: Int, search: String) {
         isLoadingData = true
         
@@ -78,5 +78,5 @@ class HomePresenter: HomePresenterProtocol {
     func didSelectGameItem(with gameId: Int) {
         router?.goToDetailGame(with: gameId)
     }
-   
+    
 }

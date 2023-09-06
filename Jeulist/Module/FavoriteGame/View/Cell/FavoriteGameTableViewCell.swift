@@ -24,7 +24,6 @@ class FavoriteGameTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = "Charizard"
         label.font = .systemFont(ofSize: 18)
         label.textColor = .label
         return label
@@ -34,14 +33,13 @@ class FavoriteGameTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = "Charizard"
         label.font = .systemFont(ofSize: 16)
         label.textColor = .label
         return label
     }()
     
     private lazy var gamePlatformStackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 2
         stackView.alignment = .center
@@ -57,7 +55,6 @@ class FavoriteGameTableViewCell: UITableViewCell {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "8.5"
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textAlignment = .center

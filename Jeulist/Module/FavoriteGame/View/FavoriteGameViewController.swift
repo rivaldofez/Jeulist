@@ -23,7 +23,7 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
     private var gameList: [GameDetail] = []
     
     private lazy var favoriteGameTableView: UITableView = {
-       let tableview = UITableView()
+        let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.register(FavoriteGameTableViewCell.self, forCellReuseIdentifier: FavoriteGameTableViewCell.identifier)
         return tableview
@@ -48,7 +48,7 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
     // Error View
     private lazy var errorLabel: UILabel = {
         let label = UILabel()
-        label.text = "Error occured while load pokemon data"
+        label.text = "Error occured while load game data"
         label.textColor = .label
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center

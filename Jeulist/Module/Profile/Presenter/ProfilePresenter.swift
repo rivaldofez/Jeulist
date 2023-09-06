@@ -15,7 +15,5 @@ protocol ProfilePresenterProtocol {
 
 class ProfilePresenter: ProfilePresenterProtocol {
     var router: ProfileRouterProtocol?
-    
     var profileView: ProfileViewProtocol?
-    
 }

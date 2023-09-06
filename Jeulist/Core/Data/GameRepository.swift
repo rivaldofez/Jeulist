@@ -52,7 +52,7 @@ extension GameRepository: GameRepositoryProtocol {
                 GameMapper.mapGameDetailEntitiesToDomain(input: $0)
             }
     }
-
+    
     func saveToggleFavoriteGame(gameDetail: GameDetail) -> RxSwift.Observable<Bool> {
         return self.locale.saveToggleFavoriteGame(gameDetail: gameDetail)
     }
@@ -76,7 +76,6 @@ extension GameRepository: GameRepositoryProtocol {
     }
     
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[Game]> {
-        
         return self.remote.getGameDataPagination(pageSize: pageSize, page: page, search: search).map {
             GameMapper.mapGameItemResponseToDomain(input: $0)
         }

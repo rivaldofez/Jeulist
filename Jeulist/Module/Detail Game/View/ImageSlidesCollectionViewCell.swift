@@ -12,7 +12,7 @@ class ImageSlidesCollectionViewCell: UICollectionViewCell {
     static let identifier = "ImageSlidesCollectionViewCell"
     
     private let gameImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "testimage")

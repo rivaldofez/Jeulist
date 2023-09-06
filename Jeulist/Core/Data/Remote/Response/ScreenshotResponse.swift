@@ -18,7 +18,7 @@ struct ScreenshotItem: Codable {
     let image: String
     let width, height: Int
     let isDeleted: Bool
-
+    
     enum CodingKeys: String, CodingKey {
         case id, image, width, height
         case isDeleted = "is_deleted"

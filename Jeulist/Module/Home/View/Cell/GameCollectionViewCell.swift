@@ -13,7 +13,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     static let identifier = "GameCollectionViewCell"
     
     private let gameImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "testimage")
@@ -23,7 +23,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     }()
     
     private let gameNameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Harvest Moon Back To Nature"
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     ]
     
     private lazy var gamePlatformStackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 2
         stackView.alignment = .center
@@ -82,7 +82,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         
         let gamePlatformStackViewConstraints = [
             gamePlatformStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-//            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
+            //            gamePlatformStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
             gamePlatformStackView.bottomAnchor.constraint(equalTo: gameNameLabel.topAnchor)
         ]
         

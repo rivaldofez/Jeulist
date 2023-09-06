@@ -75,7 +75,6 @@ class ProfileViewController: UIViewController, ProfileViewProtocol {
             profileImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             
         ]
-        
         NSLayoutConstraint.activate(profileStackViewConstraints)
     }
 }
