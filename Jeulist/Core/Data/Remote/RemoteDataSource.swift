@@ -63,8 +63,9 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
     
     func getGameDataPagination(pageSize: Int, page: Int, search: String) -> RxSwift.Observable<[GameItem]> {
         return Observable<[GameItem]>.create { observer in
-            if let url = URL(string: Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url){
-                print(Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url)
+            if var url = URL(string: Endpoints.Gets.gamePagination(pageSize: pageSize, page: page, search: search).url){
+                
+                print(url)
                 AF.request(url)
                     .responseDecodable(of: GameResponse.self) { response in
                         switch response.result {

@@ -25,9 +25,17 @@ enum Endpoints {
         var url: String {
             switch self {
             case .gamePagination(let pageSize, let page, let search):
-                let searchQuery = search.isEmpty ? search : "&search=\(search)"
+                let queryItems = [
+                    URLQueryItem(name: "search", value: search.isEmpty ? nil : search),
+                    URLQueryItem(name: "key", value: API.apiKey),
+                    URLQueryItem(name: "page_size", value: String(pageSize) ),
+                    URLQueryItem(name: "page", value: String(page))
+                ]
+                var urlComponents = URLComponents(string: "\(API.baseURL)games")
+                urlComponents?.queryItems = queryItems
                 
-                return "\(API.baseURL)games?key=\(API.apiKey)&page_size=\(pageSize)\(searchQuery)&page=\(page)"
+                return urlComponents?.url?.absoluteString ?? ""
+
             case .gameDetail(let id): return "\(API.baseURL)games/\(id)?key=\(API.apiKey)"
             case .gameScreenshot(let id): return "\(API.baseURL)games/\(id)/screenshots?key=\(API.apiKey)"
             }
