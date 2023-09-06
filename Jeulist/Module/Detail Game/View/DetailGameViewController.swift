@@ -180,7 +180,7 @@ class DetailGameViewController: UIViewController, DetailGameViewProtocol {
     // Error View
     private lazy var errorLabel: UILabel = {
         let label = UILabel()
-        label.text = "Error occured while load pokemon data"
+        label.text = "Error occured while load game data"
         label.textColor = .label
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center

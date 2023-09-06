@@ -209,7 +209,7 @@ class FavoriteGameViewController: UIViewController, FavoriteGameViewProtocol {
 extension FavoriteGameViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if gameList.count == 0 {
-            self.showError(isError: true, message: "There is no pokemon added to favorite")
+            self.showError(isError: true, message: "There is no game added to favorite")
         }
         
         return gameList.count
