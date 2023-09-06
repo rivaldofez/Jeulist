@@ -81,7 +81,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
     }()
     
     private lazy var retryButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         button.tintColor = .label
         button.addTarget(self, action: #selector(reloadData), for: .touchUpInside)
@@ -212,12 +212,6 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.searchQuery = searchText
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //        let searchQuery = searchBar.text ?? ""
-        //        gameDataPagination.removeAll()
-        //        presenter?.searchQuery = searchQuery.lowercased()
     }
 }
 
