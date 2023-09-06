@@ -24,7 +24,7 @@ class FavoriteGameTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .label
         return label
     }()
