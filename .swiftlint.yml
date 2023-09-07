@@ -13,4 +13,5 @@ disabled_rules:
 - cyclomatic_complexity
 - file_length
 - colon
+- force_try
 

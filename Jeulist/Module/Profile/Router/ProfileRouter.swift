@@ -23,9 +23,13 @@ class ProfileRouter: ProfileRouterProtocol {
         
         var presenter: ProfilePresenterProtocol = ProfilePresenter()
         
+        let interactor: ProfileUseCase = Injection.init().provideProfile()
+        
         view.presenter = presenter
         presenter.router = router
-        presenter.profileView = view
+        presenter.view = view
+        presenter.interactor = interactor
+        
         router.entry = view as? ProfileViewController
         
         return router

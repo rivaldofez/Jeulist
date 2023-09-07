@@ -18,7 +18,7 @@ protocol RemoteDataSourceProtocol: AnyObject {
 }
 
 final class RemoteDataSource: NSObject {
-    static let sharedInstance: RemoteDataSource = RemoteDataSource()
+    static let shared: RemoteDataSource = RemoteDataSource()
 }
 
 extension RemoteDataSource: RemoteDataSourceProtocol {
