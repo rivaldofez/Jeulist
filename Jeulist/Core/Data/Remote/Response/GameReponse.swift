@@ -13,10 +13,6 @@ struct GameResponse: Codable {
     let next: String?
     let previous: String?
     let results: [GameItem]?
-    
-    enum CodingKeys: String, CodingKey {
-        case count, next, previous, results
-    }
 }
 
 // MARK: - Result
