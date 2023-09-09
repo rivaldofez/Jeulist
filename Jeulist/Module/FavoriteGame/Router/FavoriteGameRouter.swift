@@ -38,6 +38,8 @@ class FavoriteGameRouter: FavoriteGameRouterProtocol {
         guard let detailGameView = detailGameRouter.entry else { return }
         guard let viewController = self.entry else { return }
         
+        viewController.hidesBottomBarWhenPushed = true
         viewController.navigationController?.pushViewController(detailGameView, animated: true)
+        viewController.hidesBottomBarWhenPushed = false
     }
 }

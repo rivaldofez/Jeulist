@@ -43,7 +43,9 @@ class HomeRouter: HomeRouterProtocol {
         guard let detailGameView = detailGameRouter.entry else { return }
         guard let viewController = self.begin else { return }
         
+        viewController.hidesBottomBarWhenPushed = true
         viewController.navigationController?.pushViewController(detailGameView, animated: true)
+        viewController.hidesBottomBarWhenPushed = false
     }
     
 }
