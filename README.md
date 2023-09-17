@@ -162,9 +162,9 @@ This apps in one of my project while learning. Credit of design is not belong to
 
 [stars-shield]: https://img.shields.io/github/stars/rivaldofez/Jeulist.svg?style=for-the-badge
 
-[stars-url]: https://github.com/othneildrew/Jeulist/stargazers
+[stars-url]: https://github.com/rivaldofez/Jeulist/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Jeulist.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/rivaldofez/Jeulist.svg?style=for-the-badge
 
 [issues-url]: https://github.com/rivaldofez/Jeulist/issues
 
