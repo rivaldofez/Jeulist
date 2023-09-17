@@ -7,12 +7,19 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Jeulist</h3>
+  <a href="https://github.com/rivaldofez/Jeulist">
+    <img src="images/Logo.png" alt="Logo"height="80">
+  </a>
+
+  <h3 align="center">Find Your Game</h3>
   </br>
 </div>
+
+
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -43,19 +50,31 @@
 ## About The Project
 
 <p align="middle">
-  <img src="images/image_1.png" width="150" />
-  <img src="images/image_2.png" width="150" /> 
-  <img src="images/image_3.png" width="150" /> 
+  <img src="images/Image_1.png" width="150" />
+  <img src="images/Image_2.png" width="150" />
+  <img src="images/Image_3.png" width="150" />
+  <img src="images/Image_4.png" width="150" /> 
+  <img src="images/Image_5.png" width="150" />
+  <img src="images/Image_6.png" width="150" /> 
+  <img src="images/Image_7.png" width="150" />
+  <img src="images/Image_8.png" width="150" />
+  <img src="images/Image_9.png" width="150" />
+  <img src="images/Image_10.png" width="150" />
 </p>
-
 <p align="middle">
-  <img src="images/image_4.png" width="150" />
-  <img src="images/image_5.png" width="150" /> 
-  <img src="images/image_6.png" width="150" /> 
+  <img src="images/Image_11.png" width="150" /> 
+  <img src="images/Image_12.png" width="150" /> 
+  <img src="images/Image_13.png" width="150" /> 
+  <img src="images/Image_14.png" width="150" />
+  <img src="images/Image_15.png" width="150" /> 
+  <img src="images/Image_16.png" width="150" />
+  <img src="images/Image_17.png" width="150" /> 
+  <img src="images/Image_18.png" width="150" />
+  <img src="images/Image_19.png" width="150" />   
 </p>
 
+Jeulist is an app that provide all data game like new popular game, platform, genre, and also minimum requirement for spesific platform. This apps is consume API from rawg.io to provide all detail data about game. 
 
-Jeulist is consumer apps that provide latest gamelist and have deep search feature to find specific games.
 
 
 ### Built With
@@ -67,6 +86,7 @@ This apps built with
 * [UIKit](https://developer.apple.com/documentation/uikit)
 * [RxSwift](https://github.com/ReactiveX/RxSwift)
 * [Alamofire](https://github.com/Alamofire/Alamofire)
+* [Realm](https://realm.io/)
 * VIPER Architecture Pattern
 * Dependency Injection
 * Repository Pattern
@@ -117,7 +137,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 <!-- CONTACT -->
 ## Contact
 
-Rivaldo Fernandes - [@rivaldofez](https://Pokepedia.com/rivaldofez) - rivaldofez@gmail.com
+Rivaldo Fernandes - [@rivaldofez](https://Jeulist.com/rivaldofez) - rivaldofez@gmail.com
 
 Project Link: [https://github.com/rivaldofez/Jeulist](https://github.com/rivaldofez/Jeulist)
 
@@ -128,7 +148,7 @@ Project Link: [https://github.com/rivaldofez/Jeulist](https://github.com/rivaldo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-This apps in one of my project while learning iOS Development
+This apps in one of my project while learning. Credit of design is not belong to me. 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -142,9 +162,9 @@ This apps in one of my project while learning iOS Development
 
 [stars-shield]: https://img.shields.io/github/stars/rivaldofez/Jeulist.svg?style=for-the-badge
 
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[stars-url]: https://github.com/othneildrew/Jeulist/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Jeulist.svg?style=for-the-badge
 
 [issues-url]: https://github.com/rivaldofez/Jeulist/issues
 
